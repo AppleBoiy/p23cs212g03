@@ -10,13 +10,13 @@
 
 ## KonGKerDvD
 
-- หน้าสมัครสมาชิก
-- Our Own Auth
-- Save User ลง DB (JSON)
+- [ ] หน้าสมัครสมาชิก
+- [ ] Our Own Auth
+- [ ] Save User ลง DB (JSON)
 
 
 ## PutterTh
 
-- GoogleAuth
-- Microsoft SSO
-- Save User ลง DB (JSON)
+- [ ] GoogleAuth
+- [ ] Microsoft SSO
+- [ ] Save User ลง DB (JSON)
