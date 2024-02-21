@@ -34,6 +34,104 @@ def db_connection():
 def crash():
     return 1/0
 
+@app.route('/pre3/login', methods=('GET', 'POST'))
+def pre3_login():
+    if request.method == 'POST':
+        # login code goes here
+        email = request.form.get('email')
+        password = request.form.get('password')
+        remember = bool(request.form.get('remember'))
+        user = AuthUser.query.filter_by(email=email).first()
+        
+        # check if the user actually exists
+        # take the user-supplied password, hash it, and compare it to the
+        # hashed password in the database
+        if not user or not check_password_hash(user.password, password):
+            flash('Please check your login details and try again.')
+            # if the user doesn't exist or password is wrong, reload the page
+            return redirect(url_for('pre3_login'))
+        
+        # if the above check passes, then we know the user has the right
+        # credentials
+        login_user(user, remember=remember)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('pre3_profile')
+        return redirect(next_page)
+    
+    return render_template('pre3/login.html')
+
+@login_manager.user_loader
+def load_user(user_id):
+    # since the user_id is just the primary key of our
+    # user table, use it in the query for the user
+    return AuthUser.query.get(int(user_id))
+
+@app.route('/pre3')
+def pre3_index():
+    return render_template('pre3/index.html')
+
+@app.route('/pre3/profile')
+@login_required
+def pre3_profile():
+    return render_template('pre3/profile.html')
+
+@app.route('/pre3/logout')
+@login_required
+def pre3_logout():
+    logout_user()
+    return redirect(url_for('pre3_index'))
+
+@app.route('/pre3/signup', methods=('GET', 'POST'))
+def pre3_signup():
+    if request.method == 'POST':
+        result = request.form.to_dict()
+        app.logger.debug(str(result))
+        validated = True
+        validated_dict = {}
+        valid_keys = ['email', 'name', 'password']
+        
+        # validate the input
+        for key in result:
+            app.logger.debug(str(key)+": " + str(result[key]))
+            # screen of unrelated inputs
+            if key not in valid_keys:
+                continue
+            value = result[key].strip()
+            if not value or value == 'undefined':
+                validated = False
+                break
+            validated_dict[key] = value
+        
+        # code to validate and add user to database goes here
+        app.logger.debug("validation done")
+        if validated:
+            app.logger.debug('validated dict: ' + str(validated_dict))
+            email = validated_dict['email']
+            name = validated_dict['name']
+            password = validated_dict['password']
+            
+            # if this returns a user, then the email already exists in database
+            user = AuthUser.query.filter_by(email=email).first()
+            if user:
+                # if a user is found, we want to redirect back to signup
+                # page so user can try again
+                flash('Email address already exists')
+                return redirect(url_for('pre3_signup'))
+            
+            # create a new user with the form data. Hash the password so
+            # the plaintext version isn't saved.
+            app.logger.debug("preparing to add")
+            avatar_url = gen_avatar_url(email, name)  # assuming gen_avatar_url is defined elsewhere
+            new_user = AuthUser(email=email, name=name,
+                                password=generate_password_hash(password, method='sha256'),
+                                avatar_url=avatar_url)
+            # add the new user to the database
+            db.session.add(new_user)
+            db.session.commit()
+            return redirect(url_for('pre3_login'))
+    
+    return render_template('pre3/signup.html')
 
 
 def gen_avatar_url(email, name):
@@ -105,4 +203,4 @@ def google_auth():
         db.session.commit()
         user = AuthUser.query.filter_by(email=email).first()
     login_user(user)
-    return redirect('/lab10')
+    return redirect('pre3_profile')
