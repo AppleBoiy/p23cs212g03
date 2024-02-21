@@ -34,7 +34,7 @@ db = SQLAlchemy(app)
 oauth = OAuth(app)
 
 login_manager = LoginManager()
-login_manager.login_view = 'lab11_login'
+login_manager.login_view = 'pre3_login'
 login_manager.init_app(app)
 
 from app import views  # noqa
