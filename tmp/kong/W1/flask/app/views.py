@@ -203,4 +203,4 @@ def google_auth():
         db.session.commit()
         user = AuthUser.query.filter_by(email=email).first()
     login_user(user)
-    return redirect('pre3_profile')
+    return redirect(url_for('pre3_profile'))
