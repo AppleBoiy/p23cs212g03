@@ -80,7 +80,7 @@ def pre3_profile():
 @login_required
 def pre3_logout():
     logout_user()
-    return redirect(url_for('pre3_index'))
+    return redirect(url_for('pre3_login'))
 
 @app.route('/pre3/signup', methods=('GET', 'POST'))
 def pre3_signup():
