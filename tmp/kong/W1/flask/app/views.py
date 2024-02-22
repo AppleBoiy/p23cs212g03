@@ -208,33 +208,43 @@ def google_auth():
 def facebook():
     oauth.register(
         name='facebook',
-        client_id='932473408460153',
-        client_secret='4614a2e713bb506d69e653b9fb30814c',
-        authorize_url='https://www.facebook.com/dialog/oauth',
+        client_id=app.config['FACEBOOK_CLIENT_ID'],
+        client_secret=app.config['FACEBOOK_CLIENT_SECRET'],
         access_token_url='https://graph.facebook.com/oauth/access_token',
-        redirect_uri=url_for('facebook_auth', _external=True),
-        client_kwargs={'scope': 'email'}
+        access_token_params=None,
+        authorize_url='https://www.facebook.com/dialog/oauth',
+        authorize_params=None,
+        api_base_url='https://graph.facebook.com/',
+        client_kwargs={'scope': 'email'},
     )
-
-    # Redirect to facebook_auth function
     redirect_uri = url_for('facebook_auth', _external=True)
     return oauth.facebook.authorize_redirect(redirect_uri)
 
 @app.route('/facebook/auth/')
 def facebook_auth():
     token = oauth.facebook.authorize_access_token()
-    userinfo = oauth.facebook.parse_id_token(token)
+    resp = oauth.facebook.get(
+        'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
+    profile = resp.json()
+    app.logger.debug(str(token))
+
+
+    userinfo = token['userinfo']
+    app.logger.debug(" Facebook User " + str(userinfo))
     email = userinfo['email']
     user = AuthUser.query.filter_by(email=email).first()
 
+
     if not user:
-        name = userinfo.get('name','')
+        name = userinfo.get('given_name','') + " " + userinfo.get('family_name','')
         random_pass_len = 8
         password = ''.join(secrets.choice(string.ascii_uppercase + string.digits)
                           for i in range(random_pass_len))
+        picture = userinfo['picture']
         new_user = AuthUser(email=email, name=name,
                            password=generate_password_hash(
-                               password, method='sha256'))
+                               password, method='sha256'),
+                           avatar_url=picture)
         db.session.add(new_user)
         db.session.commit()
         user = AuthUser.query.filter_by(email=email).first()
@@ -243,4 +253,48 @@ def facebook_auth():
 
 @app.route('/x/')
 def x_twitter():
+    oauth.register(
+        name='twitter',
+        client_id=app.config['TWITTER_CLIENT_ID'],
+        client_secret=app.config['TWITTER_CLIENT_SECRET'],
+        request_token_url='https://api.twitter.com/oauth/request_token',
+        request_token_params=None,
+        access_token_url='https://api.twitter.com/oauth/access_token',
+        access_token_params=None,
+        authorize_url='https://api.twitter.com/oauth/authenticate',
+        authorize_params=None,
+        api_base_url='https://api.twitter.com/1.1/',
+        client_kwargs=None,
+    )
+    redirect_uri = url_for('twitter_auth', _external=True)
+    return oauth.twitter.authorize_redirect(redirect_uri)
+
+@app.route('/twitter/auth/')
+def twitter_auth():
+    token = oauth.twitter.authorize_access_token()
+    resp = oauth.twitter.get('account/verify_credentials.json')
+    profile = resp.json()
+    app.logger.debug(str(token))
+
+
+    userinfo = token['userinfo']
+    app.logger.debug(" Twitter User " + str(userinfo))
+    email = userinfo['email']
+    user = AuthUser.query.filter_by(email=email).first()
+
+
+    if not user:
+        name = userinfo.get('given_name','') + " " + userinfo.get('family_name','')
+        random_pass_len = 8
+        password = ''.join(secrets.choice(string.ascii_uppercase + string.digits)
+                          for i in range(random_pass_len))
+        picture = userinfo['picture']
+        new_user = AuthUser(email=email, name=name,
+                           password=generate_password_hash(
+                               password, method='sha256'),
+                           avatar_url=picture)
+        db.session.add(new_user)
+        db.session.commit()
+        user = AuthUser.query.filter_by(email=email).first()
+    login_user(user)
     return redirect(url_for('pre3_profile'))
