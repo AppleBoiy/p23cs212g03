@@ -158,7 +158,6 @@ def gen_avatar_url(email, name):
 @app.route('/google/')
 def google():
 
-
     oauth.register(
         name='google',
         client_id=app.config['GOOGLE_CLIENT_ID'],
@@ -203,4 +202,45 @@ def google_auth():
         db.session.commit()
         user = AuthUser.query.filter_by(email=email).first()
     login_user(user)
+    return redirect(url_for('pre3_profile'))
+
+@app.route('/facebook/')
+def facebook():
+    oauth.register(
+        name='facebook',
+        client_id='932473408460153',
+        client_secret='4614a2e713bb506d69e653b9fb30814c',
+        authorize_url='https://www.facebook.com/dialog/oauth',
+        access_token_url='https://graph.facebook.com/oauth/access_token',
+        redirect_uri=url_for('facebook_auth', _external=True),
+        client_kwargs={'scope': 'email'}
+    )
+
+    # Redirect to facebook_auth function
+    redirect_uri = url_for('facebook_auth', _external=True)
+    return oauth.facebook.authorize_redirect(redirect_uri)
+
+@app.route('/facebook/auth/')
+def facebook_auth():
+    token = oauth.facebook.authorize_access_token()
+    userinfo = oauth.facebook.parse_id_token(token)
+    email = userinfo['email']
+    user = AuthUser.query.filter_by(email=email).first()
+
+    if not user:
+        name = userinfo.get('name','')
+        random_pass_len = 8
+        password = ''.join(secrets.choice(string.ascii_uppercase + string.digits)
+                          for i in range(random_pass_len))
+        new_user = AuthUser(email=email, name=name,
+                           password=generate_password_hash(
+                               password, method='sha256'))
+        db.session.add(new_user)
+        db.session.commit()
+        user = AuthUser.query.filter_by(email=email).first()
+    login_user(user)
+    return redirect(url_for('pre3_profile'))
+
+@app.route('/x/')
+def x_twitter():
     return redirect(url_for('pre3_profile'))

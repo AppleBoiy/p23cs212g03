@@ -17,6 +17,16 @@
                 transform: translateY(0);
             }
         }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .is-google, .is-facebook, .is-x {
+            flex: 0 0 30%;
+        }
     </style>
 
     <div class="column is-4 is-offset-4 slide-in">
@@ -52,9 +62,17 @@
                 </div>
                 <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
             </form>
-            <a href="{{ url_for('google') }}" class="button is-block is-google is-large is-fullwidth">
-                <img src="../../static/img/google_icon.png" alt="Google Icon" style="max-width: 100%; max-height: 100%;">
-            </a>
+            <div class="buttons-container">
+                <a href="{{ url_for('google') }}" class="button is-block is-google is-large is-fullwidth">
+                    <img src="../../static/img/google_icon.png" alt="Google Icon" style="max-width: 100%; max-height: 100%;">
+                </a>
+                <a href="{{ url_for('facebook') }}" class="button is-block is-facebook is-large is-fullwidth">
+                    <img src="../../static/img/facebook_icon.png" alt="Facebook Icon" style="max-width: 100%; max-height: 100%;">
+                </a>
+                <a href="{{ url_for('x_twitter') }}" class="button is-block is-x is-large is-fullwidth">
+                    <img src="../../static/img/x_icon.png" alt="X Icon" style="max-width: 100%; max-height: 100%;">
+                </a>
+            </div>
         </div>
     </div>
 {% endblock %}
