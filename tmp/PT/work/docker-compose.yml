@@ -1,0 +1,35 @@
+version: "3.9"
+name: "flask-app1"
+services:
+  flask:
+    build: flask
+    ports:
+      - "56733:8000"
+    volumes:
+      - ./flask:/flask_app
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=hello_flask
+      - POSTGRES_PASSWORD=hello_flask
+      - POSTGRES_DB=hello_flask_dev
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+volumes:
+  postgres_data:

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+ <meta charset="utf-8">
+ <!-- Bootstrap -->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+   integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+ <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+ <!-- Bootstrap Table -->
+ <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.css">
+ <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
+ <!-- our own css -->
+ <link rel="stylesheet" href="/static/css/phonebook.css">
+
+
+
+
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+
+<body>
+  <div id="header" class="container">
+    <div class="box3">
+      <button id="logout" type="button">Logout</button>
+    </div>
+    <h1>{{ current_user.name }}'s Phonebook</h1>
+  </div>
+  
+  <div id="add-edit" class="container" hidden="hidden">
+    <h2 id="add-edit-caption">Add/Edit a Contact:</h2>
+    <form id="addPhoneNumberForm">
+      <label for="firstname">ชื่อ</label>
+      <input type="text" id="firstname" name="firstname" placeholder="Your name.." required>
+      <label for="lastname">นามสกุล</label>
+      <input type="text" id="lastname" name="lastname" placeholder="Your last name.." required>
+      <label for="phone">โทรศัพท์</label>
+      <input type="tel" id="phone" name="phone" placeholder="Your phone number.." required>
+      <input type="hidden" id="entryid" name="id" value="">
+      <input type="submit" name="submit" value="Submit">
+      <button id="clear_form" type="button">Clear</button>
+      <button id="cancel_form" type="button">Cancel</button>
+    </form>
+  </div>
+  
+  <div id="contact_display" class="container">
+    <button id="add_contact" type="button">Create Contact</button>
+    <h2>Contacts:</h2>
+    <table class="table-striped border-success" id="phonebook-table">
+      <thead>
+        <tr>
+          <th data-field="id">
+            <span class="text-success">
+              id
+            </span>
+          </th>
+          <th data-field="firstname">
+            <span class="text-success">
+              ชื่อ
+            </span>
+          </th>
+          <th data-field="lastname">
+            <span class="text-success">
+              นามสกุล
+            </span>
+          </th>
+          <th data-field="phone">
+            <span class="text-success">
+              โทรศัพท์
+            </span>
+          </th>
+          <th data-field="operation" data-formatter="actionFormatter" data-events="operateEvents">
+            <span class="text-success">
+              แก้ไข/ลบ
+            </span>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <script>
+    function populate_table(contact_data) {
+      $('#phonebook-table').bootstrapTable({
+        data: contact_data
+      });
+      $('#phonebook-table').bootstrapTable('hideColumn', 'id');
+    }
+
+
+    $(document).ready(function () {
+      (function () {
+        $.getJSON("lab10/contacts", populate_table);
+      })();
+    });
+    // refresh the table after a read update
+    function refresh_table(contact_data) {
+      $('#phonebook-table').bootstrapTable('load', contact_data);
+    }
+
+
+    $("#addPhoneNumberForm").submit(function (event) {
+      // prevent default html form submission action
+      event.preventDefault();
+      toggleView();
+
+
+      // pack the inputs into a dictionary
+      var formData = {};
+      $(":input").each(function () {
+        var key = $(this).attr('name');
+        var val = $(this).val();
+        if (key != 'submit') {
+          formData[key] = val;
+        }
+      });
+
+
+      var $form = $(this);
+      var url = $form.attr("action");
+
+
+      // make a POST call to the back end w/ a callback to refresh the table
+      $.post(url, formData, function (contact_data) {
+        refresh_table(contact_data);
+        clearForm();
+      });
+    });
+
+
+    function clearForm() {
+      $('#addPhoneNumberForm')[0].reset();
+      $('#entryid').val('');
+    }
+
+    function actionFormatter(value, row, index) {
+      return [
+        '<a class="edit" href="javascript:void(0)" title="Edit">',
+        '✏️',
+        '</a>  ',
+        '<a class="remove" href="javascript:void(0)" title="Remove">',
+        '🗑️',
+        '</a>'
+      ].join('')
+    }
+
+    window.operateEvents = {
+      'click .edit': function (e, value, row, index) {
+        prePopulateForm(row);
+      },
+      'click .remove': function (e, value, row, index) {
+        removeItem(row);
+      }
+    }
+
+
+    function prePopulateForm(row) {
+      $('#addPhoneNumberForm')[0].reset();
+      $('#firstname').val(row.firstname);
+      $('#lastname').val(row.lastname);
+      $('#phone').val(row.phone);
+      $('#entryid').val(row.id);
+      toggleView();
+    }
+
+    function removeItem(row) {
+      if (!confirm("Delete " + row.firstname + ' ' + row.lastname + '?')) {
+        return false;
+      }
+      var url = "lab10/remove_contact"
+      var formData = { 'id': row.id };
+      $.post(url, formData, function (contact_data) {
+        refresh_table(contact_data);
+      });
+    }
+
+    function toggleView() {
+      if ($('#contact_display').attr('hidden')) {
+        $('#contact_display').removeAttr('hidden');
+        $('#add-edit').attr('hidden', 'hidden');
+      } else {
+        $('#contact_display').attr('hidden', 'hidden');
+        $('#add-edit').removeAttr('hidden');
+      }
+    }
+
+
+    $("#add_contact").click(function () {
+      clearForm();
+      toggleView();
+    });
+
+    $("#clear_form").click(function () {
+      clearForm();
+    });
+
+
+    $("#cancel_form").click(function () {
+      clearForm();
+      toggleView();
+    });
+
+
+    $("#logout").click(function () {
+     clearForm();
+     window.location.href = "lab11/logout";
+   });
+ </script>
+</body>
+
+
+</html>
