@@ -41,6 +41,7 @@ def lab04_bootstrap():
 
 
 @app.route("/", methods=("GET", "POST"))
+@login_required
 def lab10_phonebook():
     if request.method == "POST":
         result = request.form.to_dict()
@@ -118,6 +119,7 @@ def lab10_remove_contacts():
 
 
 @app.route("/lab11")
+@login_required
 def lab11_index():
     return render_template("lab11/index.html")
 

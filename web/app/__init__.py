@@ -38,3 +38,5 @@ login_manager.login_view = 'lab11_login'
 login_manager.init_app(app)
 
 from app import views  # noqa
+from app import hw_views  # noqa
+from app import auth  # noqa
