@@ -57,9 +57,10 @@ def gen_avatar_url(email, name):
     
     return avatar_url
 
-@app.route('/google/')
+@app.route('/google')
 def google():
 
+    app.logger.debug(" Google Client ID " + str(app.config['GOOGLE_CLIENT_ID']))
 
     oauth.register(
         name='google',
@@ -79,7 +80,7 @@ def google():
 
 
 
-@app.route('/google/auth/')
+@app.route('/google/auth')
 def google_auth():
     token = oauth.google.authorize_access_token()
     app.logger.debug(str(token))

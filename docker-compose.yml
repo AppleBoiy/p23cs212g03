@@ -1,0 +1,37 @@
+version: "3.9"
+name: "pre3"
+services:
+  flask:
+    build: web
+    ports:
+      - "56733:8000"
+    volumes:
+      - ./web:/flask_app
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+  db:
+    image: postgres:13-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=pre3
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=pre3_dev
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+volumes:
+  postgres_data:
