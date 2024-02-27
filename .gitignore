@@ -350,3 +350,4 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/flask,jetbrains+all,python
 
 postgres_data/
+tmp/
