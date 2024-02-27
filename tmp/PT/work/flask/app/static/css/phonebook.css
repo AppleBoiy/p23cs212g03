@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Kanit');
+
+
+body {
+   font-family: 'Kanit', Arial, Helvetica, sans-serif;
+}
+
+
+* {
+   box-sizing: border-box;
+}
+
+
+input[type=text],
+input[type=tel],
+select,
+textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+
+label {
+   width: 100px;
+}
+
+
+input[type=submit],
+input[type=reset],
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+input[type=submit]:hover {
+   background-color: #45a049;
+}
+
+
+.box1 {
+    width: 49%;
+    float: left;
+}
+
+
+.box2 {
+    width: 49%;
+    float: right;
+}
+
+
+.box3 {
+    float: right;
+}
+
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+
+#header {
+    background-color: #ffffff;
+}
+
+
+.left {
+    float: left;
+}
+
+
+.right {
+    float: right;
+}
+
+
+.edit {
+    margin-right: 10px;
+}
+
+
+.item {
+    margin-bottom: 20px;
+}
+
+
+#phonebook-table {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
