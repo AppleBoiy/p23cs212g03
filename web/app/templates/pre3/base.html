@@ -57,7 +57,7 @@
                     </div>
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-start">
-                            <a href="{{ url_for('pre3_index') }}" style="font-family: 'Lato', sans-serif; font-size: 200%; color: #3C64B1; font-weight: bold;">
+                            <a href="{{ url_for('pre3_profile') }}" style="font-family: 'Lato', sans-serif; font-size: 200%; color: #3C64B1; font-weight: bold;">
                                 PRE 3
                             </a>
                             
@@ -67,12 +67,12 @@
                                 <a href="{{ url_for('pre3_login') }}" class="navbar-item" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
                                     Login
                                 </a>
-                                <a href="{{ url_for('pre3_signup') }}" class="navbar-item" style="font-weight: bold; color: #FFFFFF; background-color: #3C64B1;">
+                                <a href="{{ url_for('pre3_signup') }}" class="navbar-item" Mulish>
                                     Sign Up
                                 </a>
                             {% else %}
                                 <img src="{{ current_user.avatar_url }}" width="52">
-                                <a href="{{ url_for('pre3_logout') }}" class="navbar-item" style="font-weight: bold">
+                                <a href="{{ url_for('pre3_logout') }}" class="navbar-item" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
                                     Logout
                                 </a>
                             {% endif %}
