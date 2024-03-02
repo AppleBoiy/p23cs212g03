@@ -7,6 +7,7 @@
     <title>Pre3</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet">
     <style>
         body{
             background-color: #F2F2F2;
@@ -56,9 +57,10 @@
                     </div>
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-start">
-                            <a style="font-family: 'Lato', sans-serif; font-size: 200%; color: #3C64B1; font-weight: bold;">
+                            <a href="{{ url_for('pre3_index') }}" style="font-family: 'Lato', sans-serif; font-size: 200%; color: #3C64B1; font-weight: bold;">
                                 PRE 3
                             </a>
+                            
                         </div>
                         <div class="navbar-end">
                             {% if not current_user.is_authenticated %}
