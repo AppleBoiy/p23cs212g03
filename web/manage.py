@@ -7,6 +7,10 @@ from app.models.contact import Contact
 from app.models.authuser import AuthUser, PrivateContact
 from app.models.blog import BlogEntry
 
+from app.models.course import Course
+from app.models.enrollment import Enrollment
+from app.models.user import User
+
 
 cli = FlaskGroup(app)
 
@@ -25,9 +29,72 @@ def create_db():
     app.logger.info("db.create_all()")
     db.session.commit()
 
-
 @cli.command("seed_db")
 def seed_db():
+    db.session.add(
+        User(
+            user_id="650510XXX",
+            email="flask@204212",
+            name="สมชาย ทรงแบด",
+            password=generate_password_hash("1234", method="sha256"),
+            avatar_url="https://ui-avatars.com/api/?name=\
+สมชาย+ทรงแบด&background=83ee03&color=fff",
+            role="admin",
+        )
+    )
+    db.session.add(
+        User(
+            user_id="650510001",
+            email="flask@204213",
+            name="สมหญิง ทรงแบด",
+            password=generate_password_hash("1234", method="sha256"),
+            avatar_url="https://ui-avatars.com/api/?name=\
+สมหญิง+ทรงแบด&background=83ee03&color=fff",
+            role="user",
+        )
+    )
+
+    db.session.add(
+        Course(
+            course_id="204111",
+            abbr="CS111",
+            name="Python Programming",
+            description="Learn Python Programming",
+            department="CS",
+            credits=3,
+            year=1,
+
+        )
+    )
+
+    db.session.add(
+        Course(
+            course_id="204112",
+            abbr="CS112",
+            name="Web Programming",
+            description="Learn Web Programming",
+            department="CS",
+            credits=3,
+            year=1,
+        )
+    )
+
+
+    db.session.commit()
+
+    db.session.add(
+        Enrollment(
+            user_id="650510001",
+            course_id="204111",
+        )
+    )
+
+
+    db.session.commit()
+
+
+@cli.command("seed_sample_db")
+def seed_sample_db():
     db.session.add(
         AuthUser(
             email="flask@204212",
