@@ -151,6 +151,15 @@ def gen_avatar_url(email, name):
 
     return avatar_url
 
+@app.route('/pre3/teacher')
+@login_required
+def pre3_teacher():
+   return render_template('pre3/teacher.html')
+
+@app.route('/pre3/create_course')
+@login_required
+def pre3_created_course():
+   return render_template('pre3/created_course.html')
 
 
 @app.route('/facebook/')

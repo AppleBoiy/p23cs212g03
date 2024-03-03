@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css?family=Kanit");
+
+
+
+
+
+table {
+    border-collapse: collapse; /* Collapse borders to avoid double borders */
+    width: 100%; /* Adjust width as needed */
+}
+
+th, td {
+    border: 1px solid #000; /* Set border to 1px solid black */
+    padding: 8px; /* Add padding for better readability */
+    text-align: left; /* Align text to the left */
+    background-color: #ffffff;
+}
+
+th {
+    background-color: #ffffff; /* Add background color for header cells */
+}
