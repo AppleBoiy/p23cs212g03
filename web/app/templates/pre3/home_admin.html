@@ -1,0 +1,81 @@
+{% extends "pre3/base.html" %}
+{% block content %}
+
+<style>
+    .slide-in {
+        animation: slideIn 1s ease forwards;
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+
+<div class="grid-container">
+    <div class=" block-style">
+        <div style="text-align: left;">
+            <label for="student" style="color: black; font-weight: bold;">&nbspFilter:&nbsp</label>
+
+            <label for="student" style="color: black;">
+                Student&nbsp
+                <input type="radio" id="option1" name="list" value="student">
+            </label>
+
+            <label for="teacher" style="color: black;">
+                &nbspTeacher&nbsp
+                <input type="radio" id="option2" name="list" value="teacher">
+            </label>
+         </div>
+        <div style="text-align: right;">
+            <label for="search" style="color: black;">Search ID</label>
+            <input type="text" id="search" placeholder="" style="border: none; height: 50px; width: 40%;">
+            <button class="button" type="submit" style="height: 50px;">
+                <img src="../../static/img/Vector.png" alt="Submit">
+            </button>
+        </div>
+    </div>
+    </br>
+    <div class="head block-style" style="background-color: #d8d8d8;" >
+    </div>
+
+    <div class="item1 block-style">
+        <div style="text-align: left;">
+        </div>
+        <div style="text-align: right;">
+            <label for="student" style="color: black;">Student</label>
+            <input type="radio" id="option1" name="item1" value="student">
+            <label for="teacher" style="color: black;">Teacher</label>
+            <input type="radio" id="option2" name="item1" value="teacher">
+            <button class="button" style="background-color: red;">
+                <label for="search" style="color: rgb(255, 255, 255); font-weight: bold; font-size: 120%;">Delete</label>
+            </button>
+        </div>
+    </div>
+
+    <div class="item2 block-style">
+    </div>  
+
+    <div class="item3 block-style">
+    </div>
+
+    <div class="item4 block-style">
+    </div>
+
+    <div class="item5 block-style">
+    </div>
+
+    <div class="item6 block-style">
+    </div>
+</div>
+
+{% endblock %}

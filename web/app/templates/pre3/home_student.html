@@ -1,0 +1,45 @@
+{% extends "pre3/base.html" %}
+{% block content %}
+
+<style>
+    .slide-in {
+        animation: slideIn 1s ease forwards;
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+
+<div class="grid-container">
+    <div class="item1 block-style" style="background-color: #d8d8d8;">1</div>
+    <div class="item2 block-style">2</div>
+    <div class="item3 block-style">3</div>  
+    <div class="item4 block-style">4</div>
+    <div class="item5 block-style">5</div>
+    <div class="item6 block-style">6</div>
+    <div class="item6 block-style">6</div>
+    <div class="item6 block-style">6</div>
+    <div class="item6 block-style">6</div>
+    <div class="last block-style" style="background-color: #F2F2F2;">
+        <div style="text-align: left;">
+
+        </div>
+        <div style="color: black; font-family: 'Mulish', sans-serif; font-weight: bold; text-align: right;">
+            GPA:
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
