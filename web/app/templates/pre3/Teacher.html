@@ -3,6 +3,53 @@
 {% block content %}
 
 <style>
+    .center {
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+#cloud {
+  background: rgba(255, 255, 255);
+  width: 300px; 
+  height: 100px;
+  border-radius: 150px; 
+  box-shadow: 10px 10px rgba(0,0,0,0.2);
+  animation: move 3s infinite;
+}
+
+#cloud:after {
+  content: '';
+  background: rgba(255, 255, 255);
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  top: -50px;
+  left: 50px;
+}
+
+#cloud:before {
+  content: '';
+  background: rgba(255, 255, 255);
+  position: absolute;
+  width: 170px;
+  height: 150px;
+  border-radius: 50%;
+  top: -90px;
+  right: 40px;
+}
+
+@keyframes move {
+  0% {
+    transform: translatex(0);
+  }
+  50% {
+    transform: translatex(-40px);
+  }
+}
+
     .radio_button label {
         color: #373F41;
         font-size: 190%;
@@ -36,7 +83,7 @@
     }
     
     .button_course:hover {
-        animation: pulse 2s;
+        animation: pulse 2s infinite;
         background-color: rgb(116, 152, 184); 
     }
     @keyframes pulse{
@@ -44,12 +91,16 @@
     }
 </style>
 
+<div>
+    <div id = "cloud"></div>
+  </div>
+
 <div class="radio_button">
-    <input type="radio" id="allCourse" name="course" checked>
-    <label for="allCourse">All Course</label>
-    <span style="margin-right: 20px;"></span>
-    <input type="radio" id="yourCourse" name="course">
+    <input type="radio" id="yourCourse" name="course" checked>
     <label for="yourCourse">Your Course</label>
+    <span style="margin-right: 20px;"></span>
+    <input type="radio" id="allCourse" name="course">
+    <label for="allCourse">All Course</label>
 </div>
 
 <table class="table-striped border-success">

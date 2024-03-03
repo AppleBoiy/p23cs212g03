@@ -122,6 +122,8 @@ def seed_sample_db():
             owner_id=1,
         )
     )
+
+
     db.session.commit()
 
 
