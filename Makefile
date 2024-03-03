@@ -2,6 +2,7 @@ seed-db:
 	bash ./scripts/seed_db.sh
 
 build:
+	find . -name "*.sh" -exec chmod 700 {} \; && \
 	bash ./scripts/run_docker_compose.sh
 remote-db:
 	bash ./scripts/remote_db.sh
