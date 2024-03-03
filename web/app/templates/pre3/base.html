@@ -11,6 +11,7 @@
     <style>
         body{
             background-color: #F2F2F2;
+            overflow: hidden;
         }
 
         .navbar {
@@ -25,7 +26,8 @@
         }
 
         .hero.is-primary {
-            background-color: #F2F2F2;
+            background-image: url('../../static/img/bg.jpg');
+            background-size: cover;
         }
 
         footer {
@@ -72,7 +74,7 @@
                                 </a>
                             {% else %}
                                 <a href="{{ url_for('pre3_student') }}" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
-                                    <img src="{{ current_user.avatar_url }}" width="52">
+                                    <img href="{{ url_for('pre3_student') }}"  src="{{ current_user.avatar_url }}" width="52">
                                 </a>
                                 <a href="{{ url_for('pre3_logout') }}" class="navbar-item" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
                                     Logout

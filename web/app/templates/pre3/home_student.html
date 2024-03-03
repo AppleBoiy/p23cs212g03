@@ -21,13 +21,17 @@
 
     .grid-container {
         display: grid;
-        grid-template-columns: 97%;
+        grid-template-columns: 1fr;
         grid-gap: 2px;
         background-color: #F2F2F2;
-        padding: 2px;
+        padding: 10px;
         animation: slideIn 1s ease forwards;
         opacity: 0;
         transform: translateY(-50px);
+        box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow-y: scroll;
+        height: 650px;
     }
 
     .grid-container > div {
@@ -36,17 +40,30 @@
         padding: 20px 0;
         font-size: 30px;
     }
+
+    .block-style {
+        display: flex; 
+        justify-content: space-between;
+        border-radius: 10px;
+    }
 </style>
 
 
 <div class="grid-container">
-    <div class="item1" style="background-color: #d8d8d8;">1</div>
-    <div class="item2">2</div>
-    <div class="item3">3</div>  
-    <div class="item4">4</div>
-    <div class="item5">5</div>
-    <div class="item6">6</div>
-    <div class="item7" style="background-color: #F2F2F2; color: black; text-align: right; font-family: 'Mulish', sans-serif; font-weight: bold;">GPA:</div>
+    <div class="item1 block-style" style="background-color: #d8d8d8;">1</div>
+    <div class="item2 block-style">2</div>
+    <div class="item3 block-style">3</div>  
+    <div class="item4 block-style">4</div>
+    <div class="item5 block-style">5</div>
+    <div class="item6 block-style">6</div>
+    <div class="last block-style" style="background-color: #F2F2F2;">
+        <div>
+
+        </div>
+        <div style="color: black; font-family: 'Mulish', sans-serif; font-weight: bold;">
+            GPA:
+        </div>
+    </div>
 </div>
 
 
