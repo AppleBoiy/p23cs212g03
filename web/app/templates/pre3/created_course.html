@@ -38,10 +38,23 @@
         border-radius: 3px;
         box-sizing: border-box;
     }
+    #Cradit {
+        
+        padding: 4px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    /* Adjust the width of the "Room" input */
+    #abbr {
+        padding: 8px;
+        width: calc(50% - 10px); /* Set the width to half of the remaining space minus some margin */
+    }
 
     /* Styles for form buttons */
     .container_form input[type="submit"],
-    .container_form button {
+    .container_form button{
         background-color: rgb(46, 113, 171);
         color: white;
         padding: 10px 20px;
@@ -68,7 +81,7 @@
             width: 100%; /* Set input width to 100% on smaller screens */
         }
     }
-
+    
     textarea {
         resize: none;
     }
@@ -88,18 +101,29 @@
         <label for="course_id">ID:</label>
         <input id="course_id" name="course_id" placeholder="Course ID.." required type="text" required />
         <br></br>
-        <label for="course_name">Name:</label>
-        <input id="course_name" name="course_name" placeholder="Course Name.." required type="text" required />
+        <label for="name">Name:</label>
+        <input id="name" name="name" placeholder="Course Name.." required type="text" required />
         <br></br>
         <label for="year">Year:</label>
         <input id="year" name="year" placeholder="Study Year.." required type="text" />
         <br></br>
+        <label for="department">Department:</label>
+        <input id="department" name="department" placeholder="Department.." required type="text" />
+        <br></br>
+        
+        <label for="abbr">Room:</label>
+        <input id="abbr" name="abbr" placeholder="room.." required type="text" />
+        <label for="credits">Cradit:</label>
+        <input type="number" id="credits" name="credits" min="1" max="22">
+        
+         <br></br>
         <label for="Prerequisite">Prerequisite:</label>
         <input id="Prerequisite" name="Prerequisite" placeholder="Prerequisite ID.." required type="text" />
         <br></br>
-        <label for="Detail">Detail:</label>
-        <textarea id="Detail" name="Detail" rows="6" placeholder="Detail..." required></textarea>
+        <label for="description">Description:</label>
+        <textarea maxlength="1000" id="description" name="description" rows="6" placeholder="Detail..." required></textarea>
         <br></br>
+
         <input id="entryid" name="id" type="hidden" value="" />
         <input name="submit" type="submit" value="Create" />
         <a class="back" href="{{ url_for('pre3_teacher') }}">

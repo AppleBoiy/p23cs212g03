@@ -3,14 +3,17 @@
 {% block content %}
 
 <style>
-    
-
     .radio_button label {
-        font-family: 'Mulish', sans-serif;
         color: #373F41;
         font-size: 190%;
         font-weight: bold;
+        padding: 10px; /* Add padding to expand clickable area */
     }
+    
+    input[type='radio']{
+    width: 17px;
+    height: 17px;
+}
 
     /* Apply black color to specific table cells */
     .black-color {
@@ -19,7 +22,7 @@
     }
 
     .button_course {
-        font-size: 200%;
+        font-size: 120%;
         font-family: 'Mulish', sans-serif;
         color: #ffffff;
         font-weight: bold;
@@ -29,6 +32,7 @@
         border-radius: 5px;
         transition-duration: 0.4s;
         cursor: pointer;
+        width: 200px; /* Set a fixed width for the buttons */
     }
     
     .button_course:hover {
@@ -41,13 +45,11 @@
 </style>
 
 <div class="radio_button">
-    <div>
-        <input type="radio" id="allCourse" name="course" checked>
-        <label for="allCourse">All Course</label>
-        <span style="margin-right: 20px;"></span>
-        <input type="radio" id="yourCourse" name="course">
-        <label for="yourCourse">Your Course</label>
-    </div>
+    <input type="radio" id="allCourse" name="course" checked>
+    <label for="allCourse">All Course</label>
+    <span style="margin-right: 20px;"></span>
+    <input type="radio" id="yourCourse" name="course">
+    <label for="yourCourse">Your Course</label>
 </div>
 
 <table class="table-striped border-success">
@@ -73,15 +75,13 @@
     </tbody>
 </table>
 
-
 <div class="button_container" style="margin-top: 20px;">
     <a href="{{ url_for('pre3_created_course') }}">
        <button class="button_course"  >Created Course</button>
     </a>
-    <br></br>
+    
     <a href="{{ url_for('pre3_created_course') }}">
         <button class="button_course"  >Assign Course</button>
      </a>
 </div>
-
 {% endblock %}
