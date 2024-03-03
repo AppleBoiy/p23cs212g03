@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet">
     <link href="../../static/css/pre3-style.css" rel="stylesheet">
+    <link href="../../static/css/pre3.css" rel="stylesheet">
     <style>
         body{
             background-color: #F2F2F2;
@@ -75,9 +76,19 @@
                                     Sign Up
                                 </a>
                             {% else %}
-                                <a href="{{ url_for('pre3_student') }}" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
-                                    <img href="{{ url_for('pre3_student') }}"  src="{{ current_user.avatar_url }}" width="52">
-                                </a>
+                                {% if current_user.role == 'student' %}
+                                    <a href="{{ url_for('pre3_student') }}" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
+                                        <img src="{{ current_user.avatar_url }}" width="52">
+                                    </a>
+                                {% elif current_user.role == 'admin' %}
+                                    <a href="{{ url_for('pre3_admin') }}" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
+                                        <img src="{{ current_user.avatar_url }}" width="52">
+                                    </a>
+                                {% elif current_user.role == 'teacher' %}
+                                    <a href="{{ url_for('pre3_admin') }}" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
+                                        <img src="{{ current_user.avatar_url }}" width="52">
+                                    </a>
+                                {% endif %}
                                 <a href="{{ url_for('pre3_logout') }}" class="navbar-item" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
                                     Logout
                                 </a>

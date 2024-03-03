@@ -55,6 +55,30 @@ def seed_db():
     )
 
     db.session.add(
+        User(
+            user_id="650510999",
+            email="Sompong@jojo.net",
+            name="สมปอง ใจร้าย",
+            password=generate_password_hash("1234", method="sha256"),
+            avatar_url="https://ui-avatars.com/api/?name=\
+สมชาย+ทรงแบด&background=83ee03&color=fff",
+            role="teacher",
+        )
+    )
+
+    db.session.add(
+        User(
+            user_id="000000001",
+            email="google@hotmail.com",
+            name="กูรู",
+            password=generate_password_hash("1234", method="sha256"),
+            avatar_url="https://ui-avatars.com/api/?name=\
+สมชาย+ทรงแบด&background=83ee03&color=fff",
+            role="student",
+        )
+    )
+
+    db.session.add(
         Course(
             course_id="204111",
             abbr="CS111",
@@ -123,6 +147,7 @@ def seed_sample_db():
         )
     )
     db.session.commit()
+
 
 
 if __name__ == "__main__":

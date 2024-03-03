@@ -10,6 +10,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from app import app, db, login_manager, oauth
 from app.models.contact import Contact
 from app.models.authuser import AuthUser, PrivateContact
+from app.models.user import User
 
 # from app import oauth
 
@@ -296,11 +297,11 @@ def google_auth():
         db.session.commit()
         user = AuthUser.query.filter_by(email=email).first()
     login_user(user)
-    return redirect("/")
+    return redirect(url_for("pre3_profile"))
 
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("/"))
+    return redirect(url_for("pre3_profile"))

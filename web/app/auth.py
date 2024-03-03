@@ -12,6 +12,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from app import app, db, login_manager, oauth
 from app.models.contact import Contact
 from app.models.authuser import AuthUser, PrivateContact
+from app.models.user import User
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -39,10 +40,31 @@ def pre3_logout():
 def pre3_student():
     return render_template('pre3/home_student.html')
 
-@app.route('/pre3/home/admin')
+@app.route('/pre3/home/admin', methods=['GET', 'POST'])
 @login_required
 def pre3_admin():
-    return render_template('pre3/home_admin.html')
+    users = User.query.all()
+    
+    if request.method == 'POST':
+        user_id = request.form.get('user_id')
+        new_role = request.form.get('new_role')
+        action = request.form.get('action')
+
+        if action == 'delete':
+            user = User.query.get(user_id)
+            if user:
+                db.session.delete(user)
+                db.session.commit()
+                return redirect(url_for('pre3_admin'))
+
+        if action == 'change_role':
+            user = User.query.get(user_id)
+            if user:
+                user.role = new_role
+                db.session.commit()
+                return redirect(url_for('pre3_admin'))
+
+    return render_template('pre3/home_admin.html', users=users)
 
 @app.route('/pre3/signup', methods=('GET', 'POST'))
 def pre3_signup():
@@ -205,6 +227,11 @@ def facebook_auth():
     login_user(user)
     return redirect(url_for('pre3_profile'))
 
+@app.route('/users')
+def is_users():
+    list = User.query.all()
+    return render_template('view_db.html', lists=list)
+
 @app.route('/x/')
 def x_twitter():
-    return redirect(url_for('pre3_profile'))
+    return redirect(url_for(''))
