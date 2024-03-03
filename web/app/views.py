@@ -247,6 +247,8 @@ def lab11_logout():
 
 @app.route("/google/")
 def google():
+    if current_user.is_authenticated:
+        return redirect(url_for('pre3_profile'))
 
     oauth.register(
         name="google",
@@ -265,6 +267,9 @@ def google():
 
 @app.route("/google/auth")
 def google_auth():
+    if current_user.is_authenticated:
+        return redirect(url_for('pre3_profile'))
+    
     token = oauth.google.authorize_access_token()
     app.logger.debug(str(token))
 

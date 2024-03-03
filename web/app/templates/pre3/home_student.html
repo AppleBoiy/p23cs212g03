@@ -1,0 +1,53 @@
+{% extends "pre3/base.html" %}
+{% block content %}
+
+<style>
+    .slide-in {
+        animation: slideIn 1s ease forwards;
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 97%;
+        grid-gap: 2px;
+        background-color: #F2F2F2;
+        padding: 2px;
+        animation: slideIn 1s ease forwards;
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    .grid-container > div {
+        background-color: #ffffff;
+        text-align: center;
+        padding: 20px 0;
+        font-size: 30px;
+    }
+</style>
+
+
+<div class="grid-container">
+    <div class="item1" style="background-color: #d8d8d8;">1</div>
+    <div class="item2">2</div>
+    <div class="item3">3</div>  
+    <div class="item4">4</div>
+    <div class="item5">5</div>
+    <div class="item6">6</div>
+    <div class="item7" style="background-color: #F2F2F2; color: black; text-align: right; font-family: 'Mulish', sans-serif; font-weight: bold;">GPA:</div>
+</div>
+
+
+{% endblock %}

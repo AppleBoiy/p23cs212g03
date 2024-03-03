@@ -34,8 +34,21 @@ def pre3_logout():
     logout_user()
     return redirect(url_for('pre3_login'))
 
+@app.route('/pre3/home/student')
+@login_required
+def pre3_student():
+    return render_template('pre3/home_student.html')
+
+@app.route('/pre3/home/admin')
+@login_required
+def pre3_admin():
+    return render_template('pre3/home_admin.html')
+
 @app.route('/pre3/signup', methods=('GET', 'POST'))
 def pre3_signup():
+    if current_user.is_authenticated:
+        return redirect(url_for('pre3_profile'))
+
     if request.method == 'POST':
         result = request.form.to_dict()
         app.logger.debug(str(result))
@@ -88,6 +101,9 @@ def pre3_signup():
 
 @app.route('/pre3/login', methods=('GET', 'POST'))
 def pre3_login():
+    if current_user.is_authenticated:
+        return redirect(url_for('pre3_profile'))
+
     if request.method == 'POST':
         # login code goes here
         email = request.form.get('email')
@@ -139,6 +155,9 @@ def gen_avatar_url(email, name):
 
 @app.route('/facebook/')
 def facebook():
+    if current_user.is_authenticated:
+        return redirect(url_for('pre3_profile'))
+    
     oauth.register(
         name='facebook',
         client_id='932473408460153',
@@ -155,6 +174,9 @@ def facebook():
 
 @app.route('/facebook/auth/')
 def facebook_auth():
+    if current_user.is_authenticated:
+        return redirect(url_for('pre3_profile'))
+    
     token = oauth.facebook.authorize_access_token()
     userinfo = oauth.facebook.parse_id_token(token)
     email = userinfo['email']

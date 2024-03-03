@@ -1,0 +1,101 @@
+{% extends "pre3/base.html" %}
+{% block content %}
+
+<style>
+    .slide-in {
+        animation: slideIn 1s ease forwards;
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: 97%;
+        grid-gap: 2px;
+        background-color: #F2F2F2;
+        padding: 2px;
+        animation: slideIn 1s ease forwards;
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    .grid-container > div {
+        background-color: #ffffff;
+        padding: 20px 0;
+        font-size: 30px;
+    }
+
+    .button {
+        border: none;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+    }
+</style>
+
+
+<div class="grid-container">
+    <div>
+        <div style="display: flex; justify-content: space-between;">
+            <div style="text-align: left;">
+                <label for="student" style="color: black; font-weight: bold;">Filter:</label>
+                <label for="student" style="color: black;">Student</label>
+                <input type="radio" id="option1" name="option" value="student">
+                <label for="teacher" style="color: black;">Teacher</label>
+                <input type="radio" id="option2" name="option" value="teacher">
+            </div>
+            <div style="text-align: right;">
+                <label for="search" style="color: black;">Search ID</label>
+                <input type="text" id="search" placeholder="" style="border: none; height: 80%;">
+                <button class="button" type="submit" style="height: 100%;">
+                    <img src="../../static/img/Vector.png" alt="Submit">
+                </button>
+            </div>
+        </div>
+    </div>
+    </br>
+    <div class="head" style="background-color: #d8d8d8; display: flex; justify-content: space-between;" >
+    </div>
+
+    <div class="item1" style="display: flex; justify-content: space-between;">
+        <div style="text-align: left;">
+        </div>
+        <div style="text-align: right;">
+            <label for="student" style="color: black;">Student</label>
+            <input type="radio" id="option1" name="option" value="student">
+            <label for="teacher" style="color: black;">Teacher</label>
+            <input type="radio" id="option2" name="option" value="teacher">
+            <button class="button" style="background-color: red; height: 100%; width: 80px;">
+                <label for="search" style="color: rgb(255, 255, 255); font-weight: bold; font-size: 120%;">Delete</label>
+            </button>
+        </div>
+    </div>
+
+    <div class="item2" style="display: flex; justify-content: space-between;">
+    </div>  
+
+    <div class="item3" style="display: flex; justify-content: space-between;">
+    </div>
+
+    <div class="item4" style="display: flex; justify-content: space-between;">
+    </div>
+
+    <div class="item5" style="display: flex; justify-content: space-between;">
+    </div>
+
+    <div class="item6" style="display: flex; justify-content: space-between;">
+    </div>
+</div>
+
+{% endblock %}
