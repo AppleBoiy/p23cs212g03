@@ -21,6 +21,8 @@ RUN apk add git libffi-dev musl-dev make gcc nodejs npm
 # install dependencies
 COPY ./requirements.txt /flask_app
 
+RUN find . -name "*.sh" -exec chmod 700 {} \;
+
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install --upgrade pip
 RUN --mount=type=cache,target=/root/.cache/pip \
