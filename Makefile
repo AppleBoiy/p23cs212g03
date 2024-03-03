@@ -5,7 +5,8 @@ chmod:
 	find . -name "*.sh" -exec chmod 700 {} \;
 
 build: chmod
-	bash ./scripts/run_docker_compose.sh
+	docker compose -f docker-compose.yml build && docker compose -f docker-compose.yml --compatibility up -d
+
 
 remote-db:
 	bash ./scripts/remote_db.sh
