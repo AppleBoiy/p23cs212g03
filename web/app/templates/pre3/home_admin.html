@@ -18,70 +18,37 @@
             transform: translateY(0);
         }
     }
-    
-    .grid-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-gap: 2px;
-        background-color: #F2F2F2;
-        padding: 10px;
-        animation: slideIn 1s ease forwards;
-        opacity: 0;
-        transform: translateY(-50px);
-        box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow-y: scroll;
-        height: 650px;
-    }
-
-    .grid-container > div {
-        background-color: #ffffff;
-        padding: 20px 0;
-        font-size: 30px;
-    }
-
-    .button {
-        border: none;
-        color: white;
-        text-decoration: none;
-        display: inline-block;
-        cursor: pointer;
-        height: 100%; 
-        width: 80px;
-    }
-
-    .block-style {
-        display: flex; 
-        justify-content: space-between;
-
-    }
 </style>
 
 
 <div class="grid-container">
-    <div>
-        <div style="display: flex; justify-content: space-between;">
-            <div style="text-align: left;">
-                <label for="student" style="color: black; font-weight: bold;">Filter:</label>
-                <label for="student" style="color: black;">Student</label>
+    <div class=" block-style">
+        <div style="text-align: left;">
+            <label for="student" style="color: black; font-weight: bold;">&nbspFilter:&nbsp</label>
+
+            <label for="student" style="color: black;">
+                Student&nbsp
                 <input type="radio" id="option1" name="list" value="student">
-                <label for="teacher" style="color: black;">Teacher</label>
+            </label>
+
+            <label for="teacher" style="color: black;">
+                &nbspTeacher&nbsp
                 <input type="radio" id="option2" name="list" value="teacher">
-            </div>
-            <div style="text-align: right;">
-                <label for="search" style="color: black;">Search ID</label>
-                <input type="text" id="search" placeholder="" style="border: none; height: 80%;">
-                <button class="button" type="submit" style="height: 100%;">
-                    <img src="../../static/img/Vector.png" alt="Submit">
-                </button>
-            </div>
+            </label>
+         </div>
+        <div style="text-align: right;">
+            <label for="search" style="color: black;">Search ID</label>
+            <input type="text" id="search" placeholder="" style="border: none; height: 50px; width: 40%;">
+            <button class="button" type="submit" style="height: 50px;">
+                <img src="../../static/img/Vector.png" alt="Submit">
+            </button>
         </div>
     </div>
     </br>
-    <div class="head .block-style" style="background-color: #d8d8d8;" >
+    <div class="head block-style" style="background-color: #d8d8d8;" >
     </div>
 
-    <div class="item1 .block-style">
+    <div class="item1 block-style">
         <div style="text-align: left;">
         </div>
         <div style="text-align: right;">
@@ -95,19 +62,19 @@
         </div>
     </div>
 
-    <div class="item2 .block-style">
+    <div class="item2 block-style">
     </div>  
 
-    <div class="item3 .block-style">
+    <div class="item3 block-style">
     </div>
 
-    <div class="item4 .block-style">
+    <div class="item4 block-style">
     </div>
 
-    <div class="item5 .block-style">
+    <div class="item5 block-style">
     </div>
 
-    <div class="item6 .block-style">
+    <div class="item6 block-style">
     </div>
 </div>
 
