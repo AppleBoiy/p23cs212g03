@@ -18,40 +18,7 @@
     />
     <link href="../../static/css/pre3-style.css" rel="stylesheet" />
     <link href="../../static/css/pre3.css" rel="stylesheet" />
-    <style>
-      body {
-        background-color: #f2f2f2;
-        overflow: hidden;
-      }
-
-      .navbar {
-        background-color: white;
-        color: black;
-        padding: 1%;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .navbar-item {
-        color: white;
-      }
-
-      .hero.is-primary {
-        background-image: url("../../static/img/bg.jpg");
-        background-size: cover;
-      }
-
-      footer {
-        background-color: #333;
-        color: #fff;
-        padding: 20px 0;
-        text-align: center;
-      }
-
-      footer a {
-        color: #fff;
-        text-decoration: none;
-      }
-    </style>
+    
   </head>
 
   <body>
@@ -135,7 +102,7 @@
                 </a>
                 {% elif current_user.role == 'teacher' %}
                 <a
-                  href="{{ url_for('pre3_admin') }}"
+                  href="{{ url_for('pre3_teacher') }}"
                   style="
                     font-weight: bold;
                     color: #3c64b1;

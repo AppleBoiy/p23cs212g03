@@ -40,15 +40,23 @@ def pre3_logout():
     return redirect(url_for("pre3_login"))
 
 
-@app.route("/pre3/home/student")
+@app.route("/pre3/student")
 @login_required
 def pre3_student():
     return render_template("pre3/home_student.html")
 
+@app.route("/pre3/teacher")
+@login_required
+def pre3_teacher():
+    return render_template("pre3/teacher.html")
 
-@app.route("/pre3/home/admin", methods=["GET", "POST"])
+
+@app.route("/pre3/admin", methods=["GET", "POST"])
 @login_required
 def pre3_admin():
+    #if current_user.role != "admin":
+        #abort(403)
+
     users = User.query.all()
 
     if request.method == "POST":
@@ -191,12 +199,6 @@ def gen_avatar_url(email, name):
     )
 
     return avatar_url
-
-
-@app.route("/pre3/teacher")
-@login_required
-def pre3_teacher():
-    return render_template("pre3/teacher.html")
 
 @app.route('/pre3/create_course', methods=('GET', 'POST') )
 @login_required
