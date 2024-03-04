@@ -1,0 +1,74 @@
+{% extends "pre3/base.html" %}
+{% block content %}
+
+
+<div class="grid-container">
+    <table class="table-striped border-success">
+        <colgroup>
+            <col style=" width: 20%;">
+            <col style=" width: 55%;">
+            <col style=" width: 25%;">
+        </colgroup>
+        <thead>
+            <tr> 
+                <th data-field="id" style="background-color: #d8d8d8;">
+                    <span class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 20%;"> ID </span>
+                </th>
+                <th data-field="subject_name" style="background-color: #d8d8d8;">
+                    <span class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 20%;"> Name </span>
+                </th>
+                <th data-events="operateEvents" data-field="operation" data-formatter="actionFormatter" style="text-align: center; background-color: #3c64b1;">
+                    <span class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 20%;" style="color: white;"> Edit </span>
+                </th>
+            </tr>
+        </thead>
+        {% for user in users %}
+        <tbody class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 10%;">
+            <tr class="black-color" style="color: black;">
+                <td>{{ user.user_id }}</td>
+                <td>{{ user.name }}</td>
+                <td style="text-align: center;">
+                    <button class="button_course_2" onclick="openAssignCoursePopup()" style="background-color: #3c64b1;">assign course</button>
+                    <button class="button_course_2" onclick="openUserDetailPopup()" style="background-color: #6f92d4;">user detail</button>
+                </td>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+<div id="assignCoursePopup" class="popup">
+    <div class="popup-content">
+
+    </div>
+</div>
+
+<div id="userDetailPopup" class="popup">
+    <div class="popup-content">
+
+    </div>
+</div>
+
+
+<script>
+    function openAssignCoursePopup() {
+        var popup = document.getElementById("assignCoursePopup");
+        popup.style.display = "block";
+    }
+
+    function openUserDetailPopup() {
+        var popup = document.getElementById("userDetailPopup");
+        popup.style.display = "block";
+    }
+
+    window.onclick = function(event) {
+        var popups = document.getElementsByClassName("popup");
+        for (var i = 0; i < popups.length; i++) {
+            var popup = popups[i];
+            if (event.target == popup) {
+                popup.style.display = "none";
+            }
+        }
+    }
+</script>
+
+{% endblock %}

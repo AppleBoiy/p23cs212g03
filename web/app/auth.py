@@ -48,8 +48,19 @@ def pre3_student():
 @app.route("/pre3/teacher")
 @login_required
 def pre3_teacher():
+    #if current_user.role != "teacher":
+        #abort(403)
     return render_template("pre3/teacher.html")
 
+@app.route("/pre3/teacher/assign")
+@login_required
+def teacher_assign():
+    #if current_user.role != "teacher":
+        #abort(403)
+    
+    users = User.query.all()
+    
+    return render_template("pre3/assign.html", users=users)
 
 @app.route("/pre3/admin", methods=["GET", "POST"])
 @login_required
