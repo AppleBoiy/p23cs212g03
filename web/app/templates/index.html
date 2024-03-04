@@ -7,6 +7,8 @@
     <meta content="" name="author"/>
     <title>Pre3</title>
     <link href="static/assets/favicon.ico" rel="icon" type="image/x-icon"/>
+    <!--    <script src="static/js/color-modes.js"></script>-->
+
     <!-- Font Awesome icons (free version)-->
     <script crossorigin="anonymous" src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
     <!-- Google fonts-->
@@ -14,12 +16,16 @@
           type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
           rel="stylesheet" type="text/css"/>
+
+    <link href="https://getbootstrap.com/docs/5.3/examples/features/" rel="canonical">
     <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" rel="stylesheet">
 
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="static/css/carousel.css" rel="stylesheet"/>
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/css/styles.css" rel="stylesheet"/>
+    <link href="static/css/features.css" rel="stylesheet"/>
+
 
     <style>
         .bd-placeholder-img {
@@ -55,6 +61,7 @@
             vertical-align: -.125em;
             fill: currentColor;
         }
+
 
         .nav-scroller {
             position: relative;
@@ -102,13 +109,20 @@
 
 </head>
 <body>
+
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
     <div class="container px-4 px-lg-5">
         <img alt="Pre3" src="static/img/icons8-tree-64.png"
              style="width: 20px; height: 20px;"/>
-        <a class="navbar-brand" href="index.html">Pre3
+        <span class="navbar-brand" style="font-size: 20px; font-weight: bold;">Pre3</span>
+
+        {% if current_user.is_authenticated %}
+
+        <a class="navbar-brand" href="{{ url_for('pre3_profile') }}"> {{ current_user.name }} ({{ current_user.role }})
         </a>
+
+        {% endif %}
         <button aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"
                 class="navbar-toggler"
                 data-bs-target="#navbarResponsive" data-bs-toggle="collapse" type="button">
@@ -127,8 +141,17 @@
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="mailto:contact.chaipat@gmail.com">Contact</a>
                 </li>
 
+                {% if current_user.is_authenticated %}
+
+                <!-- profile -->
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
+                                        href="{{ url_for('pre3_profile') }}">Profile</a>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
+                                        href="{{ url_for('pre3_logout') }}">Logout</a>
+                    {% else %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                                         href="{{ url_for('pre3_login') }}">Login</a>
+                    {% endif %}
 
             </ul>
         </div>
@@ -146,12 +169,78 @@
                         complete prerequisites</span>
                 </div>
             </div>
+
+            {% if current_user.is_authenticated %}
+
+            {% if current_user.role == "student" %}
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">For Students</h1>
+                    <p class="lead text-body-secondary">
+                        Complete your prerequisites with ease. Pre3 allows you to view the prerequisites of your
+                        courses and complete them. You can also view the progress of your prerequisites and the
+                        courses you have completed.
+                    </p>
+                    <p>
+                        <a class="btn btn-primary my-2" href="{{ url_for('pre3_courses') }}">Complete your
+                            prerequisites</a>
+                        <a class="btn btn-secondary my-2" href="{{ request.url_root }}/pre3/tree">View your
+                            courses</a>
+                    </p>
+                </div>
+            </div>
+
+            {% endif %}
+
+            {% if current_user.role == "lecturer" %}
+
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">For Lecturers</h1>
+                    <p class="lead text-body-secondary">
+                        Manage your courses and prerequisites with ease. Pre3 allows you to create, edit, and delete
+                        courses and prerequisites. You can also view the progress of your students and their
+                        prerequisites.
+                    </p>
+                    <p>
+                        <a class="btn btn-primary my-2" href="{{ url_for('pre3_teacher') }}">Manage your courses</a>
+                        <a class="btn btn-secondary my-2" href="{{ url_for('pre3_courses') }}">View your
+                            courses</a>
+                    </p>
+                </div>
+            </div>
+
+            {% endif %}
+
+            {% if current_user.role == "admin" %}
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">For Admin</h1>
+                    <p class="lead text-body-secondary">
+                        Manage your courses and prerequisites with ease. Pre3 allows you to create, edit, and delete
+                        courses and prerequisites. You can also view the progress of your students and their
+                        prerequisites.
+                    </p>
+                    <p>
+
+                        <a class="btn btn-primary my-2" href="{{ url_for('pre3_admin') }}">Manage users</a>
+                        <a class="btn btn-secondary my-2" href="{{ url_for('pre3_created_course') }}">Create a
+                            course</a>
+                    </p>
+                </div>
+            </div>
+
+
+            {% endif %}
+            {% endif %}
+
         </div>
 
     </div>
 
 </header>
 <!-- Main Content-->
+{% if not current_user.is_authenticated %}
 <section class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5">
         <div class="col-lg-6">
@@ -233,6 +322,7 @@
         </button>
     </div>
 </section>
+{% endif %}
 
 <!-- Footer-->
 <footer class="py-5 bg-light">

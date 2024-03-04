@@ -9,9 +9,8 @@ from werkzeug.urls import url_parse
 from sqlalchemy.sql import text
 from flask_login import login_user, login_required, logout_user, current_user
 from app import app, db, login_manager, oauth
-from app.models.contact import Contact
-from app.models.authuser import AuthUser, PrivateContact
 from app.models.user import User
+from app.models.authuser import AuthUser
 
 from app.models.course import Course
 
@@ -19,7 +18,7 @@ from app.models.course import Course
 def load_user(user_id):
     # since the user_id is just the primary key of our
     # user table, use it in the query for the user
-    return AuthUser.query.get(int(user_id))
+    return User.query.get(int(user_id))
 
 @app.route("/db")
 def db_connection():

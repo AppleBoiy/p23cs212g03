@@ -4,11 +4,13 @@ from sqlalchemy_serializer import SerializerMixin
 from app import db
 
 
+
 class User(db.Model, UserMixin):
     __tablename__ = "users"
     # primary keys are required by SQLAlchemy
 
-    user_id = db.Column(db.String(9), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(9), unique=True)
     email = db.Column(db.String(100), unique=True)
     name = db.Column(db.String(1000))
     password = db.Column(db.String(100))

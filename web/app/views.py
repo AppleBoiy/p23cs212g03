@@ -8,8 +8,6 @@ from werkzeug.urls import url_parse
 from sqlalchemy.sql import text
 from flask_login import login_user, login_required, logout_user, current_user
 from app import app, db, login_manager, oauth
-from app.models.contact import Contact
-from app.models.authuser import AuthUser, PrivateContact
 from app.models.user import User
 from app.models.course import Course
 
@@ -18,7 +16,7 @@ from app.models.course import Course
 
 @app.route("/pre3/tree")
 def tree():
-    return app.send_static_file("tree.html")
+    return render_template("pre3/tree.html")
 
 
 @app.route("/")
@@ -47,6 +45,69 @@ def pre3_logout():
 @login_required
 def pre3_student():
     return render_template("pre3/home_student.html")
+
+@app.route('/pre3/home/admin/create_user', methods=('GET', 'POST') )
+@login_required
+def pre3_created_user():
+    if request.method == 'POST':
+        result = request.form.to_dict()
+        app.logger.debug(str(result))
+
+        validated = True
+        validated_dict = {}
+        valid_keys = ['email', 'name', 'password', 'role', 'user_id']
+
+
+        # validate the input
+        for key in result:
+            app.logger.debug(str(key)+": " + str(result[key]))
+            # screen of unrelated inputs
+            if key not in valid_keys:
+                continue
+
+
+            value = result[key].strip()
+            if not value or value == 'undefined':
+                validated = False
+                break
+            validated_dict[key] = value
+            # code to validate and add user to database goes here
+
+
+        app.logger.debug("validation done")
+        if validated:
+            app.logger.debug('validated dict: ' + str(validated_dict))
+            email = validated_dict['email']
+            name = validated_dict['name']
+            password = validated_dict['password']
+            role = validated_dict['role']
+            user_id = validated_dict['user_id']
+            # if this returns a user, then the email already exists in database
+            user = User.query.filter_by(email=email).first()
+
+
+            if user:
+                # if a user is found, we want to redirect back to signup
+                # page so user can try again
+                flash('Email address already exists')
+                return redirect(url_for('pre3_admin'))
+
+
+            # create a new user with the form data. Hash the password so
+            # the plaintext version isn't saved.
+            app.logger.debug("preparing to add")
+            avatar_url = gen_avatar_url(email, name)
+            new_user = User(email=email, name=name,
+                                password=generate_password_hash(
+                                    password, method='sha256'),
+                                avatar_url=avatar_url, role=role, user_id=user_id)
+            # add the new user to the database
+            db.session.add(new_user)
+            db.session.commit()
+
+
+        return redirect(url_for('pre3_admin'))
+    return render_template('pre3/created_user.html')
 
 
 @app.route("/pre3/home/admin", methods=["GET", "POST"])
@@ -146,7 +207,7 @@ def pre3_login():
         email = request.form.get("email")
         password = request.form.get("password")
         remember = bool(request.form.get("remember"))
-        user = AuthUser.query.filter_by(email=email).first()
+        user = User.query.filter_by(email=email).first()
 
         # check if the user actually exists
         # take the user-supplied password, hash it, and compare it to the
