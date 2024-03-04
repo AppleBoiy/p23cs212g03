@@ -38,10 +38,20 @@
         border-radius: 3px;
         box-sizing: border-box;
     }
+    #credits, #year {
+        width: calc(50% - 200px);
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    /* Adjust the width of the "Room" input */
+    
 
     /* Styles for form buttons */
     .container_form input[type="submit"],
-    .container_form button {
+    .container_form button{
         background-color: rgb(46, 113, 171);
         color: white;
         padding: 10px 20px;
@@ -67,15 +77,23 @@
         .container_form textarea {
             width: 100%; /* Set input width to 100% on smaller screens */
         }
+        #credits, #year {
+        width: calc(50% - 100px);
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
     }
-
+    }
+    
     textarea {
         resize: none;
     }
   
     button:hover, .container_form input[type="submit"]:hover {
         background-color: rgb(116, 152, 184); 
-        animation: pulse 2s;
+        animation: pulse 2s infinite;
     }
     @keyframes pulse{
         50% { transform: scale(0.8);}
@@ -86,20 +104,32 @@
     <h2 id="add-edit-caption">Create Course</h2>
     <form id="addPCourseForm">
         <label for="course_id">ID:</label>
-        <input id="course_id" name="course_id" placeholder="Course ID.." required type="text" required />
+        <input id="course_id" name="course_id" placeholder="Course ID.." type="text" required />
         <br></br>
-        <label for="course_name">Name:</label>
-        <input id="course_name" name="course_name" placeholder="Course Name.." required type="text" required />
+        <label for="name">Name:</label>
+        <input id="name" name="name" placeholder="Course Name.." type="text" required />
         <br></br>
+        <label for="abbr">Room:</label>
+        <input id="abbr" name="abbr" placeholder="room.." required type="text" />
+        <br></br>
+        <label for="department">Department:</label>
+        <input id="department" name="department" placeholder="Department.." required type="text" />
+        <br></br>
+    
+
         <label for="year">Year:</label>
-        <input id="year" name="year" placeholder="Study Year.." required type="text" />
-        <br></br>
+        <input id="year" name="year" required type="number" min="1" max="4">
+        <label for="credits">Cradit:</label>
+        <input type="number" id="credits" name="credits" min="1" max="22">
+        
+         <br></br>
         <label for="Prerequisite">Prerequisite:</label>
         <input id="Prerequisite" name="Prerequisite" placeholder="Prerequisite ID.." required type="text" />
         <br></br>
-        <label for="Detail">Detail:</label>
-        <textarea id="Detail" name="Detail" rows="6" placeholder="Detail..." required></textarea>
+        <label for="description">Description:</label>
+        <textarea maxlength="1000" id="description" name="description" rows="6" placeholder="Detail..." required></textarea>
         <br></br>
+
         <input id="entryid" name="id" type="hidden" value="" />
         <input name="submit" type="submit" value="Create" />
         <a class="back" href="{{ url_for('pre3_teacher') }}">
@@ -107,4 +137,35 @@
          </a>
     </form>
 </div>
+
+
+<script>
+
+$("#addPCourseForm").submit(function (event) {
+      // prevent default html form submission action
+      event.preventDefault();
+
+
+      // pack the inputs into a dictionary
+      var formData = {};
+      $(":input").each(function () {
+        var key = $(this).attr('name');
+        var val = $(this).val();
+        if (key != 'submit') {
+          formData[key] = val;
+        }
+      });
+
+
+      var $form = $(this);
+      var url = $form.attr("action");
+
+
+      // make a POST call to the back end w/ a callback to refresh the table
+      $.post(url, formData, function (contact_data) {
+        window.location.href = "http://localhost:56733/pre3/teacher";
+      });
+    });
+
+</script>
 {% endblock %}

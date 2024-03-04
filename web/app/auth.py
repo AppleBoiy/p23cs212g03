@@ -13,6 +13,7 @@ from app.models.contact import Contact
 from app.models.authuser import AuthUser, PrivateContact
 from app.models.user import User
 
+from app.models.course import Course
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -197,12 +198,59 @@ def gen_avatar_url(email, name):
 def pre3_teacher():
     return render_template("pre3/teacher.html")
 
-
-@app.route("/pre3/create_course")
+@app.route('/pre3/create_course', methods=('GET', 'POST') )
 @login_required
 def pre3_created_course():
-    return render_template("pre3/created_course.html")
+   if request.method == 'POST':
+        result = request.form.to_dict()
+        app.logger.debug(str(result))
+        id_ = result.get('id', '')
+        validated = True
+        validated_dict = dict()
+        valid_keys = ['course_id', 'abbr', 'name', 'year', 'description', 'credits', 'department']
 
+
+        # validate the input
+        for key in result:
+            app.logger.debug(f"{key}: {result[key]}")
+            # screen of unrelated inputs
+            if key not in valid_keys:
+                continue
+
+
+            value = result[key].strip()
+            if not value or value == 'undefined':
+                validated = False
+                break
+            validated_dict[key] = value
+
+
+        if validated:
+            app.logger.debug(f'validated dict: {validated_dict}')
+            
+                
+            entry = Course(**validated_dict)
+            app.logger.debug(str(entry))
+            db.session.add(entry)
+            # if there is an id_ already: update contact
+            
+
+
+            db.session.commit()
+
+
+        return pre3_db_contest()
+   return render_template('pre3/created_course.html')
+
+@app.route("/pre3/create_course/course")
+@login_required
+def pre3_db_contest():
+    db_Course= Contact.query.all()
+    
+    course = list(map(lambda x: x.to_dict(), db_Course))
+    app.logger.debug(f"DB Contacts: {course}")
+
+    return jsonify(course)
 
 @app.route("/facebook/")
 def facebook():
