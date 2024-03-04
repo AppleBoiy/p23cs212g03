@@ -1,4 +1,5 @@
 # Pre3
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A Tool designed to convert a course prerequisite into a graphical representation of course prerequisites tree.
 
 ## Introduction
@@ -28,18 +29,15 @@ The expected deliverables for this project are as follows:
 
 5. **Course Modification Capability:** Integration of functionality enabling instructors to modify course prerequisites in real-time with immediate graphical representation updates.
 
-
 ## Proposed Work Plan
 
-Task | Description
---- | ---
-**System Design** | Design the system architecture and database schema |
-**User Authentication System** | Implement a secure user authentication system allowing access based on user roles (learner, instructor, administrator) |
-**Graphical Representation** | Generate a visually appealing and informative tree format representation of course prerequisites |
-**Search Functionality** | Include a search feature enabling users to quickly find and view the prerequisites of a specific course |
-**User Roles and Permissions** | Define and implement distinct user roles (learner, instructor, administrator) with corresponding permissions to ensure data security |
-**Course Modification Capability** | Integrate functionality enabling instructors to modify course prerequisites in real-time with immediate graphical representation updates |
-**Testing** | Test the system for bugs and errors |
-**Documentation** | Document the system architecture, database schema, and user manual |
-
-
+| Task                               | Description                                                                                                                              |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| **System Design**                  | Design the system architecture and database schema                                                                                       |
+| **User Authentication System**     | Implement a secure user authentication system allowing access based on user roles (learner, instructor, administrator)                   |
+| **Graphical Representation**       | Generate a visually appealing and informative tree format representation of course prerequisites                                         |
+| **Search Functionality**           | Include a search feature enabling users to quickly find and view the prerequisites of a specific course                                  |
+| **User Roles and Permissions**     | Define and implement distinct user roles (learner, instructor, administrator) with corresponding permissions to ensure data security     |
+| **Course Modification Capability** | Integrate functionality enabling instructors to modify course prerequisites in real-time with immediate graphical representation updates |
+| **Testing**                        | Test the system for bugs and errors                                                                                                      |
+| **Documentation**                  | Document the system architecture, database schema, and user manual                                                                       |

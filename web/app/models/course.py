@@ -37,4 +37,3 @@ class Course(db.Model, UserMixin):
         self.department = department
 
         self.updated = db.func.current_timestamp()
-

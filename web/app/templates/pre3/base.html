@@ -1,159 +1,223 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Pre3</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet">
-    <link href="../../static/css/pre3-style.css" rel="stylesheet">
-    <link href="../../static/css/pre3.css" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Mulish&display=swap"
+      rel="stylesheet"
+    />
+    <link href="../../static/css/pre3-style.css" rel="stylesheet" />
+    <link href="../../static/css/pre3.css" rel="stylesheet" />
     <style>
-        body{
-            background-color: #F2F2F2;
-            overflow: hidden;
-        }
+      body {
+        background-color: #f2f2f2;
+        overflow: hidden;
+      }
 
-        .navbar {
-            background-color: white;
-            color: black;
-            padding: 1%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+      .navbar {
+        background-color: white;
+        color: black;
+        padding: 1%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-        .navbar-item {
-            color: white;
-        }
+      .navbar-item {
+        color: white;
+      }
 
-        .hero.is-primary {
-            background-image: url('../../static/img/bg.jpg');
-            background-size: cover;
-        }
+      .hero.is-primary {
+        background-image: url("../../static/img/bg.jpg");
+        background-size: cover;
+      }
 
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
+      footer {
+        background-color: #333;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+      }
 
-        footer a {
-            color: #fff;
-            text-decoration: none;
-        }
-        
+      footer a {
+        color: #fff;
+        text-decoration: none;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <section class="hero is-primary is-fullheight">
-        <div class="hero-head">
-            <nav class="navbar" style="background-color: #FFFFFF;">
-                
-                <div class="container">
-                    
-                    <div class="navbar-brand">
-                        <div class="navbar-start">
-                            <a href="{{ url_for('pre3_profile') }}" style="font-family: 'Lato', sans-serif; font-size: 200%; color: #3C64B1; font-weight: bold; background-color: #FFFFFF;">
-                                PRE 3
-                            </a>
-                        </div>
-                        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuHeroA">
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
-                        </a>
-                    </div>
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-end">
-                            {% if not current_user.is_authenticated %}
-                                <a href="{{ url_for('pre3_login') }}" class="navbar-item" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
-                                    Login
-                                </a>
-                                <a href="{{ url_for('pre3_signup') }}" class="navbar-item" style="font-weight: bold; color: #ffffff; background-color: #3C64B1;">
-                                    Sign Up
-                                </a>
-                            {% else %}
-                                {% if current_user.role == 'student' %}
-                                    <a href="{{ url_for('pre3_student') }}" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
-                                        <img src="{{ current_user.avatar_url }}" width="52">
-                                    </a>
-                                {% elif current_user.role == 'admin' %}
-                                    <a href="{{ url_for('pre3_admin') }}" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
-                                        <img src="{{ current_user.avatar_url }}" width="52">
-                                    </a>
-                                {% elif current_user.role == 'teacher' %}
-                                    <a href="{{ url_for('pre3_admin') }}" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
-                                        <img src="{{ current_user.avatar_url }}" width="52">
-                                    </a>
-                                {% endif %}
-                                <a href="{{ url_for('pre3_logout') }}" class="navbar-item" style="font-weight: bold; color: #3C64B1; background-color: #FFFFFF;">
-                                    Logout
-                                </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            
-        </div>
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                {% block content %}
-                {% endblock %}
+      <div class="hero-head">
+        <nav class="navbar" style="background-color: #ffffff">
+          <div class="container">
+            <div class="navbar-brand">
+              <div class="navbar-start">
+                <a
+                  href="{{ url_for('pre3_profile') }}"
+                  style="
+                    font-family: &quot;Lato&quot;, sans-serif;
+                    font-size: 200%;
+                    color: #3c64b1;
+                    font-weight: bold;
+                    background-color: #ffffff;
+                  "
+                >
+                  PRE 3
+                </a>
+              </div>
+              <a
+                role="button"
+                class="navbar-burger"
+                aria-label="menu"
+                aria-expanded="false"
+                data-target="navbarMenuHeroA"
+              >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
             </div>
+            <div id="navbarMenuHeroA" class="navbar-menu">
+              <div class="navbar-end">
+                {% if not current_user.is_authenticated %}
+                <a
+                  href="{{ url_for('pre3_login') }}"
+                  class="navbar-item"
+                  style="
+                    font-weight: bold;
+                    color: #3c64b1;
+                    background-color: #ffffff;
+                  "
+                >
+                  Login
+                </a>
+                <a
+                  href="{{ url_for('pre3_signup') }}"
+                  class="navbar-item"
+                  style="
+                    font-weight: bold;
+                    color: #ffffff;
+                    background-color: #3c64b1;
+                  "
+                >
+                  Sign Up
+                </a>
+                {% else %} {% if current_user.role == 'student' %}
+                <a
+                  href="{{ url_for('pre3_student') }}"
+                  style="
+                    font-weight: bold;
+                    color: #3c64b1;
+                    background-color: #ffffff;
+                  "
+                >
+                  <img src="{{ current_user.avatar_url }}" width="52" />
+                </a>
+                {% elif current_user.role == 'admin' %}
+                <a
+                  href="{{ url_for('pre3_admin') }}"
+                  style="
+                    font-weight: bold;
+                    color: #3c64b1;
+                    background-color: #ffffff;
+                  "
+                >
+                  <img src="{{ current_user.avatar_url }}" width="52" />
+                </a>
+                {% elif current_user.role == 'teacher' %}
+                <a
+                  href="{{ url_for('pre3_admin') }}"
+                  style="
+                    font-weight: bold;
+                    color: #3c64b1;
+                    background-color: #ffffff;
+                  "
+                >
+                  <img src="{{ current_user.avatar_url }}" width="52" />
+                </a>
+                {% endif %}
+                <a
+                  href="{{ url_for('pre3_logout') }}"
+                  class="navbar-item"
+                  style="
+                    font-weight: bold;
+                    color: #3c64b1;
+                    background-color: #ffffff;
+                  "
+                >
+                  Logout
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          {% block content %} {% endblock %}
         </div>
+      </div>
     </section>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(
+          document.querySelectorAll(".navbar-burger"),
+          0,
+        );
 
-            // Get all "navbar-burger" elements
-            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        // Add a click event on each of them
+        $navbarBurgers.forEach((el) => {
+          el.addEventListener("click", () => {
+            // Get the target from the "data-target" attribute
 
-            // Add a click event on each of them
-            $navbarBurgers.forEach(el => {
-                el.addEventListener('click', () => {
-                    // Get the target from the "data-target" attribute
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
 
-                    const target = el.dataset.target;
-                    const $target = document.getElementById(target);
-
-                    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-                    el.classList.toggle('is-active');
-                    $target.classList.toggle('is-active');
-
-                });               
-            });
-
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle("is-active");
+            $target.classList.toggle("is-active");
+          });
         });
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '{your-app-id}',
-                cookie     : true,
-                xfbml      : true,
-                version    : '{api-version}'
-            });
-            
-            FB.AppEvents.logPageView();   
-            
-        };
+      });
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: "{your-app-id}",
+          cookie: true,
+          xfbml: true,
+          version: "{api-version}",
+        });
 
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+        FB.AppEvents.logPageView();
+      };
+
+      (function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
     </script>
-</body>
+  </body>
 
-<footer>
+  <footer>
     <div>Contact</div>
     <div>Email: <a>Goomairu@hothot.com</a></div>
     <div>Phone: <a>-66 777777777</a></div>
-</footer>
-
+  </footer>
 </html>

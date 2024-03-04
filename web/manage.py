@@ -24,10 +24,10 @@ def create_db():
     except:
         app.logger.info("db.drop_all() failed")
 
-
     db.create_all()
     app.logger.info("db.create_all()")
     db.session.commit()
+
 
 @cli.command("seed_db")
 def seed_db():
@@ -87,7 +87,6 @@ def seed_db():
             department="CS",
             credits=3,
             year=1,
-
         )
     )
 
@@ -103,7 +102,6 @@ def seed_db():
         )
     )
 
-
     db.session.commit()
 
     db.session.add(
@@ -112,7 +110,6 @@ def seed_db():
             course_id="204111",
         )
     )
-
 
     db.session.commit()
 
@@ -147,7 +144,6 @@ def seed_sample_db():
         )
     )
     db.session.commit()
-
 
 
 if __name__ == "__main__":

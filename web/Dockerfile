@@ -16,18 +16,21 @@ WORKDIR /flask_app
 
 # update the system and add git
 RUN apk update
-RUN apk add git libffi-dev musl-dev make gcc nodejs npm
+RUN apk add git libffi-dev musl-dev make gcc # nodejs npm
+
+# add dos2unix
+RUN apk add dos2unix
 
 # install dependencies
 COPY ./requirements.txt /flask_app
 
 RUN find . -name "*.sh" -exec chmod 700 {} \;
+RUN find . -name "*.sh" -exec dos2unix {} \;
 
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install --upgrade pip
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install -r requirements.txt
-
 
 
 # copy project

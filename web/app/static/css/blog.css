@@ -1,50 +1,48 @@
 div {
-    margin: 0;
-    padding: 0;
-
+  margin: 0;
+  padding: 0;
 }
 
 #form_post {
-    background: #67b1f9;
+  background: #67b1f9;
 }
 
 #post_display {
-    background: #124c79;
+  background: #124c79;
 }
 
 #add-post-form {
-    background: #67b1f9;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-
+  background: #67b1f9;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
 }
 
 @media (max-width: 768px) {
-    .navbar-nav {
-        flex-direction: column;
-        align-items: center;
-        padding: 0;
-        margin: 0;
-    }
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+  }
 
-    .navbar-nav li {
-        margin: 10px 0;
-    }
+  .navbar-nav li {
+    margin: 10px 0;
+  }
 
-    .form-inline {
-        display: none;
-    }
+  .form-inline {
+    display: none;
+  }
 }
 
 .card {
-    background: #67b1f9;
+  background: #67b1f9;
 }
 
 div.card {
-    /*
+  /*
     remove the border-radius
      */
 
-    border-radius: 0;
+  border-radius: 0;
 }

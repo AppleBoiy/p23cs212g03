@@ -1,83 +1,127 @@
-{% extends "pre3/base.html" %}
-{% block content %}
-    <style>
-        .slide-in {
-            animation: slideIn 1s ease forwards;
-            opacity: 0;
-            transform: translateY(-50px);
-        }
+{% extends "pre3/base.html" %} {% block content %}
+<style>
+  .slide-in {
+    animation: slideIn 1s ease forwards;
+    opacity: 0;
+    transform: translateY(-50px);
+  }
 
-        @keyframes slideIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-        .buttons-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
 
-        .is-google, .is-facebook, .is-x {
-            flex: 0 0 47%;
-        }
-    </style>
+  .is-google,
+  .is-facebook,
+  .is-x {
+    flex: 0 0 47%;
+  }
+</style>
 
-    <div class="column is-4 is-offset-4 slide-in">
-        <div class="box">
-            <h3 class="title" style="color: black;">Sign Up</h3>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div class="notification is-danger">
-                        {{ messages[0] }}. Go to <a href="{{ url_for('pre3_login') }}">login page</a>.
-                    </div>
-                {% endif %}
-            {% endwith %}
-            <form method="POST">
-                <div class="field">
-                    <div class="control">
-                        <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <input class="input is-large" type="text" name="name" placeholder="Name" autofocus="">
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <input class="input is-large" type="password" name="password" placeholder="Password">
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <input class="input is-large" type="password" name="password_confirm" placeholder="Confirm Password">
-                    </div>
-                </div>
-                <button class="button is-block is-info is-large is-fullwidth" style="background-color: #99B6FF">Sign Up</button>
-            </form>
-            <div class="buttons-container">
-                <a href="{{ url_for('google') }}" class="button is-block is-google is-large is-fullwidth" style="background-color: #EA4335;">
-                    <img src="../../static/img/google_icon.png" alt="Google Icon" style="max-width: 100%; max-height: 100%;">
-                </a>
-                <a href="{{ url_for('facebook') }}" class="button is-block is-facebook is-large is-fullwidth" style="background-color: #1778F2;">
-                    <img src="../../static/img/facebook_icon.png" alt="Facebook Icon" style="max-width: 100%; max-height: 100%;">
-                </a>
-            </div>
+<div class="column is-4 is-offset-4 slide-in">
+  <div class="box">
+    <h3 class="title" style="color: black">Sign Up</h3>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <div class="notification is-danger">
+      {{ messages[0] }}. Go to
+      <a href="{{ url_for('pre3_login') }}">login page</a>.
+    </div>
+    {% endif %} {% endwith %}
+    <form method="POST">
+      <div class="field">
+        <div class="control">
+          <input
+            class="input is-large"
+            type="email"
+            name="email"
+            placeholder="Email"
+            autofocus=""
+          />
         </div>
-        <div class="box">
-            <a>
-                Already have an account?
-            </a>
-            <a href="{{ url_for('pre3_login') }}" style="font-weight: bold; color: #4C9C2E;">
-                Login
-            </a>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input
+            class="input is-large"
+            type="text"
+            name="name"
+            placeholder="Name"
+            autofocus=""
+          />
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input
+            class="input is-large"
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input
+            class="input is-large"
+            type="password"
+            name="password_confirm"
+            placeholder="Confirm Password"
+          />
+        </div>
+      </div>
+      <button
+        class="button is-block is-info is-large is-fullwidth"
+        style="background-color: #99b6ff"
+      >
+        Sign Up
+      </button>
+    </form>
+    <div class="buttons-container">
+      <a
+        href="{{ url_for('google') }}"
+        class="button is-block is-google is-large is-fullwidth"
+        style="background-color: #ea4335"
+      >
+        <img
+          src="../../static/img/google_icon.png"
+          alt="Google Icon"
+          style="max-width: 100%; max-height: 100%"
+        />
+      </a>
+      <a
+        href="{{ url_for('facebook') }}"
+        class="button is-block is-facebook is-large is-fullwidth"
+        style="background-color: #1778f2"
+      >
+        <img
+          src="../../static/img/facebook_icon.png"
+          alt="Facebook Icon"
+          style="max-width: 100%; max-height: 100%"
+        />
+      </a>
     </div>
-    </div>
+  </div>
+  <div class="box">
+    <a> Already have an account? </a>
+    <a
+      href="{{ url_for('pre3_login') }}"
+      style="font-weight: bold; color: #4c9c2e"
+    >
+      Login
+    </a>
+  </div>
+</div>
 {% endblock %}

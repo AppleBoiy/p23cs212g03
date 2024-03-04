@@ -3,10 +3,12 @@ from datetime import datetime, timezone
 from app import db, app
 from sqlalchemy_serializer import SerializerMixin
 
+
 def get_server_time_utc():
     server_time = datetime.now()
     server_time = server_time.astimezone(timezone.utc)
     return server_time
+
 
 class BlogEntry(db.Model, SerializerMixin):
     __tablename__ = "blog_entries"
@@ -29,13 +31,10 @@ class BlogEntry(db.Model, SerializerMixin):
         self.email = email
         self.date_created = get_server_time_utc()
 
-
-
     def update(self, message):
         app.logger.debug(f"Updating message: {message}")
         self.message = message
         self.date_updated = get_server_time_utc()
-
 
     def delete(self):
         self.is_deleted = True

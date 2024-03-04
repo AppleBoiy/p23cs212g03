@@ -2,8 +2,7 @@ import json
 import secrets
 import string
 
-from flask import (jsonify, render_template,
-                request, url_for, flash, redirect)
+from flask import jsonify, render_template, request, url_for, flash, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import check_password_hash
 from werkzeug.urls import url_parse
@@ -14,78 +13,85 @@ from app.models.contact import Contact
 from app.models.authuser import AuthUser, PrivateContact
 from app.models.user import User
 
+
 @login_manager.user_loader
 def load_user(user_id):
     # since the user_id is just the primary key of our
     # user table, use it in the query for the user
     return AuthUser.query.get(int(user_id))
 
-@app.route('/pre3')
-def pre3_index():
-    return render_template('pre3/index.html')
 
-@app.route('/pre3/profile')
+@app.route("/pre3")
+def pre3_index():
+    return render_template("pre3/index.html")
+
+
+@app.route("/pre3/profile")
 @login_required
 def pre3_profile():
-    return render_template('pre3/profile.html')
+    return render_template("pre3/profile.html")
 
-@app.route('/pre3/logout')
+
+@app.route("/pre3/logout")
 @login_required
 def pre3_logout():
     logout_user()
-    return redirect(url_for('pre3_login'))
+    return redirect(url_for("pre3_login"))
 
-@app.route('/pre3/home/student')
+
+@app.route("/pre3/home/student")
 @login_required
 def pre3_student():
-    return render_template('pre3/home_student.html')
+    return render_template("pre3/home_student.html")
 
-@app.route('/pre3/home/admin', methods=['GET', 'POST'])
+
+@app.route("/pre3/home/admin", methods=["GET", "POST"])
 @login_required
 def pre3_admin():
     users = User.query.all()
-    
-    if request.method == 'POST':
-        user_id = request.form.get('user_id')
-        new_role = request.form.get('new_role')
-        action = request.form.get('action')
 
-        if action == 'delete':
+    if request.method == "POST":
+        user_id = request.form.get("user_id")
+        new_role = request.form.get("new_role")
+        action = request.form.get("action")
+
+        if action == "delete":
             user = User.query.get(user_id)
             if user:
                 db.session.delete(user)
                 db.session.commit()
-                return redirect(url_for('pre3_admin'))
+                return redirect(url_for("pre3_admin"))
 
-        if action == 'change_role':
+        if action == "change_role":
             user = User.query.get(user_id)
             if user:
                 user.role = new_role
                 db.session.commit()
-                return redirect(url_for('pre3_admin'))
+                return redirect(url_for("pre3_admin"))
 
-    return render_template('pre3/home_admin.html', users=users)
+    return render_template("pre3/home_admin.html", users=users)
 
-@app.route('/pre3/signup', methods=('GET', 'POST'))
+
+@app.route("/pre3/signup", methods=("GET", "POST"))
 def pre3_signup():
     if current_user.is_authenticated:
-        return redirect(url_for('pre3_profile'))
+        return redirect(url_for("pre3_profile"))
 
-    if request.method == 'POST':
+    if request.method == "POST":
         result = request.form.to_dict()
         app.logger.debug(str(result))
         validated = True
         validated_dict = {}
-        valid_keys = ['email', 'name', 'password']
+        valid_keys = ["email", "name", "password"]
 
         # validate the input
         for key in result:
-            app.logger.debug(str(key)+": " + str(result[key]))
+            app.logger.debug(str(key) + ": " + str(result[key]))
             # screen of unrelated inputs
             if key not in valid_keys:
                 continue
             value = result[key].strip()
-            if not value or value == 'undefined':
+            if not value or value == "undefined":
                 validated = False
                 break
             validated_dict[key] = value
@@ -93,145 +99,166 @@ def pre3_signup():
         # code to validate and add user to database goes here
         app.logger.debug("validation done")
         if validated:
-            app.logger.debug('validated dict: ' + str(validated_dict))
-            email = validated_dict['email']
-            name = validated_dict['name']
-            password = validated_dict['password']
+            app.logger.debug("validated dict: " + str(validated_dict))
+            email = validated_dict["email"]
+            name = validated_dict["name"]
+            password = validated_dict["password"]
 
             # if this returns a user, then the email already exists in database
             user = AuthUser.query.filter_by(email=email).first()
             if user:
                 # if a user is found, we want to redirect back to signup
                 # page so user can try again
-                flash('Email address already exists')
-                return redirect(url_for('pre3_signup'))
+                flash("Email address already exists")
+                return redirect(url_for("pre3_signup"))
 
             # create a new user with the form data. Hash the password so
             # the plaintext version isn't saved.
             app.logger.debug("preparing to add")
-            avatar_url = gen_avatar_url(email, name)  # assuming gen_avatar_url is defined elsewhere
-            new_user = AuthUser(email=email, name=name,
-                                password=generate_password_hash(password, method='sha256'),
-                                avatar_url=avatar_url)
+            avatar_url = gen_avatar_url(
+                email, name
+            )  # assuming gen_avatar_url is defined elsewhere
+            new_user = AuthUser(
+                email=email,
+                name=name,
+                password=generate_password_hash(password, method="sha256"),
+                avatar_url=avatar_url,
+            )
             # add the new user to the database
             db.session.add(new_user)
             db.session.commit()
-            return redirect(url_for('pre3_login'))
+            return redirect(url_for("pre3_login"))
 
-    return render_template('pre3/signup.html')
+    return render_template("pre3/signup.html")
 
 
-@app.route('/pre3/login', methods=('GET', 'POST'))
+@app.route("/pre3/login", methods=("GET", "POST"))
 def pre3_login():
     if current_user.is_authenticated:
-        return redirect(url_for('pre3_profile'))
+        return redirect(url_for("pre3_profile"))
 
-    if request.method == 'POST':
+    if request.method == "POST":
         # login code goes here
-        email = request.form.get('email')
-        password = request.form.get('password')
-        remember = bool(request.form.get('remember'))
+        email = request.form.get("email")
+        password = request.form.get("password")
+        remember = bool(request.form.get("remember"))
         user = AuthUser.query.filter_by(email=email).first()
 
         # check if the user actually exists
         # take the user-supplied password, hash it, and compare it to the
         # hashed password in the database
         if not user or not check_password_hash(user.password, password):
-            flash('Please check your login details and try again.')
+            flash("Please check your login details and try again.")
             # if the user doesn't exist or password is wrong, reload the page
-            return redirect(url_for('pre3_login'))
+            return redirect(url_for("pre3_login"))
 
         # if the above check passes, then we know the user has the right
         # credentials
         login_user(user, remember=remember)
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('pre3_profile')
+        next_page = request.args.get("next")
+        if not next_page or url_parse(next_page).netloc != "":
+            next_page = url_for("pre3_profile")
         return redirect(next_page)
 
-    return render_template('pre3/login.html')
+    return render_template("pre3/login.html")
 
 
 def gen_avatar_url(email, name):
     # Generate background color based on hashed email
-    bgcolor = generate_password_hash(email, method='sha256')[-6:]
+    bgcolor = generate_password_hash(email, method="sha256")[-6:]
 
     # Calculate text color based on background color
-    color = hex(int('0xffffff', 0) - int('0x'+bgcolor, 0)).replace('0x', '')
+    color = hex(int("0xffffff", 0) - int("0x" + bgcolor, 0)).replace("0x", "")
 
     # Extract first letters of first and last names
-    lname = ''
+    lname = ""
     temp = name.split()
     fname = temp[0][0]
     if len(temp) > 1:
         lname = temp[1][0]
 
     # Construct avatar URL
-    avatar_url = "https://ui-avatars.com/api/?name=" + \
-                 fname + "+" + lname + "&background=" + \
-                 bgcolor + "&color=" + color
+    avatar_url = (
+        "https://ui-avatars.com/api/?name="
+        + fname
+        + "+"
+        + lname
+        + "&background="
+        + bgcolor
+        + "&color="
+        + color
+    )
 
     return avatar_url
 
-@app.route('/pre3/teacher')
+
+@app.route("/pre3/teacher")
 @login_required
 def pre3_teacher():
-   return render_template('pre3/teacher.html')
+    return render_template("pre3/teacher.html")
 
-@app.route('/pre3/create_course')
+
+@app.route("/pre3/create_course")
 @login_required
 def pre3_created_course():
-   return render_template('pre3/created_course.html')
+    return render_template("pre3/created_course.html")
 
 
-@app.route('/facebook/')
+@app.route("/facebook/")
 def facebook():
     if current_user.is_authenticated:
-        return redirect(url_for('pre3_profile'))
-    
+        return redirect(url_for("pre3_profile"))
+
     oauth.register(
-        name='facebook',
-        client_id='932473408460153',
-        client_secret='4614a2e713bb506d69e653b9fb30814c',
-        authorize_url='https://www.facebook.com/dialog/oauth',
-        access_token_url='https://graph.facebook.com/oauth/access_token',
-        redirect_uri=url_for('facebook_auth', _external=True),
-        client_kwargs={'scope': 'email'}
+        name="facebook",
+        client_id="932473408460153",
+        client_secret="4614a2e713bb506d69e653b9fb30814c",
+        authorize_url="https://www.facebook.com/dialog/oauth",
+        access_token_url="https://graph.facebook.com/oauth/access_token",
+        redirect_uri=url_for("facebook_auth", _external=True),
+        client_kwargs={"scope": "email"},
     )
 
     # Redirect to facebook_auth function
-    redirect_uri = url_for('facebook_auth', _external=True)
+    redirect_uri = url_for("facebook_auth", _external=True)
     return oauth.facebook.authorize_redirect(redirect_uri)
 
-@app.route('/facebook/auth/')
+
+@app.route("/facebook/auth/")
 def facebook_auth():
     if current_user.is_authenticated:
-        return redirect(url_for('pre3_profile'))
-    
+        return redirect(url_for("pre3_profile"))
+
     token = oauth.facebook.authorize_access_token()
     userinfo = oauth.facebook.parse_id_token(token)
-    email = userinfo['email']
+    email = userinfo["email"]
     user = AuthUser.query.filter_by(email=email).first()
 
     if not user:
-        name = userinfo.get('name','')
+        name = userinfo.get("name", "")
         random_pass_len = 8
-        password = ''.join(secrets.choice(string.ascii_uppercase + string.digits)
-                          for i in range(random_pass_len))
-        new_user = AuthUser(email=email, name=name,
-                           password=generate_password_hash(
-                               password, method='sha256'))
+        password = "".join(
+            secrets.choice(string.ascii_uppercase + string.digits)
+            for i in range(random_pass_len)
+        )
+        new_user = AuthUser(
+            email=email,
+            name=name,
+            password=generate_password_hash(password, method="sha256"),
+        )
         db.session.add(new_user)
         db.session.commit()
         user = AuthUser.query.filter_by(email=email).first()
     login_user(user)
-    return redirect(url_for('pre3_profile'))
+    return redirect(url_for("pre3_profile"))
 
-@app.route('/users')
+
+@app.route("/users")
 def is_users():
     list = User.query.all()
-    return render_template('view_db.html', lists=list)
+    return render_template("view_db.html", lists=list)
 
-@app.route('/x/')
+
+@app.route("/x/")
 def x_twitter():
-    return redirect(url_for(''))
+    return redirect(url_for(""))

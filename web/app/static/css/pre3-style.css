@@ -1,45 +1,43 @@
 /* pre 3 */
 
 ::-webkit-scrollbar {
-	width: 10px;
-	background-color: #f0f0f0;
+  width: 10px;
+  background-color: #f0f0f0;
 }
-  
+
 ::-webkit-scrollbar-thumb {
-	background-color: #888;
-	border-radius: 5px;
+  background-color: #888;
+  border-radius: 5px;
 }
-  
 
 ::-webkit-scrollbar-thumb:hover {
-	background-color: #555;
+  background-color: #555;
 }
 
 .grid-container {
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-gap: 2px;
-	background-color: #F2F2F2;
-	padding: 10px;
-	animation: slideIn 1s ease forwards;
-	opacity: 0;
-	transform: translateY(-50px);
-	box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
-	overflow-y: scroll;
-	height: 650px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2px;
+  background-color: #f2f2f2;
+  padding: 10px;
+  animation: slideIn 1s ease forwards;
+  opacity: 0;
+  transform: translateY(-50px);
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow-y: scroll;
+  height: 650px;
 }
 
 .grid-container > div {
-	background-color: #ffffff;
-	text-align: center;
-	padding: 20px 0;
-	font-size: 30px;
+  background-color: #ffffff;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
 }
 
 .block-style {
-	display: flex; 
-	justify-content: space-between;
-	border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
 }
-
