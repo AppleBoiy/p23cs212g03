@@ -21,147 +21,98 @@ def load_user(user_id):
     # user table, use it in the query for the user
     return AuthUser.query.get(int(user_id))
 
-
-@app.route("/pre3")
-def pre3_index():
-    return render_template("pre3/index.html")
-
-
-@app.route("/pre3/profile")
-@login_required
-def pre3_profile():
-    return render_template("pre3/profile.html")
+@app.route("/db")
+def db_connection():
+    try:
+        with db.engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        return "<h1>db works.</h1>"
+    except Exception as e:
+        return "<h1>db is broken.</h1>" + str(e)
 
 
-@app.route("/pre3/logout")
-@login_required
-def pre3_logout():
-    logout_user()
-    return redirect(url_for("pre3_login"))
+def gen_avatar_url(email, name):
+    bgcolor = generate_password_hash(email, method="sha256")[-6:]
+    color = hex(int("0xffffff", 0) - int("0x" + bgcolor, 0)).replace("0x", "")
+    lname = ""
+    temp = name.split()
+    fname = temp[0][0]
+    if len(temp) > 1:
+        lname = temp[1][0]
+
+    avatar_url = (
+        "https://ui-avatars.com/api/?name="
+        + fname
+        + "+"
+        + lname
+        + "&background="
+        + bgcolor
+        + "&color="
+        + color
+    )
+    return avatar_url
 
 
-@app.route("/pre3/home/student")
-@login_required
-def pre3_student():
-    return render_template("pre3/home_student.html")
-
-
-@app.route("/pre3/home/admin", methods=["GET", "POST"])
-@login_required
-def pre3_admin():
-    users = User.query.all()
-
-    if request.method == "POST":
-        user_id = request.form.get("user_id")
-        new_role = request.form.get("new_role")
-        action = request.form.get("action")
-
-        if action == "delete":
-            user = User.query.get(user_id)
-            if user:
-                db.session.delete(user)
-                db.session.commit()
-                return redirect(url_for("pre3_admin"))
-
-        if action == "change_role":
-            user = User.query.get(user_id)
-            if user:
-                user.role = new_role
-                db.session.commit()
-                return redirect(url_for("pre3_admin"))
-
-    return render_template("pre3/home_admin.html", users=users)
-
-
-@app.route("/pre3/signup", methods=("GET", "POST"))
-def pre3_signup():
+@app.route("/google/")
+def google():
     if current_user.is_authenticated:
         return redirect(url_for("pre3_profile"))
 
-    if request.method == "POST":
-        result = request.form.to_dict()
-        app.logger.debug(str(result))
-        validated = True
-        validated_dict = {}
-        valid_keys = ["email", "name", "password"]
+    oauth.register(
+        name="google",
+        client_id=app.config["GOOGLE_CLIENT_ID"],
+        client_secret=app.config["GOOGLE_CLIENT_SECRET"],
+        server_metadata_url=app.config["GOOGLE_DISCOVERY_URL"],
+        client_kwargs={"scope": "openid email profile"},
+    )
 
-        # validate the input
-        for key in result:
-            app.logger.debug(str(key) + ": " + str(result[key]))
-            # screen of unrelated inputs
-            if key not in valid_keys:
-                continue
-            value = result[key].strip()
-            if not value or value == "undefined":
-                validated = False
-                break
-            validated_dict[key] = value
+    # Redirect to google_auth function
+    redirect_uri = url_for("google_auth", _external=True)
+    app.logger.debug("Redirect URI: " + redirect_uri)
 
-        # code to validate and add user to database goes here
-        app.logger.debug("validation done")
-        if validated:
-            app.logger.debug("validated dict: " + str(validated_dict))
-            email = validated_dict["email"]
-            name = validated_dict["name"]
-            password = validated_dict["password"]
-
-            # if this returns a user, then the email already exists in database
-            user = AuthUser.query.filter_by(email=email).first()
-            if user:
-                # if a user is found, we want to redirect back to signup
-                # page so user can try again
-                flash("Email address already exists")
-                return redirect(url_for("pre3_signup"))
-
-            # create a new user with the form data. Hash the password so
-            # the plaintext version isn't saved.
-            app.logger.debug("preparing to add")
-            avatar_url = gen_avatar_url(
-                email, name
-            )  # assuming gen_avatar_url is defined elsewhere
-            new_user = AuthUser(
-                email=email,
-                name=name,
-                password=generate_password_hash(password, method="sha256"),
-                avatar_url=avatar_url,
-            )
-            # add the new user to the database
-            db.session.add(new_user)
-            db.session.commit()
-            return redirect(url_for("pre3_login"))
-
-    return render_template("pre3/signup.html")
+    return oauth.google.authorize_redirect(redirect_uri)
 
 
-@app.route("/pre3/login", methods=("GET", "POST"))
-def pre3_login():
+@app.route("/google/auth")
+def google_auth():
     if current_user.is_authenticated:
         return redirect(url_for("pre3_profile"))
 
-    if request.method == "POST":
-        # login code goes here
-        email = request.form.get("email")
-        password = request.form.get("password")
-        remember = bool(request.form.get("remember"))
+    token = oauth.google.authorize_access_token()
+    app.logger.debug(str(token))
+
+    userinfo = token["userinfo"]
+    app.logger.debug(" Google User " + str(userinfo))
+    email = userinfo["email"]
+    user = AuthUser.query.filter_by(email=email).first()
+
+    if not user:
+        name = userinfo.get("given_name", "") + " " + userinfo.get("family_name", "")
+        random_pass_len = 8
+        password = "".join(
+            secrets.choice(string.ascii_uppercase + string.digits)
+            for i in range(random_pass_len)
+        )
+        picture = userinfo["picture"]
+        new_user = AuthUser(
+            email=email,
+            name=name,
+            password=generate_password_hash(password, method="sha256"),
+            avatar_url=picture,
+        )
+        db.session.add(new_user)
+        db.session.commit()
         user = AuthUser.query.filter_by(email=email).first()
+    login_user(user)
+    return redirect(url_for("pre3_profile"))
 
-        # check if the user actually exists
-        # take the user-supplied password, hash it, and compare it to the
-        # hashed password in the database
-        if not user or not check_password_hash(user.password, password):
-            flash("Please check your login details and try again.")
-            # if the user doesn't exist or password is wrong, reload the page
-            return redirect(url_for("pre3_login"))
 
-        # if the above check passes, then we know the user has the right
-        # credentials
-        login_user(user, remember=remember)
-        next_page = request.args.get("next")
-        if not next_page or url_parse(next_page).netloc != "":
-            next_page = url_for("pre3_profile")
-        return redirect(next_page)
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("pre3_profile"))
 
-    return render_template("pre3/login.html")
 
 
 def gen_avatar_url(email, name):
@@ -193,64 +144,7 @@ def gen_avatar_url(email, name):
     return avatar_url
 
 
-@app.route("/pre3/teacher")
-@login_required
-def pre3_teacher():
-    return render_template("pre3/teacher.html")
 
-@app.route('/pre3/create_course', methods=('GET', 'POST') )
-@login_required
-def pre3_created_course():
-   if request.method == 'POST':
-        result = request.form.to_dict()
-        app.logger.debug(str(result))
-        id_ = result.get('id', '')
-        validated = True
-        validated_dict = dict()
-        valid_keys = ['course_id', 'abbr', 'name', 'year', 'description', 'credits', 'department']
-
-
-        # validate the input
-        for key in result:
-            app.logger.debug(f"{key}: {result[key]}")
-            # screen of unrelated inputs
-            if key not in valid_keys:
-                continue
-
-
-            value = result[key].strip()
-            if not value or value == 'undefined':
-                validated = False
-                break
-            validated_dict[key] = value
-
-
-        if validated:
-            app.logger.debug(f'validated dict: {validated_dict}')
-            
-                
-            entry = Course(**validated_dict)
-            app.logger.debug(str(entry))
-            db.session.add(entry)
-            # if there is an id_ already: update contact
-            
-
-
-            db.session.commit()
-
-
-        return pre3_db_contest()
-   return render_template('pre3/created_course.html')
-
-@app.route("/pre3/create_course/course")
-@login_required
-def pre3_db_contest():
-    db_Course= Contact.query.all()
-    
-    course = list(map(lambda x: x.to_dict(), db_Course))
-    app.logger.debug(f"DB Contacts: {course}")
-
-    return jsonify(course)
 
 @app.route("/facebook/")
 def facebook():

@@ -37,3 +37,28 @@ class Course(db.Model, UserMixin):
         self.department = department
 
         self.updated = db.func.current_timestamp()
+
+
+    # to_dict() and from_dict() methods are required by the SerializerMixin
+    def to_dict(self):
+        return {
+            "course_id": self.course_id,
+            "abbr": self.abbr,
+            "name": self.name,
+            "year": self.year,
+            "description": self.description,
+            "credits": self.credits,
+            "department": self.department,
+        }
+
+    @staticmethod
+    def from_dict(course_dict):
+        return Course(
+            course_dict["course_id"],
+            course_dict["abbr"],
+            course_dict["name"],
+            course_dict["year"],
+            course_dict["description"],
+            course_dict["credits"],
+            course_dict["department"],
+        )

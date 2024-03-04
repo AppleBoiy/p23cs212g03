@@ -35,5 +35,4 @@ login_manager.login_view = 'pre3_login'
 login_manager.init_app(app)
 
 from app import views  # noqa
-from app import hw_views  # noqa
 from app import auth  # noqa

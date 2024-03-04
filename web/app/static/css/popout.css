@@ -1,0 +1,40 @@
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.textbox {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    color: #fff;
+    background-color: #ff8a00;
+    border-radius: 5px;
+}
+
+.dialog-box {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    padding: 10px;
+    background-color: #ffae44;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.textbox:hover .dialog-box {
+    display: block;
+}
+

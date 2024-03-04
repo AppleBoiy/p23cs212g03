@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prerequisite tree</title>
+
+    <!-- script -->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"
+            integrity="sha384-AQhQSZGQWTMJhb/TdS7NWpCmOM/8lIEsaevSU5oZtt8pQKoa+uJL4A2WnQ0O5Zj2"
+            crossorigin="anonymous">
+    </script>
+
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/tree.css">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel="stylesheet">
+    
+    <!-- Sheet Libary -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"
+            integrity="sha384-QOLV4jDrHYFU/0mHkVIR8QkZgRISiTcaqHqMGcW7LZ5/DGKTJWGwVFCh5knANMvj"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.zahl.js"
+            integrity="sha384-5ykjbXzfVwEkt5/f4GaZz4OvwMwFzQK8Nq93HB8AYxKUm94NiIyBAJFkP3HQMSmT"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<!-- Top menu bar -->
+<nav class="navbar navbar-expand-md navbar-light" style="position: fixed; top: 0; width: 100%">
+    <div class="container">
+
+        <!-- top left menu bar -->
+        <div class="navbar-nav">
+            <a class="nav-item nav-link"
+               href="https://www.cs.science.cmu.ac.th/">
+            Home
+            </a>
+
+            <a class="nav-item nav-link"
+               href="https://cmu.to/cs-prereq-course64-detail">
+            Curriculum
+            </a>
+        </div>
+
+        <!-- top right menu bar -->
+        <form class="form-inline">
+            <label for="nav-search"></label><input class="form-control" id="nav-search" type="search" placeholder="Search"> &nbsp;
+        </form>
+    </div>
+</nav>
+
+<!-- body -->
+<!-- partial:index.partial.html -->
+<div class="treeContainer">
+    <div class="tree" >
+        <div class="svg-container">
+            <svg class="graph" id="zoom-svg"></svg>
+        </div>
+    </div>
+
+    <div class="subtree" >
+        <div class="svg-container">
+            <svg class="graph" id="zoom-svg"></svg>
+        </div>
+    </div> 
+</div>
+
+<!-- popup -->
+<div class="popup-bg" id="popup">
+    <span class="window-popup">
+        <h1 class="courseName"></h1>
+        <p class="courseContents"></p>
+        <div class="closeBox">
+            <button id="close">close</button>
+        </div>
+    </span>
+</div>
+
+<!-- partial -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"
+        integrity="sha384-niXt6LHz3/5ICmM9SeKzwJ/Q+a+7097SlA8uRtZSe0ISV5OpJZEVngjobdrYk8UZ"
+        crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.4.17/dagre-d3.min.js"
+        integrity="sha384-1IF16SxZnMLVoOlXk2bwHreuLrcWHN0sa3vIMtknoB+No4t8/nJ+CWVl+mZvJlBu"
+        crossorigin="anonymous">
+</script>
+
+<script src="static/js/tree.js"></script>
+</body>
+</html>
