@@ -30,7 +30,7 @@
 
     /* Styles for form inputs */
     .container_form input[type="text"],
-    .container_form textarea {
+    .container_form textarea, #password, #email, #password_confirm {
         width: calc(100% - 120px); /* Subtract label width from 100% to calculate input width */
         padding: 8px;
         margin-bottom: 10px;
@@ -38,15 +38,7 @@
         border-radius: 3px;
         box-sizing: border-box;
     }
-    #credits, #year {
-        width: calc(50% - 200px);
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        box-sizing: border-box;
-    }
-    /* Adjust the width of the "Room" input */
+    
     
 
     /* Styles for form buttons */
@@ -121,42 +113,33 @@
     color: #373F41;
     font-weight: bold;
     font-size: 120%;
+    margin-bottom: 10px;
   }
 </style>
 
 <div class="container_form black-color slide-in" id="add-edit">
     <h2 class="head">Create Course</h2>
-    <form id="addPCourseForm" class="head" method="POST">
-        <label for="course_id">ID:</label>
-        <input maxlength="6" id="course_id" name="course_id" placeholder="Course ID.." type="text" required />
-        <br></br>
+    <form id="addUserForm" method="POST">
         <label for="name">Name:</label>
-        <input id="name" name="name" placeholder="Course Name.." type="text" required />
+        <input id="name" name="name" placeholder="Name.." type="text" required />
         <br></br>
-        <label for="abbr">Room:</label>
-        <input id="abbr" name="abbr" placeholder="room.." required type="text" />
+        <label for="user_id">User ID:</label>
+        <input id="user_id" name="user_id" placeholder="user_id.." type="text" maxlength="9" required />
         <br></br>
-        <label for="department">Department:</label>
-        <input id="department" name="department" placeholder="Department.." required type="text" />
+        <label for="email">Email:</label>
+        <input id="email" name="email" placeholder="email.." type="email"  required />
         <br></br>
-    
-
-        <label for="year">Year:</label>
-        <input id="year" name="year" required type="number" min="1" max="4">
-        <label for="credits">Cradit:</label>
-        <input type="number" id="credits" name="credits" min="1" max="22">
+        <label for="password">Password:</label>
+        <input id="password" name="password" placeholder="password..." type="password" required />
+        <br></br>
+        <label for="password_confirm">Password:</label>
+        <input id="password_confirm" name="password_confirm" placeholder="password_confirm..." type="password" required />
+        <br></br>
         
-         <br></br>
-        <label for="Prerequisite">Prerequisite:</label>
-        <input id="Prerequisite" name="Prerequisite" placeholder="Prerequisite ID.." required type="text" />
-        <br></br>
-        <label for="description">Description:</label>
-        <textarea maxlength="1000" id="description" name="description" rows="6" placeholder="Detail..." required></textarea>
-        <br></br>
 
-        <input id="entryid" name="id" type="hidden" value="" />
-        <input name="submit" type="submit" value="Create" />
-        <a class="back" href="{{ url_for('pre3_teacher') }}">
+        <input  name="role" type="hidden" value="student" />
+        <input name="submit" type="submit" value="Create User" />
+        <a class="back" href="{{ url_for('pre3_admin') }}">
             <button id="cancel_form" type="button">Cancel</button>
          </a>
     </form>
@@ -164,32 +147,38 @@
 
 
 <script>
-
-$("#addPCourseForm").submit(function (event) {
-      // prevent default html form submission action
-      event.preventDefault();
-
-
-      // pack the inputs into a dictionary
-      var formData = {};
-      $(":input").each(function () {
-        var key = $(this).attr('name');
-        var val = $(this).val();
-        if (key != 'submit') {
-          formData[key] = val;
+    $("#addUserForm").submit(function (event) {
+        // Prevent default HTML form submission action
+        event.preventDefault();
+    
+        // Retrieve password and confirm password values
+        var password = $("#password").val();
+        var confirmPassword = $("#password_confirm").val();
+    
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            // Display an error message or take appropriate action
+            alert("Passwords do not match.");
+            return; // Exit the function early
         }
-      });
-
-
-      var $form = $(this);
-      var url = $form.attr("action");
-
-
-      // make a POST call to the back end w/ a callback to refresh the table
-      $.post(url, formData, function (contact_data) {
-        window.location.href = "{{ url_for('pre3_teacher') }}";
-      });
+    
+        // If passwords match, proceed with form submission
+        var formData = {};
+        $(":input").each(function () {
+            var key = $(this).attr('name');
+            var val = $(this).val();
+            if (key !== 'submit') {
+                formData[key] = val;
+            }
+        });
+    
+        var $form = $(this);
+        var url = $form.attr("action");
+    
+        // Make a POST call to the backend with a callback to refresh the table
+        $.post(url, formData, function (contact_data) {
+            window.location.href = "{{ url_for('pre3_admin') }}";
+        });
     });
-
-</script>
+    </script>
 {% endblock %}
