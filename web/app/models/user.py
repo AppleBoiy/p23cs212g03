@@ -22,3 +22,5 @@ class User(db.Model, UserMixin):
         self.password = password
         self.avatar_url = avatar_url
         self.role = role
+
+    
