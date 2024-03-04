@@ -1,5 +1,19 @@
 {% extends "pre3/base.html" %} {% block content %}
 
+<style>
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .is-google,
+  .is-facebook,
+  .is-x {
+    flex: 0 0 47%;
+  }
+</style>
+
 <div class="column is-4 is-offset-4 slide-in">
   <div class="box">
     <h3 class="title" style="color: black">Login</h3>
