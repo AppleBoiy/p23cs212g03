@@ -28,6 +28,19 @@
     </br>
     
     <div class="head block-style" style="background-color: #d8d8d8; height: 40px;" >
+        <div class="item1 block-style {{ user.role }}">
+            <div class="item-name" style="text-align: left; color: black;">
+                <div>
+                    &nbsp&nbsp ID &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp Name
+                </div>
+            </div>
+            <div class="item-name" style="text-align: right; color: black">
+                <div>
+                    Role
+                </div>
+            </div>
+        </div>
     </div>
 
     {% for user in users %}
