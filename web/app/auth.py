@@ -12,6 +12,7 @@ from app import app, db, login_manager, oauth
 from app.models.contact import Contact
 from app.models.authuser import AuthUser, PrivateContact
 from app.models.user import User
+from app.models.course import Course
 
 from app.models.course import Course
 
@@ -57,10 +58,10 @@ def pre3_teacher():
 def teacher_assign():
     #if current_user.role != "teacher":
         #abort(403)
-    
     users = User.query.all()
-    
-    return render_template("pre3/assign.html", users=users)
+    course = Course.query.all()
+
+    return render_template("pre3/assign.html", users=users, course=course)
 
 @app.route("/pre3/admin", methods=["GET", "POST"])
 @login_required

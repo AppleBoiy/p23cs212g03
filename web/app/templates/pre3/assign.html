@@ -38,7 +38,48 @@
 
 <div id="assignCoursePopup" class="popup">
     <div class="popup-content">
+        <table class="table-striped border-success">
+            <colgroup>
+                <col style=" width: auto;">
+                <col style=" width: auto;">
+                <col style=" width: auto;">
+                <col style=" width: auto;">
+                <col style=" width: auto;">
+                <col style=" width: auto;">
+                <col style=" width: auto;">
+                <col style=" width: auto;">
+            </colgroup>
+            <thead>
+                <tr class="black-color" style="color: black;">
+                    <td>course_id</td>
+                    <td>abbr</td>
+                    <td>name</td>
+                    <td>year</td>
+                    <td>description</td>
+                    <td>credits</td>
+                    <td>department</td>
+                    <td></td>
+                </tr>
+            </thead>
 
+            {% for course in course %}
+            <tbody class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 10%;">
+                <tr class="black-color" style="color: black;">
+                    <td>{{ course.course_id }}</td>
+                    <td>{{ course.abbr }}</td>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.year }}</td>
+                    <td>{{ course.description }}</td>
+                    <td>{{ course.credits }}</td>
+                    <td>{{ course.department }}</td>
+                    <td style="text-align: center;">
+                        <button class="button_course_2" style="background-color: #3c64b1; font-size: 120%;">
+                            +
+                        </button>
+                    </td>
+            </tbody>
+            {% endfor %}
+        </table>
     </div>
 </div>
 
