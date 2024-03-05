@@ -11,24 +11,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from app import app, db, login_manager, oauth
 from app.models.user import User
 from app.models.authuser import AuthUser
-
 from app.models.course import Course
-
-@login_manager.user_loader
-def load_user(user_id):
-    # since the user_id is just the primary key of our
-    # user table, use it in the query for the user
-    return User.query.get(int(user_id))
-
-@app.route("/db")
-def db_connection():
-    try:
-        with db.engine.connect() as conn:
-            conn.execute(text("SELECT 1"))
-        return "<h1>db works.</h1>"
-    except Exception as e:
-        return "<h1>db is broken.</h1>" + str(e)
-
 
 def gen_avatar_url(email, name):
     bgcolor = generate_password_hash(email, method="sha256")[-6:]
@@ -50,6 +33,22 @@ def gen_avatar_url(email, name):
         + color
     )
     return avatar_url
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    # since the user_id is just the primary key of our
+    # user table, use it in the query for the user
+    return User.query.get(int(user_id))
+
+@app.route("/db")
+def db_connection():
+    try:
+        with db.engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        return "<h1>db works.</h1>"
+    except Exception as e:
+        return "<h1>db is broken.</h1>" + str(e)
 
 
 @app.route("/google/")

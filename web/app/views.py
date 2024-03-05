@@ -8,11 +8,32 @@ from werkzeug.urls import url_parse
 from sqlalchemy.sql import text
 from flask_login import login_user, login_required, logout_user, current_user
 from app import app, db, login_manager, oauth
+from app.models.authuser import AuthUser    
 from app.models.user import User
 from app.models.course import Course
 
 # from app import oauth
 
+def gen_avatar_url(email, name):
+    bgcolor = generate_password_hash(email, method="sha256")[-6:]
+    color = hex(int("0xffffff", 0) - int("0x" + bgcolor, 0)).replace("0x", "")
+    lname = ""
+    temp = name.split()
+    fname = temp[0][0]
+    if len(temp) > 1:
+        lname = temp[1][0]
+
+    avatar_url = (
+        "https://ui-avatars.com/api/?name="
+        + fname
+        + "+"
+        + lname
+        + "&background="
+        + bgcolor
+        + "&color="
+        + color
+    )
+    return avatar_url
 
 @app.route("/pre3/teacher/assign")
 @login_required
@@ -63,6 +84,7 @@ def pre3_logout():
 @login_required
 def pre3_student():
     return render_template("pre3/home_student.html")
+
 
 @app.route('/pre3/admin/create_user', methods=('GET', 'POST') )
 @login_required
@@ -158,14 +180,14 @@ def pre3_admin():
 @app.route("/pre3/signup", methods=("GET", "POST"))
 def pre3_signup():
     if current_user.is_authenticated:
-        return redirect(url_for("pre3_profile"))
+        return redirect(url_for("index"))
 
     if request.method == "POST":
         result = request.form.to_dict()
         app.logger.debug(str(result))
         validated = True
         validated_dict = {}
-        valid_keys = ["email", "name", "password"]
+        valid_keys = ["email", "name", "password", "user_id"]
 
         # validate the input
         for key in result:
@@ -186,6 +208,7 @@ def pre3_signup():
             email = validated_dict["email"]
             name = validated_dict["name"]
             password = validated_dict["password"]
+            user_id = validated_dict["user_id"]
 
             # if this returns a user, then the email already exists in database
             user = AuthUser.query.filter_by(email=email).first()
@@ -207,8 +230,18 @@ def pre3_signup():
                 password=generate_password_hash(password, method="sha256"),
                 avatar_url=avatar_url,
             )
+            new_student = User(
+                email=email,
+                name=name,
+                password=generate_password_hash(password, method="sha256"),
+                role="student",
+                user_id=user_id,
+                avatar_url=avatar_url,
+
+            )
             # add the new user to the database
             db.session.add(new_user)
+            db.session.add(new_student)
             db.session.commit()
             return redirect(url_for("pre3_login"))
 
