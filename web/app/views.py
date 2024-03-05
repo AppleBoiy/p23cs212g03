@@ -14,6 +14,16 @@ from app.models.course import Course
 # from app import oauth
 
 
+@app.route("/pre3/teacher/assign")
+@login_required
+def teacher_assign():
+    #if current_user.role != "teacher":
+        #abort(403)
+    users = User.query.all()
+    course = Course.query.all()
+
+    return render_template("pre3/assign.html", users=users, course=course)
+
 @app.route("/pre3/tree")
 def tree():
     return render_template("pre3/tree.html")
