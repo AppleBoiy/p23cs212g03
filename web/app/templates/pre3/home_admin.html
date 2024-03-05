@@ -41,25 +41,21 @@
         </div>
         <div style="text-align: right;">
             <label for="search" style="color: black;">Search ID</label>
-            <input type="text" id="search" placeholder="" style="border: none; height: 50px; width: 40%;">
-            <button class="button" type="submit" style="height: 50px;">
-                <img src="../../static/img/Vector.png" alt="Submit">
-            </button>
+            <input type="text" id="search" placeholder="" style="border: none; height: 50px; width: 50%;">
         </div>
     </div>
     </br>
+    
     <div class="head block-style" style="background-color: #d8d8d8; height: 40px;" >
     </div>
 
     {% for user in users %}
     <div class="item1 block-style {{ user.role }}">
         <div class="item-name" style="text-align: left; color: black;">
-            <span>
+            <div>
                 &nbsp&nbsp{{ user.user_id }}
-            </span>
-            <span>
-                &nbsp&nbsp&nbsp&nbsp{{ user.name }}
-            </span>
+                &nbsp&nbsp{{ user.name }}
+            </div>
         </div>
         <div class="item-name" style="text-align: right; color: black">
             <div>
@@ -78,6 +74,7 @@
 </div>
 
 
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const allRadio = document.getElementById("option-all");
@@ -88,8 +85,8 @@
         function filterUsers(userType, searchText) {
             const users = document.querySelectorAll(".item1");
             users.forEach(user => {
-                const userId = user.querySelector(".item-name span:first-child").textContent;
-                const userName = user.querySelector(".item-name span:last-child").textContent;
+                const userId = user.querySelector(".item-name div:first-child").textContent;
+                const userName = user.querySelector(".item-name div:last-child").textContent;
                 if ((userType === "all" || user.classList.contains(userType)) &&
                     (userId.includes(searchText) || userName.includes(searchText))) {
                     user.style.display = "block";
