@@ -24,6 +24,11 @@ def teacher_assign():
 
     return render_template("pre3/assign.html", users=users, course=course)
 
+@app.route("/pre3/admin_dashboard")
+@login_required
+def pre3_admin_dashboard():
+    return render_template("pre3/admin_dashboard.html", users=User.query.all(), courses=Course.query.all())
+
 @app.route("/pre3/tree")
 def tree():
     return render_template("pre3/tree.html")

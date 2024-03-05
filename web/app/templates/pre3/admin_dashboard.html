@@ -1,0 +1,412 @@
+<!doctype html>
+<html data-bs-theme="auto" lang="en">
+<head>
+    <script src="{{ url_for('static', filename='js/color-modes.js') }}"></script>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="" name="description">
+    <meta content="Mark Otto, Jacob Thornton, and Bootstrap contributors" name="author">
+    <meta content="Hugo 0.122.0" name="generator">
+    <title>Profile</title>
+
+    <link href="https://getbootstrap.com/docs/5.3/examples/offcanvas-navbar/" rel="canonical">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .b-example-divider {
+            width: 100%;
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .btn-bd-primary {
+            --bd-violet-bg: #712cf9;
+            --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+            --bs-btn-font-weight: 600;
+            --bs-btn-color: var(--bs-white);
+            --bs-btn-bg: var(--bd-violet-bg);
+            --bs-btn-border-color: var(--bd-violet-bg);
+            --bs-btn-hover-color: var(--bs-white);
+            --bs-btn-hover-bg: #6528e0;
+            --bs-btn-hover-border-color: #6528e0;
+            --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+            --bs-btn-active-color: var(--bs-btn-hover-color);
+            --bs-btn-active-bg: #5a23c8;
+            --bs-btn-active-border-color: #5a23c8;
+        }
+
+        .bd-mode-toggle {
+            z-index: 1500;
+        }
+
+        .bd-mode-toggle .dropdown-menu .active .bi {
+            display: block !important;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .alert-warning {
+            color: #856404;
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+        }
+
+        .alert-info {
+            color: #004085;
+            background-color: #cce5ff;
+            border-color: #b8daff;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #6C757D;
+        }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/offcanvas-navbar.css') }}" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyZqZlMz5b8q5tJz3I5F77S6sR5n0I2M9" rel="stylesheet">
+
+</head>
+<body class="bg-body-tertiary">
+<svg class="d-none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="check2" viewBox="0 0 16 16">
+        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+    </symbol>
+    <symbol id="circle-half" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+    </symbol>
+    <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+    </symbol>
+    <symbol id="sun-fill" viewBox="0 0 16 16">
+        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+    </symbol>
+</svg>
+
+<div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+    <button aria-expanded="false"
+            aria-label="Toggle theme (auto)"
+            class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+            data-bs-toggle="dropdown"
+            id="bd-theme"
+            type="button">
+        <svg class="bi my-1 theme-icon-active" height="1em" width="1em">
+            <use href="#circle-half"></use>
+        </svg>
+        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+    </button>
+    <ul aria-labelledby="bd-theme-text" class="dropdown-menu dropdown-menu-end shadow">
+        <li>
+            <button aria-pressed="false" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
+                    type="button">
+                <svg class="bi me-2 opacity-50" height="1em" width="1em">
+                    <use href="#sun-fill"></use>
+                </svg>
+                Light
+                <svg class="bi ms-auto d-none" height="1em" width="1em">
+                    <use href="#check2"></use>
+                </svg>
+            </button>
+        </li>
+        <li>
+            <button aria-pressed="false" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
+                    type="button">
+                <svg class="bi me-2 opacity-50" height="1em" width="1em">
+                    <use href="#moon-stars-fill"></use>
+                </svg>
+                Dark
+                <svg class="bi ms-auto d-none" height="1em" width="1em">
+                    <use href="#check2"></use>
+                </svg>
+            </button>
+        </li>
+        <li>
+            <button aria-pressed="true" class="dropdown-item d-flex align-items-center active"
+                    data-bs-theme-value="auto"
+                    type="button">
+                <svg class="bi me-2 opacity-50" height="1em" width="1em">
+                    <use href="#circle-half"></use>
+                </svg>
+                Auto
+                <svg class="bi ms-auto d-none" height="1em" width="1em">
+                    <use href="#check2"></use>
+                </svg>
+            </button>
+        </li>
+    </ul>
+</div>
+
+
+<nav aria-label="Main navigation" class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Pre3 - Prerequisites made easy</a>
+        <button aria-label="Toggle navigation" class="navbar-toggler p-0 border-0" id="navbarSideCollapse"
+                type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a aria-current="page" class="nav-link active" href="{{ url_for('pre3_admin') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('tree') }}">Tree</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Settings</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="mailto:contact.chaipat@gmail.com">Help</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="nav-scroller bg-body shadow-sm">
+    <nav aria-label="Secondary navigation" class="nav">
+        <a aria-current="page" class="nav-link active" href="#">Dashboard</a>
+        <a class="nav-link" href="{{ url_for('pre3_admin') }}">
+            Manage Users
+            <span class="badge text-bg-light rounded-pill align-text-bottom">{{ users|length }}</span>
+        </a>
+        <a class="nav-link" href="{{ url_for('pre3_courses') }}">
+            Manage Courses
+            <span class="badge text-bg-light rounded-pill align-text-bottom">{{ courses|length }}</span>
+        </a>
+        <a class="nav-link" href="{{ url_for('index') }}">Explore</a>
+
+        <!-- read documentation for more information -->
+        <!-- hide main -->
+        <a class="nav-link hide-dash" href="#" onclick="toggleDash()">Read Documentation</a>
+
+    </nav>
+</div>
+
+<main class="container">
+    <div class="dash-board">
+        <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
+            <img alt="" class="me-3" height="38" src="{{ url_for('static', filename='img/icons8-tree-64.png') }}"
+                 width="48">
+            <div class="lh-1">
+                <h1 class="h6 mb-0 text-white lh-1">{{ current_user.name }}</h1>
+                <small>{{ current_user.role }} - {{ current_user.email }}</small>
+            </div>
+        </div>
+
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <h6 class="border-bottom pb-2 mb-0">Users</h6>
+
+            <!-- show only 5 users -->
+            {% for user in users %}
+            {% if loop.index <= 5 and user.role != 'admin' %}
+
+            <div class="d-flex text-body-secondary pt-3">
+                <svg aria-label="Placeholder: 32x32" class="bd-placeholder-img flex-shrink-0 me-2 rounded"
+                     focusable="false"
+                     height="32" preserveAspectRatio="xMidYMid slice" role="img"
+                     width="32" xmlns="http://www.w3.org/2000/svg"><title>{{ user.name }}</title>
+                    <rect fill="#007bff" height="100%" width="100%"/>
+                    <text dy=".3em" fill="#007bff" x="50%" y="50%">32x32</text>
+                </svg>
+                <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                    <div class="d-flex justify-content-between">
+                        <strong class="text-gray-dark">{{ user.name }} - {{ user.role }}</strong>
+                        <a href="#">Edit</a>
+                    </div>
+                    <span class="d-block">{{ user.email }}</span>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+            <small class="d-block text-end mt-3">
+                <a href="#">All Users</a>
+            </small>
+        </div>
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <h6 class="border-bottom pb-2 mb-0">Courses</h6>
+
+            <!-- show only 5 users -->
+            {% for course in courses %}
+            {% if loop.index <= 5 %}
+
+            <div class="d-flex text-body-secondary pt-3">
+                <svg aria-label="Placeholder: 32x32" class="bd-placeholder-img flex-shrink-0 me-2 rounded"
+                     focusable="false"
+                     height="32" preserveAspectRatio="xMidYMid slice" role="img"
+                     width="32" xmlns="http://www.w3.org/2000/svg"><title>{{ course.name }}</title>
+                    <rect fill="#007bff" height="100%" width="100%"/>
+                    <text dy=".3em" fill="#007bff" x="50%" y="50%">32x32</text>
+                </svg>
+                <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                    <div class="d-flex justify-content-between">
+                        <strong class="text-gray-dark">{{ course.course_id }} - {{ course.name }}</strong>
+                        <a href="#">Edit</a>
+                    </div>
+                    <span class="d-block">{{ course.description }}</span>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+            <small class="d-block text-end mt-3">
+                <a href="{{ url_for('pre3_courses') }}">All Courses</a>
+            </small>
+        </div>
+
+    </div>
+    <div class="dash-docs" style="display: none;">
+        <div class="container mt-5">
+            <div class="text-center">
+                <h1 class="mb-3">pre3</h1>
+                <h2 class="mb-4">The Revamped 'Prerequisite-tree-dagreD3'</h2>
+
+                <div class="alert alert-warning">
+                    <strong>NOTE:</strong> THIS REPOSITORY IS CURRENTLY UNDER DEVELOPMENT
+                </div>
+
+                <p>If you encounter any issues, have suggestions, or would like to know more about my development
+                    progress,
+                    please don't hesitate to <a href="mailto:contact.chaipat@gmail.com">contact me</a>.</p>
+
+                <p>You can also explore <a
+                        href="https://github.com/AppleBoiy/AppleBoiy/blob/main/README.md#whats-on-my-to-do-list">my
+                    roadmap</a> to see what's on my to-do list.</p>
+            </div>
+
+            <div class="mt-5">
+                <h3>ANNOUNCEMENT</h3>
+
+                <div class="alert alert-info">
+                    <strong>Exciting News Coming Soon! 🔜</strong>
+                </div>
+
+                <p>Hi,</p>
+
+                <p>I've been working on a project called "<a
+                        href="https://github.com/AppleBoiy/prerequisite-tree-dagreD3">prerequisite-tree-dagreD3</a>",
+                    which transforms course data from spreadsheets into graphical course prerequisite representations.
+                    I've made
+                    significant updates and will be moving the project to this repository.</p>
+
+                <p>Stay tuned for the official announcement with all the details and how to get started. Thanks for your
+                    support and patience.</p>
+
+                <p>Best,<br> CJ</p>
+            </div>
+
+            <hr>
+
+            <div class="text-center mt-4">
+                <p>Get help: <a href="https://github.com/AppleBoiy/pre3/discussions">Post in our discussion board</a>
+                    &bull;
+                    <a href="https://www.githubstatus.com/">Review the GitHub status page</a></p>
+
+                <p>&copy; 2023 AppleBoiy &bull; <a
+                        href="https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md">Code
+                    of Conduct</a> &bull; <a href="../LICENSE">MIT License</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Bootstrap JS and Popper.js (optional) -->
+<script crossorigin="anonymous"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-XrG1Ht0EX2K/pJQ8wsB9L4qdkM6U2Hg7QODiiA35OZ4VTQ8aU6T7sG2ADWQ2L9j"
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyZqZlMz5b8q5tJz3I5F77S6sR5n0I2M9"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/offcanvas-navbar.js') }}"></script>
+<script>
+    function toggleDash() {
+        var dash = document.querySelector('.dash-board');
+        var docs = document.querySelector('.dash-docs');
+
+        if (dash.style.display === 'none') {
+            dash.style.display = 'block';
+            docs.style.display = 'none';
+
+        } else {
+            dash.style.display = 'none';
+            docs.style.display = 'block';
+        }
+    }
+
+</script>
+</body>
+</html>

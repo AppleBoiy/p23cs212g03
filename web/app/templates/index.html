@@ -139,14 +139,21 @@
                 </a>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                                         href="https://github.com/AppleBoiy/p23cs212g03">About</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="mailto:contact.chaipat@gmail.com">Contact</a>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="mailto:contact.chaipat@gmail.com">Contact
+                    us</a>
                 </li>
 
                 {% if current_user.is_authenticated %}
 
                 <!-- profile -->
+                {% if current_user.role == "admin" %}
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
+                                        href="{{ url_for('pre3_admin_dashboard') }}">Dashboard</a>
+                    {% else %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                                         href="{{ url_for('pre3_profile') }}">Profile</a>
+                    {% endif %}
+
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                                         href="{{ url_for('pre3_logout') }}">Logout</a>
                     {% else %}
