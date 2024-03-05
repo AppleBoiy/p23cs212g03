@@ -242,9 +242,9 @@
                             >
                                 <img src="{{ current_user.avatar_url }}" width="52" />
                             </a>
-                            {% elif current_user.role == 'teacher' %}
+                            {% elif current_user.role == 'lecturer' %}
                             <a
-                                    href="{{ url_for('pre3_admin') }}"
+                                    href="{{ url_for('pre3_teacher') }}"
                                     style="
                     font-weight: bold;
                     color: #3c64b1;
