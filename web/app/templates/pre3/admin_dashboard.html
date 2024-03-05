@@ -123,7 +123,6 @@
     <link href="{{ url_for('static', filename='css/offcanvas-navbar.css') }}" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyZqZlMz5b8q5tJz3I5F77S6sR5n0I2M9" rel="stylesheet">
 
 </head>
 <body class="bg-body-tertiary">
@@ -227,7 +226,7 @@
 
 <div class="nav-scroller bg-body shadow-sm">
     <nav aria-label="Secondary navigation" class="nav">
-        <a aria-current="page" class="nav-link active" href="#">Dashboard</a>
+        <a aria-current="page" class="nav-link active" href="#" onclick="showDash()">Dashboard</a>
         <a class="nav-link" href="{{ url_for('pre3_admin') }}">
             Manage Users
             <span class="badge text-bg-light rounded-pill align-text-bottom">{{ users|length }}</span>
@@ -269,8 +268,9 @@
                      focusable="false"
                      height="32" preserveAspectRatio="xMidYMid slice" role="img"
                      width="32" xmlns="http://www.w3.org/2000/svg"><title>{{ user.name }}</title>
-                    <rect fill="#007bff" height="100%" width="100%"/>
-                    <text dy=".3em" fill="#007bff" x="50%" y="50%">32x32</text>
+                    <rect height="100%" width="100%" image-rendering="auto" fill="#007bff">
+                    </rect>
+
                 </svg>
                 <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
                     <div class="d-flex justify-content-between">
@@ -378,13 +378,10 @@
 </main>
 <!-- Bootstrap JS and Popper.js (optional) -->
 <script crossorigin="anonymous"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script crossorigin="anonymous"
-        integrity="sha384-XrG1Ht0EX2K/pJQ8wsB9L4qdkM6U2Hg7QODiiA35OZ4VTQ8aU6T7sG2ADWQ2L9j"
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script crossorigin="anonymous"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyZqZlMz5b8q5tJz3I5F77S6sR5n0I2M9"
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
@@ -402,6 +399,14 @@
             dash.style.display = 'none';
             docs.style.display = 'block';
         }
+    }
+
+    function showDash() {
+        var dash = document.querySelector('.dash-board');
+        var docs = document.querySelector('.dash-docs');
+
+        dash.style.display = 'block';
+        docs.style.display = 'none';
     }
 
 </script>
