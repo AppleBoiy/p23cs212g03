@@ -38,12 +38,11 @@
         border-radius: 3px;
         box-sizing: border-box;
     }
-    
-    
+
 
     /* Styles for form buttons */
     .container_form input[type="submit"],
-    .container_form button{
+    .container_form button {
         background-color: rgb(46, 113, 171);
         color: white;
         padding: 10px 20px;
@@ -59,89 +58,96 @@
         .container_form {
             max-width: 90%; /* Reduce the maximum width on smaller screens */
         }
+
         .container_form label {
             display: block; /* Change label display to block for stacked layout on smaller screens */
             width: 100%; /* Set label width to 100% */
             text-align: left; /* Align text to the left for labels on smaller screens */
             margin-bottom: 5px; /* Reduce bottom margin for labels on smaller screens */
         }
+
         .container_form input[type="text"],
         .container_form textarea {
             width: 100%; /* Set input width to 100% on smaller screens */
         }
+
         #credits, #year {
-        width: calc(50% - 100px);
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        box-sizing: border-box;
+            width: calc(50% - 100px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
     }
-    }
-    
+
     textarea {
         resize: none;
     }
-  
+
     button:hover, .container_form input[type="submit"]:hover {
-        background-color: rgb(116, 152, 184); 
+        background-color: rgb(116, 152, 184);
         animation: pulse 2s infinite;
     }
-    @keyframes pulse{
-        50% { transform: scale(0.8);}
+
+    @keyframes pulse {
+        50% {
+            transform: scale(0.8);
+        }
     }
 
     .slide-in {
-    animation: slideIn 1s ease forwards;
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-
-  @keyframes slideIn {
-    0% {
-      opacity: 0;
-      transform: translateY(-50px);
+        animation: slideIn 1s ease forwards;
+        opacity: 0;
+        transform: translateY(-50px);
     }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
-  .head{
-    font-family: 'Mulish', sans-serif;
-    color: #373F41;
-    font-weight: bold;
-    font-size: 120%;
-    margin-bottom: 10px;
-  }
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .head {
+        font-family: 'Mulish', sans-serif;
+        color: #373F41;
+        font-weight: bold;
+        font-size: 120%;
+        margin-bottom: 10px;
+    }
 </style>
 
 <div class="container_form black-color slide-in" id="add-edit">
-    <h2 class="head">Create Course</h2>
+    <h2 class="head">Create User</h2>
     <form id="addUserForm" method="POST">
         <label for="name">Name:</label>
-        <input id="name" name="name" placeholder="Name.." type="text" required />
+        <input id="name" name="name" placeholder="Name.." required type="text"/>
         <br></br>
         <label for="user_id">User ID:</label>
-        <input id="user_id" name="user_id" placeholder="user_id.." type="text" maxlength="9" required />
+        <input id="user_id" maxlength="9" name="user_id" placeholder="user_id.." required type="text"/>
         <br></br>
         <label for="email">Email:</label>
-        <input id="email" name="email" placeholder="email.." type="email"  required />
+        <input id="email" name="email" placeholder="email.." required type="email"/>
         <br></br>
         <label for="password">Password:</label>
-        <input id="password" name="password" placeholder="password..." type="password" required />
+        <input id="password" name="password" placeholder="password..." required type="password"/>
         <br></br>
-        <label for="password_confirm">Password:</label>
-        <input id="password_confirm" name="password_confirm" placeholder="password_confirm..." type="password" required />
+        <label for="password_confirm">Confirm Password:</label>
+        <input id="password_confirm" name="password_confirm" placeholder="password_confirm..." required
+               type="password"/>
         <br></br>
-        
 
-        <input  name="role" type="hidden" value="student" />
-        <input name="submit" type="submit" value="Create User" />
+
+        <input name="role" type="hidden" value="student"/>
+        <input name="submit" type="submit" value="Create User"/>
         <a class="back" href="{{ url_for('pre3_admin') }}">
             <button id="cancel_form" type="button">Cancel</button>
-         </a>
+        </a>
     </form>
 </div>
 
@@ -150,18 +156,18 @@
     $("#addUserForm").submit(function (event) {
         // Prevent default HTML form submission action
         event.preventDefault();
-    
+
         // Retrieve password and confirm password values
         var password = $("#password").val();
         var confirmPassword = $("#password_confirm").val();
-    
+
         // Check if passwords match
         if (password !== confirmPassword) {
             // Display an error message or take appropriate action
             alert("Passwords do not match.");
             return; // Exit the function early
         }
-    
+
         // If passwords match, proceed with form submission
         var formData = {};
         $(":input").each(function () {
@@ -171,14 +177,14 @@
                 formData[key] = val;
             }
         });
-    
+
         var $form = $(this);
         var url = $form.attr("action");
-    
+
         // Make a POST call to the backend with a callback to refresh the table
         $.post(url, formData, function (contact_data) {
             window.location.href = "{{ url_for('pre3_admin') }}";
         });
     });
-    </script>
+</script>
 {% endblock %}

@@ -49,7 +49,7 @@ def pre3_logout():
 def pre3_student():
     return render_template("pre3/home_student.html")
 
-@app.route('/pre3/home/admin/create_user', methods=('GET', 'POST') )
+@app.route('/pre3/admin/create_user', methods=('GET', 'POST') )
 @login_required
 def pre3_created_user():
     if request.method == 'POST':
