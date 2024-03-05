@@ -8,11 +8,12 @@ from werkzeug.urls import url_parse
 from sqlalchemy.sql import text
 from flask_login import login_user, login_required, logout_user, current_user
 from app import app, db, login_manager, oauth
-from app.models.authuser import AuthUser    
+from app.models.authuser import AuthUser
 from app.models.user import User
 from app.models.course import Course
 
 # from app import oauth
+
 
 def gen_avatar_url(email, name):
     bgcolor = generate_password_hash(email, method="sha256")[-6:]
@@ -35,32 +36,40 @@ def gen_avatar_url(email, name):
     )
     return avatar_url
 
+
 @app.route("/pre3/teacher/assign")
 @login_required
 def teacher_assign():
-    #if current_user.role != "teacher":
-        #abort(403)
+    # if current_user.role != "teacher":
+    # abort(403)
     users = User.query.all()
     course = Course.query.all()
 
     return render_template("pre3/assign.html", users=users, course=course)
 
+
 @app.route("/pre3/admin_dashboard")
 @login_required
 def pre3_admin_dashboard():
-    return render_template("pre3/admin_dashboard.html", users=User.query.all(), courses=Course.query.all())
+    return render_template(
+        "pre3/admin_dashboard.html", users=User.query.all(), courses=Course.query.all()
+    )
+
 
 @app.route("/pre3/tree")
 def tree():
     return render_template("pre3/tree.html")
 
+
 @app.route("/<path:path>")
 def catch_all(path):
     return redirect(url_for("index"))
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/pre3")
 def pre3_index():
@@ -86,68 +95,66 @@ def pre3_student():
     return render_template("pre3/home_student.html")
 
 
-@app.route('/pre3/admin/create_user', methods=('GET', 'POST') )
+@app.route("/pre3/admin/create_user", methods=("GET", "POST"))
 @login_required
 def pre3_created_user():
-    if request.method == 'POST':
+    if request.method == "POST":
         result = request.form.to_dict()
         app.logger.debug(str(result))
 
         validated = True
         validated_dict = {}
-        valid_keys = ['email', 'name', 'password', 'role', 'user_id']
-
+        valid_keys = ["email", "name", "password", "role", "user_id"]
 
         # validate the input
         for key in result:
-            app.logger.debug(str(key)+": " + str(result[key]))
+            app.logger.debug(str(key) + ": " + str(result[key]))
             # screen of unrelated inputs
             if key not in valid_keys:
                 continue
 
-
             value = result[key].strip()
-            if not value or value == 'undefined':
+            if not value or value == "undefined":
                 validated = False
                 break
             validated_dict[key] = value
             # code to validate and add user to database goes here
 
-
         app.logger.debug("validation done")
         if validated:
-            app.logger.debug('validated dict: ' + str(validated_dict))
-            email = validated_dict['email']
-            name = validated_dict['name']
-            password = validated_dict['password']
-            role = validated_dict['role']
-            user_id = validated_dict['user_id']
+            app.logger.debug("validated dict: " + str(validated_dict))
+            email = validated_dict["email"]
+            name = validated_dict["name"]
+            password = validated_dict["password"]
+            role = validated_dict["role"]
+            user_id = validated_dict["user_id"]
             # if this returns a user, then the email already exists in database
             user = User.query.filter_by(email=email).first()
-
 
             if user:
                 # if a user is found, we want to redirect back to signup
                 # page so user can try again
-                flash('Email address already exists')
-                return redirect(url_for('pre3_admin'))
-
+                flash("Email address already exists")
+                return redirect(url_for("pre3_admin"))
 
             # create a new user with the form data. Hash the password so
             # the plaintext version isn't saved.
             app.logger.debug("preparing to add")
             avatar_url = gen_avatar_url(email, name)
-            new_user = User(email=email, name=name,
-                                password=generate_password_hash(
-                                    password, method='sha256'),
-                                avatar_url=avatar_url, role=role, user_id=user_id)
+            new_user = User(
+                email=email,
+                name=name,
+                password=generate_password_hash(password, method="sha256"),
+                avatar_url=avatar_url,
+                role=role,
+                user_id=user_id,
+            )
             # add the new user to the database
             db.session.add(new_user)
             db.session.commit()
 
-
-        return redirect(url_for('pre3_admin'))
-    return render_template('pre3/created_user.html')
+        return redirect(url_for("pre3_admin"))
+    return render_template("pre3/created_user.html")
 
 
 @app.route("/pre3/home/admin", methods=["GET", "POST"])
@@ -237,7 +244,6 @@ def pre3_signup():
                 role="student",
                 user_id=user_id,
                 avatar_url=avatar_url,
-
             )
             # add the new user to the database
             db.session.add(new_user)
@@ -284,17 +290,25 @@ def pre3_login():
 def pre3_teacher():
     return render_template("pre3/teacher.html")
 
-@app.route('/pre3/create_course', methods=('GET', 'POST') )
+
+@app.route("/pre3/create_course", methods=("GET", "POST"))
 @login_required
 def pre3_created_course():
-   if request.method == 'POST':
+    if request.method == "POST":
         result = request.form.to_dict()
         app.logger.debug(str(result))
-        id_ = result.get('id', '')
+        id_ = result.get("id", "")
         validated = True
         validated_dict = dict()
-        valid_keys = ['course_id', 'abbr', 'name', 'year', 'description', 'credits', 'department']
-
+        valid_keys = [
+            "course_id",
+            "abbr",
+            "name",
+            "year",
+            "description",
+            "credits",
+            "department",
+        ]
 
         # validate the input
         for key in result:
@@ -303,30 +317,24 @@ def pre3_created_course():
             if key not in valid_keys:
                 continue
 
-
             value = result[key].strip()
-            if not value or value == 'undefined':
+            if not value or value == "undefined":
                 validated = False
                 break
             validated_dict[key] = value
 
-
         if validated:
-            app.logger.debug(f'validated dict: {validated_dict}')
-
+            app.logger.debug(f"validated dict: {validated_dict}")
 
             entry = Course(**validated_dict)
             app.logger.debug(str(entry))
             db.session.add(entry)
             # if there is an id_ already: update contact
 
-
-
             db.session.commit()
 
-
         return pre3_db_contest()
-   return render_template('pre3/created_course.html')
+    return render_template("pre3/created_course.html")
 
 
 @app.route("/pre3/courses")

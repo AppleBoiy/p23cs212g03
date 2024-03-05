@@ -1,0 +1,78 @@
+nav {
+  margin-right: 120px;
+}
+
+.verticalNav {
+  width: 40px;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  line-height: 40px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 300ms ease-in;
+  border-right: 2px solid #232323;
+}
+
+.verticalNav:hover {
+  width: 100%;
+  writing-mode: unset;
+  text-orientation: sideways;
+}
+
+.verticalNav:hover .navContent {
+  margin-left: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.navContent p {
+  line-height: 1.2em;
+}
+
+.navContent,
+.verticalNav:hover .siteNavLabel {
+  display: none;
+}
+
+.subNavMenu {
+  font-size: 6em;
+  line-height: 1em;
+  color: #fff;
+}
+
+.verticalNav:nth-child(1) {
+  right: 80px;
+  background: #4adfff;
+}
+
+.verticalNav:nth-child(2) {
+  right: 40px;
+  background: #faf7f8;
+}
+
+.verticalNav:nth-child(3) {
+  right: 0px;
+  background: #761adc;
+}
+
+.hideToggle nav {
+  margin-right: 0px;
+}
+
+.hideToggle .verticalNav {
+  display: none;
+}
+
+#toggleRightMenu {
+  cursor: pointer;
+}
+
+.hideToggle #toggleRightMenu {
+  transform: rotate(180deg);
+}

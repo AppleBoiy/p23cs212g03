@@ -18,5 +18,3 @@ class AuthUser(db.Model, UserMixin):
         self.name = name
         self.password = password
         self.avatar_url = avatar_url
-
-

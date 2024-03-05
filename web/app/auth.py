@@ -13,6 +13,7 @@ from app.models.user import User
 from app.models.authuser import AuthUser
 from app.models.course import Course
 
+
 def gen_avatar_url(email, name):
     bgcolor = generate_password_hash(email, method="sha256")[-6:]
     color = hex(int("0xffffff", 0) - int("0x" + bgcolor, 0)).replace("0x", "")
@@ -40,6 +41,7 @@ def load_user(user_id):
     # since the user_id is just the primary key of our
     # user table, use it in the query for the user
     return User.query.get(int(user_id))
+
 
 @app.route("/db")
 def db_connection():
@@ -112,7 +114,6 @@ def logout():
     return redirect(url_for("index"))
 
 
-
 def gen_avatar_url(email, name):
     # Generate background color based on hashed email
     bgcolor = generate_password_hash(email, method="sha256")[-6:]
@@ -140,8 +141,6 @@ def gen_avatar_url(email, name):
     )
 
     return avatar_url
-
-
 
 
 @app.route("/facebook/")

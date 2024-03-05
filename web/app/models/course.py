@@ -38,7 +38,6 @@ class Course(db.Model, UserMixin):
 
         self.updated = db.func.current_timestamp()
 
-
     # to_dict() and from_dict() methods are required by the SerializerMixin
     def to_dict(self):
         return {

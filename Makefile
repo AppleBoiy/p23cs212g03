@@ -24,7 +24,7 @@ build-web:
 create-db:
 	docker compose -f docker-compose.yml --compatibility up -d
 
-build: chmod dos2unix build-web create-db
+build: chmod dos2unix build-web create-db seed-db
 
 remote-db:
 	bash ./scripts/remote_db.sh
@@ -36,4 +36,5 @@ format:
 	bash ./scripts/format.sh
 
 prune-dk:
+	rm -rf ./postgres_data || sudo rm -rf ./postgres_data
 	docker system prune -a -f

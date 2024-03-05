@@ -158,7 +158,11 @@
                 {% if current_user.role == "admin" %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                                         href="{{ url_for('pre3_admin_dashboard') }}">Dashboard</a>
-                    {% else %}
+                    {% endif %}
+                    {% if current_user.role == "student" %}
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
+                                        href="{{ url_for('pre3_student') }}">Home<a/>
+{% else %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                                         href="{{ url_for('pre3_profile') }}">Profile</a>
                     {% endif %}

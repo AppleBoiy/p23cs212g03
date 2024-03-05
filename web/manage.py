@@ -32,6 +32,7 @@ def drop_db():
     db.drop_all()
     db.session.commit()
 
+
 @cli.command("seed_db")
 def seed_db():
     db.session.add(
@@ -40,8 +41,6 @@ def seed_db():
             email="flask@204212",
             name="สมชาย ทรงแบด",
             password=generate_password_hash("1234", method="sha256"),
-            avatar_url="https://ui-avatars.com/api/?name=\
-สมชาย+ทรงแบด&background=83ee03&color=fff",
             role="admin",
         )
     )
@@ -51,8 +50,6 @@ def seed_db():
             email="flask@204213",
             name="สมหญิง ทรงแบด",
             password=generate_password_hash("1234", method="sha256"),
-            avatar_url="https://ui-avatars.com/api/?name=\
-สมหญิง+ทรงแบด&background=83ee03&color=fff",
             role="user",
         )
     )
@@ -63,8 +60,6 @@ def seed_db():
             email="Sompong@jojo.net",
             name="สมปอง ใจร้าย",
             password=generate_password_hash("1234", method="sha256"),
-            avatar_url="https://ui-avatars.com/api/?name=\
-สมชาย+ทรงแบด&background=83ee03&color=fff",
             role="lecturer",
         )
     )
@@ -75,8 +70,6 @@ def seed_db():
             email="google@hotmail.com",
             name="กูรู",
             password=generate_password_hash("1234", method="sha256"),
-            avatar_url="https://ui-avatars.com/api/?name=\
-สมชาย+ทรงแบด&background=83ee03&color=fff",
             role="student",
         )
     )

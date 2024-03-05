@@ -1,36 +1,31 @@
 body {
-    height: 100vh;
-
+  height: 100vh;
 }
 
 nav {
-    background-color: #f3f3f3;
-    border-bottom: 1px solid;
-    margin-bottom: 0;
+  background-color: #f3f3f3;
+  border-bottom: 1px solid;
+  margin-bottom: 0;
 }
 
 img.tw-user-small {
-    height: 40px;
+  height: 40px;
 }
 
-
 img.tw-user-medium {
-    height: 50px;
+  height: 50px;
 }
 
 .navbar-light .container .navbar-nav .nav-link {
-    color: #2C3333;
-
+  color: #2c3333;
 }
 
 #nav-search {
-    border-color: #2C3333;
-    border-radius: 20px;
-    background-color: #e7ecf0;
+  border-color: #2c3333;
+  border-radius: 20px;
+  background-color: #e7ecf0;
 }
 
-
-
 .container {
-    display: flex;
+  display: flex;
 }

@@ -1,143 +1,138 @@
 :root {
-    --bg_darkmode: #efefef;
-    --year1: #FAAB78;
-    --year2: #F8C4B4;
-    --year3: #E5EBB2;
-    --year4: #BCE29E;
-    --bgHoverNode: #ff9752;
-    --borderHoverNode: #2C3333;
-    --highlight-fill: #ccc;
-    --highlight-stroke: #ccc;
+  --bg_darkmode: #efefef;
+  --year1: #faab78;
+  --year2: #f8c4b4;
+  --year3: #e5ebb2;
+  --year4: #bce29e;
+  --bgHoverNode: #ff9752;
+  --borderHoverNode: #2c3333;
+  --highlight-fill: #ccc;
+  --highlight-stroke: #ccc;
 }
 
 .tree {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .graph {
-    border: none;
+  border: none;
 }
-.graph text, .graph .node.root div {
-    fill: #333;
-    font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
+.graph text,
+.graph .node.root div {
+  fill: #333;
+  font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
 }
 .graph .node rect {
-    stroke: #2C3333;
-    fill: #2C3333;
-    stroke-width: 2px;
-    transition: all 0.3s ease-in-out;
-
+  stroke: #2c3333;
+  fill: #2c3333;
+  stroke-width: 2px;
+  transition: all 0.3s ease-in-out;
 }
 .node {
-    cursor: pointer;
-
+  cursor: pointer;
 }
 .node.y1 rect {
-    fill: var(--year1);
+  fill: var(--year1);
 }
 
 .node.y2 rect {
-    fill: var(--year2);
+  fill: var(--year2);
 }
 
 .node.y3 rect {
-    fill: var(--year3);
+  fill: var(--year3);
 }
 
 .node.y4 rect {
-    fill: var(--year4);
+  fill: var(--year4);
 }
-
 
 .graph .node.disabled rect {
-    stroke-dasharray: 5,5;
+  stroke-dasharray: 5, 5;
 }
 .graph .node.disabled text {
-    fill: #333;
+  fill: #333;
 }
 .graph .edgePath path {
-    stroke: #2C3333;
-    fill: #2C3333;
-    stroke-width: 2px;
+  stroke: #2c3333;
+  fill: #2c3333;
+  stroke-width: 2px;
 }
 .graph .edgePath.CS111 path {
-    stroke: #333;
-    fill: #333;
+  stroke: #333;
+  fill: #333;
 }
 /* Arrowhead */
 .graph .edgePath marker path {
-    stroke: none;
+  stroke: none;
 }
 
-.treeContainer{
-    display: flex;
-    padding: 20px 0;
-    background-color: #e7ecf0;
+.treeContainer {
+  display: flex;
+  padding: 20px 0;
+  background-color: #e7ecf0;
 }
-
 
 .subtree {
-    background-color: #E8F3D6;
-    width: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-
+  background-color: #e8f3d6;
+  width: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 
 /* popup style */
 .popup-bg {
-    width: 100%;
-    height: 100vh;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    background-color: #0000005e;
+  width: 100%;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  background-color: #0000005e;
 }
 .window-popup {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    width: fit-content;
-    border: 3px solid #555;
-    background-color: #CDC9C3;
-    border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  width: fit-content;
+  border: 3px solid #555;
+  background-color: #cdc9c3;
+  border-radius: 10px;
 }
 .closeBox {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 #close {
-    background-color: #de5f5f;
-    border: 1px solid #333;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.1s ease-in-out;
-    box-sizing: content-box;
-    padding: 3px 10px 5px;
+  background-color: #de5f5f;
+  border: 1px solid #333;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  box-sizing: content-box;
+  padding: 3px 10px 5px;
 }
 #close:hover {
-    background-color: #de5f5f;
-    border: 1px solid #333;
-    border-radius: 10px;
-    scale: 1.03;
+  background-color: #de5f5f;
+  border: 1px solid #333;
+  border-radius: 10px;
+  scale: 1.03;
 }
 
 .courseName {
-    border-bottom: #252525;
+  border-bottom: #252525;
 }
 
-
 .graph .node.rect.highlight-rect rect {
-    fill: var(--highlight-fill);
-    stroke: var(--highlight-stroke);
+  fill: var(--highlight-fill);
+  stroke: var(--highlight-stroke);
 }

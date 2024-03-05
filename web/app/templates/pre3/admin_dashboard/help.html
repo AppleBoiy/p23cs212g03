@@ -1,0 +1,114 @@
+<!-- FAQ 1 - Bootstrap Brain Component -->
+<section class="py-3 py-md-5">
+  <div class="container">
+    <div class="row gy-5 gy-lg-0 align-items-lg-center">
+      <div class="col-12 col-lg-6">
+        <img
+          alt="How can we help you?"
+          class="img-fluid rounded"
+          loading="lazy"
+          src="{{ url_for('static', filename='img/faq-img-1.png')}}"
+        />
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="row justify-content-xl-end">
+          <div class="col-12 col-xl-11">
+            <h2 class="h1 mb-3">How can we help you?</h2>
+            <p class="lead fs-4 text-secondary mb-5">
+              We hope you have found an answer to your question. If you need any
+              help, please search your query on our Support Center or contact us
+              via email.
+            </p>
+            <div class="accordion accordion-flush" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button
+                    aria-controls="collapseOne"
+                    aria-expanded="true"
+                    class="accordion-button"
+                    data-bs-target="#collapseOne"
+                    data-bs-toggle="collapse"
+                    type="button"
+                  >
+                    What is prerequisite tree?
+                  </button>
+                </h2>
+                <div
+                  aria-labelledby="headingOne"
+                  class="accordion-collapse collapse show"
+                  data-bs-parent="#accordionExample"
+                  id="collapseOne"
+                >
+                  <div class="accordion-body">
+                    A prerequisite tree is a visual representation of the
+                    courses that a student must complete before taking a
+                    particular course. It shows the relationships between
+                    courses and helps students plan their academic path.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button
+                    aria-controls="collapseTwo"
+                    aria-expanded="false"
+                    class="accordion-button collapsed"
+                    data-bs-target="#collapseTwo"
+                    data-bs-toggle="collapse"
+                    type="button"
+                  >
+                    How does the prerequisite tree tool work?
+                  </button>
+                </h2>
+                <div
+                  aria-labelledby="headingTwo"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionExample"
+                  id="collapseTwo"
+                >
+                  <div class="accordion-body">
+                    The Prerequisite Tree tool allows users to visualize and
+                    explore the prerequisite relationships between different
+                    courses. It fetches course data from a Google Sheets,
+                    converts it into a JSON format, and generates a tree view
+                    using the dagreD3 library. Users can hover over nodes to
+                    view prerequisite details and navigate the tree to
+                    understand the course dependencies.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button
+                    aria-controls="collapseThree"
+                    aria-expanded="false"
+                    class="accordion-button collapsed"
+                    data-bs-target="#collapseThree"
+                    data-bs-toggle="collapse"
+                    type="button"
+                  >
+                    What is Pre3 and what does it do?
+                  </button>
+                </h2>
+                <div
+                  aria-labelledby="headingThree"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#accordionExample"
+                  id="collapseThree"
+                >
+                  <div class="accordion-body">
+                    Pre3 is a course management system that helps students and
+                    faculty manage courses, prerequisites, and degree
+                    requirements. It provides a visual representation of course
+                    prerequisites, helps students plan their academic path, and
+                    allows faculty to manage course data and prerequisites.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,47 +1,4044 @@
-{% extends "pre3/base.html" %} {% block content %}
+<!doctype html>
+<!-- Developed by Siva Kishore G-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      var _ez_ab_test = "mod1";
+    </script>
+    <script>
+      var __ezHttpConsent = {
+        setByCat: function (src, tagType, attributes, category, force) {
+          var setScript = function () {
+            if (force || window.ezTcfConsent[category]) {
+              var scriptElement = document.createElement(tagType);
+              scriptElement.src = src;
+              attributes.forEach(function (attr) {
+                for (var key in attr) {
+                  if (attr.hasOwnProperty(key)) {
+                    scriptElement.setAttribute(key, attr[key]);
+                  }
+                }
+              });
+              var firstScript = document.getElementsByTagName(tagType)[0];
+              firstScript.parentNode.insertBefore(scriptElement, firstScript);
+            }
+          };
+          if (force || (window.ezTcfConsent && window.ezTcfConsent.loaded)) {
+            setScript();
+          } else if (typeof getEzConsentData === "function") {
+            getEzConsentData().then(function (ezTcfConsent) {
+              if (ezTcfConsent && ezTcfConsent.loaded) {
+                setScript();
+              } else {
+                console.error("cannot get ez consent data");
+                force = true;
+                setScript();
+              }
+            });
+          } else {
+            force = true;
+            setScript();
+            console.error("getEzConsentData is not a function");
+          }
+        },
+      };
+    </script>
+    <script>
+      var ezTcfConsent = window.ezTcfConsent
+        ? window.ezTcfConsent
+        : {
+            loaded: false,
+            store_info: false,
+            develop_and_improve_services: false,
+            measure_ad_performance: false,
+            measure_content_performance: false,
+            select_basic_ads: false,
+            create_ad_profile: false,
+            select_personalized_ads: false,
+            create_content_profile: false,
+            select_personalized_content: false,
+            understand_audiences: false,
+            use_limited_data_to_select_content: false,
+          };
 
-<style>
-  .slide-in {
-    animation: slideIn 1s ease forwards;
-    opacity: 0;
-    transform: translateY(-50px);
-  }
+      function getEzConsentData() {
+        return new Promise(function (resolve) {
+          document.addEventListener("ezConsentEvent", function (event) {
+            var ezTcfConsent = event.detail.ezTcfConsent;
+            resolve(ezTcfConsent);
+          });
+        });
+      }
+    </script>
+    <script>
+      function _setEzCookies(ezConsentData) {
+        var cookies = [
+          {
+            name: "ezoab_350378",
+            value:
+              "mod1; Path=/; Domain=htmljstemplates.com; Expires=Tue, 05 Mar 2024 23:15:42 UTC",
+            tcfCategory: "store_info",
+            isEzoic: "true",
+          },
+          {
+            name: "ezoadgid_350378",
+            value:
+              "-2; Path=/; Domain=htmljstemplates.com; Expires=Tue, 05 Mar 2024 21:45:42 UTC",
+            tcfCategory: "understand_audiences",
+            isEzoic: "true",
+          },
+          {
+            name: "ezoref_350378",
+            value:
+              "google.com; Path=/; Domain=htmljstemplates.com; Expires=Tue, 05 Mar 2024 23:15:42 UTC",
+            tcfCategory: "understand_audiences",
+            isEzoic: "true",
+          },
+          {
+            name: "ezosuibasgeneris-1",
+            value:
+              "09da8845-f816-4653-70c6-0060d9142174; Path=/; Domain=htmljstemplates.com; Expires=Wed, 05 Mar 2025 21:15:42 UTC; Secure; SameSite=None",
+            tcfCategory: "understand_audiences",
+            isEzoic: "true",
+          },
+          {
+            name: "active_template::350378",
+            value:
+              "pub_site.1709673342; Path=/; Domain=htmljstemplates.com; Expires=Thu, 07 Mar 2024 21:15:42 UTC",
+            tcfCategory: "store_info",
+            isEzoic: "true",
+          },
+          {
+            name: "ezopvc_350378",
+            value:
+              "7; Path=/; Domain=htmljstemplates.com; Expires=Tue, 05 Mar 2024 21:45:42 UTC",
+            tcfCategory: "understand_audiences",
+            isEzoic: "true",
+          },
+          {
+            name: "lp_350378",
+            value:
+              "https://htmljstemplates.com/html/bootstrap-5-navbars; Path=/; Domain=htmljstemplates.com; Expires=Tue, 05 Mar 2024 21:45:42 UTC",
+            tcfCategory: "store_info",
+            isEzoic: "true",
+          },
+          {
+            name: "ezovuuidtime_350378",
+            value:
+              "1709673342; Path=/; Domain=htmljstemplates.com; Expires=Thu, 07 Mar 2024 21:15:42 UTC",
+            tcfCategory: "understand_audiences",
+            isEzoic: "true",
+          },
+          {
+            name: "ezovuuid_350378",
+            value:
+              "c03f8c8a-b3e9-4310-43ec-5fcaf491b696; Path=/; Domain=htmljstemplates.com; Expires=Tue, 05 Mar 2024 21:45:42 UTC",
+            tcfCategory: "understand_audiences",
+            isEzoic: "true",
+          },
+        ];
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i];
+          if (
+            ezConsentData &&
+            ezConsentData.loaded &&
+            ezConsentData[cookie.tcfCategory]
+          ) {
+            document.cookie = cookie.name + "=" + cookie.value;
+          }
+        }
+      }
 
-  @keyframes slideIn {
-    0% {
-      opacity: 0;
-      transform: translateY(-50px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
+      if (window.ezTcfConsent && window.ezTcfConsent.loaded) {
+        _setEzCookies(window.ezTcfConsent);
+      } else if (typeof getEzConsentData === "function") {
+        getEzConsentData().then(function (ezTcfConsent) {
+          if (ezTcfConsent && ezTcfConsent.loaded) {
+            _setEzCookies(window.ezTcfConsent);
+          } else {
+            console.error("cannot get ez consent data");
+            _setEzCookies(window.ezTcfConsent);
+          }
+        });
+      } else {
+        console.error("getEzConsentData is not a function");
+        _setEzCookies(window.ezTcfConsent);
+      }
+    </script>
+    <script data-cfasync="false" data-ezscrex="false" data-pagespeed-no-defer>
+      var __ez = __ez || {};
+      __ez.stms = Date.now();
+      __ez.evt = {};
+      __ez.script = {};
+      __ez.ck = __ez.ck || {};
+      __ez.template = {};
+      __ez.template.isOrig = false;
+      window.__ezScriptHost = "//www.ezojs.com";
+      __ez.queue = (function () {
+        var e = 0,
+          i = 0,
+          t = [],
+          n = !1,
+          o = [],
+          r = [],
+          s = !0,
+          a = function (e, i, n, o, r, s, a) {
+            var l =
+                arguments.length > 7 && void 0 !== arguments[7]
+                  ? arguments[7]
+                  : window,
+              d = this;
+            (this.name = e),
+              (this.funcName = i),
+              (this.parameters = null === n ? null : p(n) ? n : [n]),
+              (this.isBlock = o),
+              (this.blockedBy = r),
+              (this.deleteWhenComplete = s),
+              (this.isError = !1),
+              (this.isComplete = !1),
+              (this.isInitialized = !1),
+              (this.proceedIfError = a),
+              (this.fWindow = l),
+              (this.isTimeDelay = !1),
+              (this.process = function () {
+                f("... func = " + e),
+                  (d.isInitialized = !0),
+                  (d.isComplete = !0),
+                  f("... func.apply: " + e);
+                var i = d.funcName.split("."),
+                  n = null,
+                  o = this.fWindow || window;
+                i.length > 3 ||
+                  (n =
+                    3 === i.length
+                      ? o[i[0]][i[1]][i[2]]
+                      : 2 === i.length
+                        ? o[i[0]][i[1]]
+                        : o[d.funcName]),
+                  null != n && n.apply(null, this.parameters),
+                  !0 === d.deleteWhenComplete && delete t[e],
+                  !0 === d.isBlock && (f("----- F'D: " + d.name), u());
+              });
+          },
+          l = function (e, i, t, n, o, r, s) {
+            var a =
+                arguments.length > 7 && void 0 !== arguments[7]
+                  ? arguments[7]
+                  : window,
+              l = this;
+            (this.name = e),
+              (this.path = i),
+              (this.async = o),
+              (this.defer = r),
+              (this.isBlock = t),
+              (this.blockedBy = n),
+              (this.isInitialized = !1),
+              (this.isError = !1),
+              (this.isComplete = !1),
+              (this.proceedIfError = s),
+              (this.fWindow = a),
+              (this.isTimeDelay = !1),
+              (this.isPath = function (e) {
+                return "/" === e[0] && "/" !== e[1];
+              }),
+              (this.getSrc = function (e) {
+                return void 0 !== window.__ezScriptHost &&
+                  this.isPath(e) &&
+                  "banger.js" !== this.name
+                  ? window.__ezScriptHost + e
+                  : e;
+              }),
+              (this.process = function () {
+                (l.isInitialized = !0), f("... file = " + e);
+                var i = this.fWindow ? this.fWindow.document : document,
+                  t = i.createElement("script");
+                (t.src = this.getSrc(this.path)),
+                  !0 === o ? (t.async = !0) : !0 === r && (t.defer = !0),
+                  (t.onerror = function () {
+                    var e = {
+                      url: window.location.href,
+                      name: l.name,
+                      path: l.path,
+                      user_agent: window.navigator.userAgent,
+                    };
+                    "undefined" != typeof _ezaq &&
+                      (e.pageview_id = _ezaq.page_view_id);
+                    var i = encodeURIComponent(JSON.stringify(e)),
+                      t = new XMLHttpRequest();
+                    t.open("GET", "//g.ezoic.net/ezqlog?d=" + i, !0),
+                      t.send(),
+                      f("----- ERR'D: " + l.name),
+                      (l.isError = !0),
+                      !0 === l.isBlock && u();
+                  }),
+                  (t.onreadystatechange = t.onload =
+                    function () {
+                      var e = t.readyState;
+                      f("----- F'D: " + l.name),
+                        (e && !/loaded|complete/.test(e)) ||
+                          ((l.isComplete = !0), !0 === l.isBlock && u());
+                    }),
+                  i.getElementsByTagName("head")[0].appendChild(t);
+              });
+          },
+          d = function (e, i) {
+            (this.name = e),
+              (this.path = ""),
+              (this.async = !1),
+              (this.defer = !1),
+              (this.isBlock = !1),
+              (this.blockedBy = []),
+              (this.isInitialized = !0),
+              (this.isError = !1),
+              (this.isComplete = i),
+              (this.proceedIfError = !1),
+              (this.isTimeDelay = !1),
+              (this.process = function () {});
+          };
 
-<div class="grid-container">
-  <div class="item1 block-style" style="background-color: #d8d8d8">1</div>
-  <div class="item2 block-style">2</div>
-  <div class="item3 block-style">3</div>
-  <div class="item4 block-style">4</div>
-  <div class="item5 block-style">5</div>
-  <div class="item6 block-style">6</div>
-  <div class="item6 block-style">6</div>
-  <div class="item6 block-style">6</div>
-  <div class="item6 block-style">6</div>
-  <div class="last block-style" style="background-color: #f2f2f2">
-    <div style="text-align: left"></div>
-    <div
-      style="
-        color: black;
-        font-family: &quot;Mulish&quot;, sans-serif;
-        font-weight: bold;
-        text-align: right;
-      "
-    >
-      GPA:
+        function c(e) {
+          !0 !== h(e) && 0 != s && e.process();
+        }
+
+        function h(e) {
+          if (!0 === e.isTimeDelay && !1 === n)
+            return f(e.name + " blocked = TIME DELAY!"), !0;
+          if (p(e.blockedBy))
+            for (var i = 0; i < e.blockedBy.length; i++) {
+              var o = e.blockedBy[i];
+              if (!1 === t.hasOwnProperty(o))
+                return f(e.name + " blocked = " + o), !0;
+              if (!0 === e.proceedIfError && !0 === t[o].isError) return !1;
+              if (!1 === t[o].isComplete)
+                return f(e.name + " blocked = " + o), !0;
+            }
+          return !1;
+        }
+
+        function f(e) {
+          var i = window.location.href,
+            t = new RegExp("[?&]ezq=([^&#]*)", "i").exec(i);
+          "1" === (t ? t[1] : null) && console.debug(e);
+        }
+
+        function u() {
+          ++e > 200 || (f("let's go"), m(o), m(r));
+        }
+
+        function m(e) {
+          for (var i in e)
+            if (!1 !== e.hasOwnProperty(i)) {
+              var t = e[i];
+              !0 === t.isComplete ||
+              h(t) ||
+              !0 === t.isInitialized ||
+              !0 === t.isError
+                ? !0 === t.isError
+                  ? f(t.name + ": error")
+                  : !0 === t.isComplete
+                    ? f(t.name + ": complete already")
+                    : !0 === t.isInitialized &&
+                      f(t.name + ": initialized already")
+                : t.process();
+            }
+        }
+
+        function p(e) {
+          return "[object Array]" == Object.prototype.toString.call(e);
+        }
+
+        return (
+          window.addEventListener(
+            "load",
+            function () {
+              setTimeout(function () {
+                (n = !0), f("TDELAY -----"), u();
+              }, 5e3);
+            },
+            !1,
+          ),
+          {
+            addFile: function (e, i, n, s, a, d, h, f, u) {
+              var m = new l(e, i, n, s, a, d, h, u);
+              !0 === f ? (o[e] = m) : (r[e] = m), (t[e] = m), c(m);
+            },
+            addDelayFile: function (e, i) {
+              var n = new l(e, i, !1, [], !1, !1, !0);
+              (n.isTimeDelay = !0),
+                f(e + " ...  FILE! TDELAY"),
+                (r[e] = n),
+                (t[e] = n),
+                c(n);
+            },
+            addFunc: function (e, n, s, l, d, h, f, u, m, p) {
+              !0 === h && (e = e + "_" + i++);
+              var w = new a(e, n, s, l, d, f, u, p);
+              !0 === m ? (o[e] = w) : (r[e] = w), (t[e] = w), c(w);
+            },
+            addDelayFunc: function (e, i, n) {
+              var o = new a(e, i, n, !1, [], !0, !0);
+              (o.isTimeDelay = !0),
+                f(e + " ...  FUNCTION! TDELAY"),
+                (r[e] = o),
+                (t[e] = o),
+                c(o);
+            },
+            items: t,
+            processAll: u,
+            setallowLoad: function (e) {
+              s = e;
+            },
+            markLoaded: function (e) {
+              if (e && 0 !== e.length) {
+                if (e in t) {
+                  var i = t[e];
+                  !0 === i.isComplete
+                    ? f(i.name + " " + e + ": error loaded duplicate")
+                    : ((i.isComplete = !0), (i.isInitialized = !0));
+                } else t[e] = new d(e, !0);
+                f("markLoaded dummyfile: " + t[e].name);
+              }
+            },
+            logWhatsBlocked: function () {
+              for (var e in t) !1 !== t.hasOwnProperty(e) && h(t[e]);
+            },
+          }
+        );
+      })();
+      (__ez.evt.add = function (e, t, n) {
+        e.addEventListener
+          ? e.addEventListener(t, n, !1)
+          : e.attachEvent
+            ? e.attachEvent("on" + t, n)
+            : (e["on" + t] = n());
+      }),
+        (__ez.evt.remove = function (e, t, n) {
+          e.removeEventListener
+            ? e.removeEventListener(t, n, !1)
+            : e.detachEvent
+              ? e.detachEvent("on" + t, n)
+              : delete e["on" + t];
+        });
+      __ez.script.add = function (e) {
+        var t = document.createElement("script");
+        (t.src = e),
+          (t.async = !0),
+          (t.type = "text/javascript"),
+          document.getElementsByTagName("head")[0].appendChild(t);
+      };
+      __ez.dot = {};
+      __ez.queue.addFile(
+        "/detroitchicago/boise.js",
+        "/detroitchicago/boise.js?gcb=195-1&cb=5",
+        true,
+        [],
+        true,
+        false,
+        true,
+        false,
+      );
+      __ez.queue.addFile(
+        "/parsonsmaize/abilene.js",
+        "/parsonsmaize/abilene.js?gcb=195-1&cb=33",
+        true,
+        [],
+        true,
+        false,
+        true,
+        false,
+      );
+    </script>
+    <script data-cfasync="false" data-ezscrex="false">
+      __ez.ssaf = [];
+      __ez.sswp = 4;
+      __ez.ssv = 762770;
+      __ez.sshsdef = false;
+    </script>
+    <script data-cfasync="false" data-ezscrex="false">
+      (function () {
+        if ("function" === typeof window.CustomEvent) return !1;
+        window.CustomEvent = function (c, a) {
+          a = a || { bubbles: !1, cancelable: !1, detail: null };
+          var b = document.createEvent("CustomEvent");
+          b.initCustomEvent(c, a.bubbles, a.cancelable, a.detail);
+          return b;
+        };
+      })();
+    </script>
+    <script data-cfasync="false" data-ezscrex="false">
+      __ez.queue.addFile(
+        "/detroitchicago/tulsa.js",
+        "/detroitchicago/tulsa.js?gcb=195-1&cb=9",
+        false,
+        [],
+        true,
+        false,
+        true,
+        false,
+      );
+    </script>
+    <script data-cfasync="false" data-ezscrex="false" type="text/javascript">
+      window._ezaq = Object.assign(
+        {},
+        typeof window._ezaq !== "undefined" ? window._ezaq : {},
+        {
+          ad_cache_level: 0,
+          domain_id: 350378,
+          ezcache_level: 2,
+          ezcache_skip_code: 0,
+          has_bad_image: 0,
+          has_bad_words: 0,
+          is_sitespeed: 1,
+          lt_cache_level: 0,
+          page_view_id: "eba04902-74ca-41eb-4a96-b8f213aa1581",
+          response_size_orig: 6691,
+          response_time_orig: 4,
+          template_id: 147,
+          url: "https://htmljstemplates.com/demo?page=audioNavbar",
+          visit_uuid: "c03f8c8a-b3e9-4310-43ec-5fcaf491b696",
+          word_count: 23,
+          worst_bad_word_level: 0,
+        },
+      );
+      __ez.queue.markLoaded("ezaqBaseReady");
+    </script>
+    <script>
+      window.ezVideo = {
+        appendFloatAfterAd: false,
+        language: "en",
+        titleString: "",
+        titleOption: "",
+        autoEnableCaptions: false,
+      };
+    </script>
+    <link crossorigin href="//fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="//fonts.gstatic.com" rel="preconnect" />
+    <link crossorigin href="//cdn.jsdelivr.net" rel="preconnect" />
+    <link crossorigin href="//kit.fontawesome.com" rel="preconnect" />
+    <link crossorigin href="//code.jquery.com" rel="preconnect" />
+    <link crossorigin href="//go.ezoic.net" rel="preconnect" />
+    <script type="text/javascript">
+      (function () {
+        function storageAvailable(type) {
+          var storage;
+          try {
+            storage = window[type];
+            var x = "__storage_test__";
+            storage.setItem(x, x);
+            storage.removeItem(x);
+            return true;
+          } catch (e) {
+            return (
+              e instanceof DOMException &&
+              (e.code === 22 ||
+                e.code === 1014 ||
+                e.name === "QuotaExceededError" ||
+                e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
+              storage &&
+              storage.length !== 0
+            );
+          }
+        }
+
+        function remove_ama_config() {
+          if (storageAvailable("localStorage")) {
+            localStorage.removeItem("google_ama_config");
+          }
+        }
+
+        remove_ama_config();
+      })();
+    </script>
+    <script type="text/javascript">
+      var ezoicTestActive = true;
+    </script>
+    <script data-cfasync="false" data-ezscrex="false" type="text/javascript">
+      window._ezaq = Object.assign(
+        {},
+        typeof window._ezaq !== "undefined" ? window._ezaq : {},
+        {
+          ab_test_id: "mod1",
+          ad_cache_level: 0,
+          ad_count_adjustment: 1,
+          ad_lazyload_version: 0,
+          ad_load_version: 1,
+          ad_location_ids: "",
+          adx_ad_count: 0,
+          ai_placeholder_cache_level: 3,
+          ai_placeholder_placement_cnt: 0,
+          bidder_method: 1,
+          bidder_version: 3,
+          city: "Chiang Mai",
+          country: "TH",
+          days_since_last_visit: -1,
+          display_ad_count: 0,
+          domain_id: 350378,
+          ds_adsize_opt_id: -1,
+          engaged_time_visit: 186,
+          ezcache_level: 2,
+          ezcache_skip_code: 0,
+          form_factor_id: 1,
+          framework_id: 1,
+          has_bad_image: 0,
+          has_bad_words: 0,
+          iab_category: "",
+          is_embed: false,
+          is_from_recommended_pages: false,
+          is_return_visitor: false,
+          is_sitespeed: 1,
+          last_page_load: "1709673331363",
+          last_pageview_id: "68ebc2e3-566f-47df-6791-8c05f2b79b45",
+          lt_cache_level: 0,
+          max_ads: 2,
+          metro_code: 0,
+          optimization_version: 1,
+          page_ad_positions: "",
+          page_view_count: 6,
+          page_view_id: "eba04902-74ca-41eb-4a96-b8f213aa1581",
+          position_selection_id: 0,
+          postal_code: "50000",
+          pv_event_count: 0,
+          response_size_orig: 6691,
+          response_time_orig: 4,
+          serverid: "i-022279a010a6fa477",
+          state: "50",
+          sub_page_ad_positions: "",
+          t_epoch: 1709673342,
+          template_id: 147,
+          time_on_site_visit: 533,
+          url: "https://htmljstemplates.com/demo?page=audioNavbar",
+          visit_uuid: "c03f8c8a-b3e9-4310-43ec-5fcaf491b696",
+          weather_precipitation: 0,
+          weather_summary: "",
+          weather_temperature: 0,
+          word_count: 23,
+          worst_bad_word_level: 0,
+        },
+      );
+      __ez.queue.markLoaded("ezaqReady");
+    </script>
+    <script data-cfasync="false" data-ezscrex="false" data-pagespeed-no-defer>
+      __ez.queue.addFile(
+        "/parsonsmaize/mulvane.js",
+        "/parsonsmaize/mulvane.js?gcb=195-1&cb=6",
+        true,
+        ["/parsonsmaize/abilene.js"],
+        true,
+        false,
+        true,
+        false,
+      );
+      __ez.queue.addFile(
+        "/parsonsmaize/olathe.js",
+        "/parsonsmaize/olathe.js?gcb=195-1&cb=24",
+        false,
+        ["/parsonsmaize/abilene.js", "/parsonsmaize/mulvane.js"],
+        true,
+        false,
+        true,
+        false,
+      );
+      __ez.queue.addFile(
+        "/porpoiseant/et.js",
+        "/porpoiseant/et.js?gcb=195-1&cb=2",
+        false,
+        [],
+        true,
+        false,
+        true,
+        false,
+      );
+      !(function () {
+        var e = function (e, i, t) {
+          var o = [],
+            n = null;
+          return {
+            Add: function (t, d) {
+              var a =
+                arguments.length > 2 && void 0 !== arguments[2]
+                  ? arguments[2]
+                  : null;
+              if (__ez.dot.isDefined(t) && __ez.dot.isValid(d))
+                if (
+                  n == t &&
+                  o.length > 0 &&
+                  o[o.length - 1].data.length + d.length <= 5
+                )
+                  o[o.length - 1].data = o[o.length - 1].data.concat(
+                    __ez.dot.dataToStr(d),
+                  );
+                else {
+                  var _ = {
+                    type: e,
+                    domain_id: __ez.dot.getDID(),
+                    t_epoch: __ez.dot.getEpoch(0),
+                    data: __ez.dot.dataToStr(d),
+                  };
+                  (_[i] = t),
+                    a &&
+                      a.hasOwnProperty("impression_id") &&
+                      a.hasOwnProperty("ad_unit") &&
+                      ((_.impression_id = a.impression_id.toString()),
+                      (_.unit = a.ad_unit)),
+                    o.push(_),
+                    (n = t);
+                }
+            },
+            Fire: function () {
+              if (
+                void 0 === document.visibilityState ||
+                "prerender" !== document.visibilityState
+              ) {
+                if (__ez.dot.isDefined(o) && o.length > 0)
+                  for (; o.length > 0; ) {
+                    var e = 5;
+                    e > o.length && (e = o.length);
+                    var i = o.splice(0, e),
+                      n =
+                        __ez.dot.getURL(t) +
+                        "?orig=" +
+                        (!0 === __ez.template.isOrig ? 1 : 0) +
+                        "&v=" +
+                        btoa(JSON.stringify(i));
+                    __ez.dot.Fire(n);
+                  }
+                o = [];
+              }
+            },
+          };
+        };
+        (__ez.vep = e(
+          "video",
+          "video_impression_id",
+          "/detroitchicago/grapefruit.gif",
+        )),
+          (__ez.vaep = e(
+            "video-ad",
+            "video_ad_impression_id",
+            "/porpoiseant/lemon.gif",
+          )),
+          (__ez.osvaep = e(
+            "outstream-video-ad",
+            "video_ad_impression_id",
+            "/porpoiseant/tangerine.gif",
+          ));
+      })();
+    </script>
+    <script data-cfasync="false" data-ezscrex="false" data-pagespeed-no-defer>
+      __ez.queue.addFile(
+        "/detroitchicago/wichita.js",
+        "/detroitchicago/wichita.js?gcb=195-1&cb=12",
+        false,
+        ["/parsonsmaize/abilene.js"],
+        true,
+        false,
+        true,
+        false,
+      );
+      __ez.queue.addFile(
+        "/detroitchicago/raleigh.js",
+        "/detroitchicago/raleigh.js?gcb=195-1&cb=7",
+        false,
+        ["/parsonsmaize/abilene.js"],
+        true,
+        false,
+        true,
+        false,
+      );
+      __ez.queue.addFile(
+        "/detroitchicago/vista.js",
+        "/detroitchicago/vista.js?gcb=195-1&cb=6",
+        false,
+        ["/parsonsmaize/abilene.js"],
+        true,
+        false,
+        true,
+        false,
+      );
+    </script>
+    <base href="https://htmljstemplates.com/demo?page=audioNavbar" />
+
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cabin&amp;family=Quicksand:wght@400;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/static_files/css/common.css?ff=1&amp;v=17&amp;wps=true"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <title>Pre3 - Student Dashboard</title>
+    <meta content="" name="description" />
+    <script type="text/javascript">
+      var ezoTemplate = "pub_site_noads";
+      var ezouid = "1";
+      var ezoFormfactor = "1";
+    </script>
+    <script data-ezscrex="false" type="text/javascript">
+      var soc_app_id = "0";
+      var did = 350378;
+      var ezdomain = "htmljstemplates.com";
+      var ezoicSearchable = 1;
+    </script>
+    <link
+      as="style"
+      href="/ezvideo/ezvideojscss.css?cb=96"
+      rel="preload stylesheet"
+      type="text/css"
+    />
+    <link
+      href="/ezvideo/ezvideojspluginscss.css?cb=96"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style>
+      .video-container {
+        overflow: hidden !important;
+      }
+
+      .player-container {
+        background: #1a1a1a !important;
+        overflow: auto !important;
+        width: 900px !important;
+        margin: 0 0 20px !important;
+      }
+
+      .ez-video-container {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+      }
+
+      @media screen and (min-width: 100px) {
+        .ez-video-container.ez-stuck:not(.ez-outstream-container) {
+          position: fixed;
+          bottom: 120px;
+          z-index: 999;
+          right: 20px;
+          width: 75%;
+          height: auto;
+          transform: translateY(100%);
+          animation: fade-in-up 0.25s ease forwards;
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        .ez-video-container.ez-stuck:not(.ez-outstream-container) {
+          position: fixed;
+          bottom: 120px;
+          z-index: 999;
+          right: 20px;
+          width: 55%;
+          height: auto;
+          transform: translateY(100%);
+          animation: fade-in-up 0.25s ease forwards;
+        }
+      }
+
+      @media screen and (min-width: 1024px) {
+        .ez-video-container.ez-stuck:not(.ez-outstream-container) {
+          position: fixed;
+          bottom: 120px;
+          z-index: 999;
+          right: 20px;
+          margin-bottom: 20px;
+          width: 30%;
+          height: auto;
+          transform: translateY(100%);
+          animation: fade-in-up 0.75s ease forwards;
+        }
+      }
+
+      .ez-video-container.ez-stuck.vertical {
+        width: 225px;
+        height: 400px;
+        max-height: 400px;
+      }
+
+      .ez-video-container.ez-stuck.ez-float-left {
+        right: auto;
+        left: 20px;
+      }
+
+      .ez-video-container.ez-stuck.ez-float-center {
+        right: auto;
+        left: 50%;
+        margin-left: -130px;
+      }
+
+      .ez-video-container.ez-stuck.ez-float-center.vertical {
+        margin-left: -80px;
+      }
+
+      .ez-video-ad-container {
+        top: 0;
+        position: absolute;
+        display: none;
+        width: 100%;
+        height: 100%;
+      }
+
+      .ez-video-ad-container div,
+      .ez-video-wrap div {
+        background: 0 0;
+      }
+
+      .ez-vad-controls {
+        bottom: 0;
+        height: 1.4em;
+        position: absolute;
+        overflow: hidden;
+        display: none;
+        opacity: 1;
+        z-index: 99;
+        background-color: #07141eb2;
+        background: -moz-linear-gradient(
+          bottom,
+          rgba(7, 20, 30, 0.7) 0%,
+          rgba(7, 20, 30, 0) 100%
+        );
+        background: -webkit-gradient(
+          linear,
+          left bottom,
+          left top,
+          color-stop(0%, rgba(7, 20, 30, 0.7)),
+          color-stop(100%, rgba(7, 20, 30, 0))
+        );
+        background: -webkit-linear-gradient(
+          bottom,
+          rgba(7, 20, 30, 0.7) 0%,
+          rgba(7, 20, 30, 0) 100%
+        );
+        background: -o-linear-gradient(
+          bottom,
+          rgba(7, 20, 30, 0.7) 0%,
+          rgba(7, 20, 30, 0) 100%
+        );
+        background: -ms-linear-gradient(
+          bottom,
+          rgba(7, 20, 30, 0.7) 0%,
+          rgba(7, 20, 30, 0) 100%
+        );
+        background: linear-gradient(
+          to top,
+          rgba(7, 20, 30, 0.7) 0%,
+          rgba(7, 20, 30, 0) 100%
+        );
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0007141E', endColorstr='#07141E', GradientType=0);
+      }
+
+      .ez-vad-controls.ez-vad-controls-showing {
+        height: 3.7em;
+      }
+
+      .ez-vad-countdown {
+        height: 1em;
+        color: #fff;
+        text-shadow: 0 0 0.2em #000;
+        cursor: default;
+      }
+
+      .ez-vad-seek-bar {
+        top: 1.2em;
+        height: 0.3em;
+        position: absolute;
+        background: #fff6;
+      }
+
+      .ez-vad-progress {
+        width: 0;
+        height: 0.3em;
+        background-color: #ecc546;
+      }
+
+      .ez-vad-play-pause,
+      .ez-vad-mute,
+      .ez-vad-slider,
+      .ez-vad-fullscreen {
+        width: 2.33em;
+        height: 1.33em;
+        top: 0.733em;
+        left: 0;
+        position: absolute;
+        color: #ccc;
+        font-size: 1.5em;
+        line-height: 2;
+        text-align: center;
+        font-family: VideoJS;
+        cursor: pointer;
+      }
+
+      .ez-vad-mute {
+        left: auto;
+        right: 5.667em;
+      }
+
+      .ez-vad-slider {
+        left: auto;
+        right: 2.33em;
+        width: 3.33em;
+        height: 0.667em;
+        top: 1.33em;
+        background-color: #555;
+      }
+
+      .ez-vad-slider-level {
+        width: 100%;
+        height: 0.667em;
+        background-color: #ecc546;
+      }
+
+      .ez-vad-fullscreen {
+        left: auto;
+        right: 0;
+      }
+
+      .ez-vad-playing:before {
+        content: "\00f103";
+      }
+
+      .ez-vad-paused:before {
+        content: "\00f101";
+      }
+
+      .ez-vad-playing:hover:before,
+      .ez-vad-paused:hover:before {
+        text-shadow: 0 0 1em #fff;
+      }
+
+      .ez-vad-non-muted:before {
+        content: "\00f107";
+      }
+
+      .ez-vad-muted:before {
+        content: "\00f104";
+      }
+
+      .ez-vad-non-muted:hover:before,
+      .ez-vad-muted:hover:before {
+        text-shadow: 0 0 1em #fff;
+      }
+
+      .ez-vad-non-fullscreened:before {
+        content: "\00f108";
+      }
+
+      .ez-vad-fullscreened:before {
+        content: "\00f109";
+      }
+
+      .ez-vad-non-fullscreened:hover:before,
+      .ez-vad-fullscreened:hover:before {
+        text-shadow: 0 0 1em #fff;
+      }
+
+      .ez-video-wrap video {
+        visibility: visible !important;
+      }
+
+      .ez-wrap-float-only {
+        height: 0 !important;
+        width: 0 !important;
+      }
+
+      .ez-playlist-float-only {
+        display: none !important;
+      }
+
+      .video-js .vjs-share__middle {
+        padding: 0 0 !important;
+        width: 80%;
+      }
+
+      .video-js {
+        float: left !important;
+        font-size: 10px;
+        color: #fff;
+        position: relative !important;
+        width: 100%;
+        height: auto;
+        margin: 0;
+      }
+
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .floating-placeholder {
+        background-color: #000;
+        display: block;
+      }
+
+      .floating-placeholder-sizer {
+        width: 100%;
+        padding-bottom: 56.25%;
+      }
+
+      .ez-video-wrap {
+        text-align: center;
+        clear: both;
+        position: relative;
+      }
+
+      .vjs-playlist {
+        height: 114px;
+      }
+
+      .ez-video-link {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block !important;
+        text-align: left;
+        max-width: 90vw;
+      }
+
+      span.vjs-icon-placeholder {
+        line-height: 1.9em !important;
+        position: static;
+      }
+
+      .ez-companion {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .ez-video-magic-row {
+        display: block;
+        background-color: #333 !important;
+        height: 114px;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        margin-top: 10px;
+      }
+
+      .ez-video-magic-banner-row {
+        display: block;
+        background-color: #0000001a;
+        height: 114px;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        margin-top: 10px;
+      }
+
+      .ez-video-magic-row.takeover {
+        display: block;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        background-color: unset;
+        margin-top: 0;
+      }
+
+      .ez-video-magic-list {
+        height: 100%;
+        white-space: nowrap;
+        position: relative;
+        margin: 0 !important;
+        padding: 0 !important;
+        list-style: none;
+        text-align: left;
+        list-style-type: none;
+      }
+
+      .ez-video-magic-list .ez-video-magic-item::before {
+        display: none;
+      }
+
+      .ez-video-magic-banner-list {
+        height: 100%;
+        white-space: nowrap;
+        position: relative;
+        margin: 0 !important;
+        padding: 0;
+        list-style: none;
+        text-align: center;
+        list-style-type: none;
+      }
+
+      .ez-video-magic-item {
+        display: inline-block;
+        height: 100%;
+        margin: 0 !important;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+      }
+
+      .ez-video-magic-item.takeover {
+        display: block;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+      }
+
+      .ez-video-magic-item.vertical {
+        width: calc(114px * 16 / 9);
+        background-color: #262626;
+      }
+
+      .ez-video-magic-item:not(.vertical) .ez-stuck {
+        width: 256px !important;
+        height: 144px !important;
+      }
+
+      .ez-video-magic-item.vertical .ez-stuck {
+        width: 144px !important;
+        height: 256px !important;
+      }
+
+      .ez-video-magic-item .floating-placeholder {
+        width: calc(114px * 16 / 9);
+      }
+
+      .ez-video-magic-item .ez-video-container {
+        width: calc(114px * 16 / 9);
+      }
+
+      .ez-video-magic-item .ez-video-container.takeover {
+        width: 100%;
+      }
+
+      .ez-video-magic-item .ez-video-container.vertical:not(.ez-stuck) {
+        width: calc(114px * 9 / 16);
+        margin: 0 auto;
+        display: block;
+      }
+
+      .ez-video-magic-item .vjs-up-next-text {
+        display: none !important;
+      }
+
+      .ez-video-magic-item .vjs-playlist-duration,
+      .ez-video-magic-item .vjs-playlist-now-playing-text,
+      .ez-video-magic-item .vjs-playlist-name {
+        color: #fff !important;
+      }
+
+      .ez-video-magic-item .vjs-playlist {
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      .ez-video-magic-item .vjs-playlist::-webkit-scrollbar {
+        height: 5px;
+      }
+
+      .ez-video-magic-item .vjs-playlist:hover::-webkit-scrollbar {
+        height: 10px;
+        transition: height 0.2s ease-in-out;
+      }
+
+      .ez-video-magic-item .vjs-playlist::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+      }
+
+      .ez-video-magic-item .vjs-playlist:hover::-webkit-scrollbar-thumb {
+        background-color: #767676;
+      }
+
+      .ez-video-wrap {
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          segoe ui,
+          Roboto,
+          Oxygen,
+          Ubuntu,
+          Cantarell,
+          open sans,
+          helvetica neue,
+          sans-serif !important;
+      }
+
+      .ez-video-magic img {
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+
+      .ez-video-magic-item.vertical img {
+        width: calc(114px * 9 / 16);
+        margin: 0 auto;
+        display: block;
+      }
+
+      .ez-video-magic-overlay {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        background-color: #0009;
+      }
+
+      .humix-universal-js-insert {
+        display: block;
+      }
+
+      .ez-video-container.takeover .ez-video-ez-stuck-bar {
+        display: none !important;
+      }
+
+      .ez-video-container.takeover .ez-video-ez-stuck-bar.ez-stuck-bar-visible {
+        display: flex !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        opacity: 1 !important;
+        align-items: baseline !important;
+        position: absolute !important;
+        z-index: 10000 !important;
+        transition: background-color 0.1s !important;
+      }
+
+      .ez-video-container.takeover .ez-video-ez-stuck-close {
+        opacity: 0.9 !important;
+        right: 0;
+        text-shadow: 0 0 4px #000 !important;
+        transition: 0.3s !important;
+        cursor: pointer !important;
+        display: flex !important;
+        padding-left: 6px;
+        padding-right: 6px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        background: #0009;
+        align-items: center;
+      }
+
+      .ez-video-magic-no-ads-disclaimer.enabled {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #fff !important;
+        color: #000 !important;
+        padding: 2px 12px;
+        font-size: 12px;
+        font-weight: 700;
+        z-index: 5;
+        box-shadow: 0 0 8px #fffc !important;
+        font-family: system-ui !important;
+        border-radius: 6px;
+      }
+
+      .ez-video-magic-no-ads-disclaimer.disabled {
+        display: none !important;
+      }
+
+      .ez-video-magic-no-ads-disclaimer.enabled
+        + .video-js
+        div.vjs-poster
+        picture.vjs-poster
+        img {
+        filter: brightness(0.5);
+      }
+    </style>
+    <link
+      href="/ezvideo/ezvideocss.css?cb=96&dcb=0"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script>
+      (function () {
+        let ezInstream = {
+          prebidBidders: [
+            {
+              bidder: "rubicon",
+              params: {
+                accountId: 21150,
+                siteId: 421616,
+                video: { language: "en", size_id: 201 },
+                zoneId: 2393712,
+              },
+            },
+            {
+              bidder: "openx",
+              params: { delDomain: "ezoic-d.openx.net", unit: "560605963" },
+            },
+          ],
+          apsSlot: { slotID: "", divID: "", slotName: "", sizes: null },
+          breaks: [
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-preroll-1",
+              timeOffset: "start",
+              timeOffsetSeconds: 0,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-preroll-1",
+              impressionCnt: 1,
+              impressionId: 2160037319289945,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=preroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3D58ef7bddb438af5e257c4377f32c243a%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D1%26iid1%3D2160037319289945%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-2160037319289945",
+              queryType: "country",
+              videoAdBidFloor: 1.2,
+              videoAdBidFloorUnmodified: 0.716,
+              videoAdBidFloorCPMMeanAbsDev: 0.511,
+              videoAdBidHash: "58ef7bddb438af5e257c4377f32c243a",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-1",
+              timeOffset: "00:00:01.000",
+              timeOffsetSeconds: 1,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-1",
+              impressionCnt: 2,
+              impressionId: 224180657321424,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=2\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D2%26iid1%3D224180657321424%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-224180657321424",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-2",
+              timeOffset: "00:00:02.000",
+              timeOffsetSeconds: 2,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-2",
+              impressionCnt: 3,
+              impressionId: 4864332459291740,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=3\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D3%26iid1%3D4864332459291740%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-4864332459291740",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-3",
+              timeOffset: "00:00:03.000",
+              timeOffsetSeconds: 3,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-3",
+              impressionCnt: 4,
+              impressionId: 5230300061250384,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=4\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D4%26iid1%3D5230300061250384%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-5230300061250384",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-4",
+              timeOffset: "00:00:04.000",
+              timeOffsetSeconds: 4,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-4",
+              impressionCnt: 5,
+              impressionId: 3676040243278760,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=5\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D5%26iid1%3D3676040243278760%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-3676040243278760",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-5",
+              timeOffset: "00:00:05.000",
+              timeOffsetSeconds: 5,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-5",
+              impressionCnt: 6,
+              impressionId: 6664187583311238,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=6\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D6%26iid1%3D6664187583311238%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-6664187583311238",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-6",
+              timeOffset: "00:00:06.000",
+              timeOffsetSeconds: 6,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-6",
+              impressionCnt: 7,
+              impressionId: 2214962799310278,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=7\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D7%26iid1%3D2214962799310278%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-2214962799310278",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-7",
+              timeOffset: "00:00:07.000",
+              timeOffsetSeconds: 7,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-7",
+              impressionCnt: 8,
+              impressionId: 2749362853305592,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=8\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D8%26iid1%3D2749362853305592%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-2749362853305592",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-8",
+              timeOffset: "00:00:08.000",
+              timeOffsetSeconds: 8,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-8",
+              impressionCnt: 9,
+              impressionId: 6713612041324302,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=9\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D9%26iid1%3D6713612041324302%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-6713612041324302",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-9",
+              timeOffset: "00:00:09.000",
+              timeOffsetSeconds: 9,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-9",
+              impressionCnt: 10,
+              impressionId: 931227189260294,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=10\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D10%26iid1%3D931227189260294%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-931227189260294",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-10",
+              timeOffset: "00:00:10.000",
+              timeOffsetSeconds: 10,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-10",
+              impressionCnt: 11,
+              impressionId: 8528810787257023,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=11\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D11%26iid1%3D8528810787257023%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-8528810787257023",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-11",
+              timeOffset: "00:00:11.000",
+              timeOffsetSeconds: 11,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-11",
+              impressionCnt: 12,
+              impressionId: 9111061427328914,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=12\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D12%26iid1%3D9111061427328914%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-9111061427328914",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-12",
+              timeOffset: "00:00:12.000",
+              timeOffsetSeconds: 12,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-12",
+              impressionCnt: 13,
+              impressionId: 2307997217267447,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=13\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D13%26iid1%3D2307997217267447%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-2307997217267447",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-13",
+              timeOffset: "00:00:13.000",
+              timeOffsetSeconds: 13,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-13",
+              impressionCnt: 14,
+              impressionId: 3801057577253708,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=14\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D14%26iid1%3D3801057577253708%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-3801057577253708",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-14",
+              timeOffset: "00:00:14.000",
+              timeOffsetSeconds: 14,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-14",
+              impressionCnt: 15,
+              impressionId: 7898333273268834,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=15\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D15%26iid1%3D7898333273268834%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-7898333273268834",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-15",
+              timeOffset: "00:00:15.000",
+              timeOffsetSeconds: 15,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-15",
+              impressionCnt: 16,
+              impressionId: 4507349581323780,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=16\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D16%26iid1%3D4507349581323780%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-4507349581323780",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-16",
+              timeOffset: "00:00:16.000",
+              timeOffsetSeconds: 16,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-16",
+              impressionCnt: 17,
+              impressionId: 6783256151312426,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=17\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D17%26iid1%3D6783256151312426%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-6783256151312426",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-17",
+              timeOffset: "00:00:17.000",
+              timeOffsetSeconds: 17,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-17",
+              impressionCnt: 18,
+              impressionId: 1850346147259324,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=18\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D18%26iid1%3D1850346147259324%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-1850346147259324",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-18",
+              timeOffset: "00:00:18.000",
+              timeOffsetSeconds: 18,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-18",
+              impressionCnt: 19,
+              impressionId: 7153789266061,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=19\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D19%26iid1%3D7153789266061%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-7153789266061",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-19",
+              timeOffset: "00:00:19.000",
+              timeOffsetSeconds: 19,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-19",
+              impressionCnt: 20,
+              impressionId: 7007596625284568,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=20\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D20%26iid1%3D7007596625284568%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-7007596625284568",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-20",
+              timeOffset: "00:00:20.000",
+              timeOffsetSeconds: 20,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-20",
+              impressionCnt: 21,
+              impressionId: 6958493611298992,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=21\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D21%26iid1%3D6958493611298992%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-6958493611298992",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-21",
+              timeOffset: "00:00:21.000",
+              timeOffsetSeconds: 21,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-21",
+              impressionCnt: 22,
+              impressionId: 8616491911265241,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=22\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D22%26iid1%3D8616491911265241%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-8616491911265241",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-22",
+              timeOffset: "00:00:22.000",
+              timeOffsetSeconds: 22,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-22",
+              impressionCnt: 23,
+              impressionId: 2976351797318750,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=23\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D23%26iid1%3D2976351797318750%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-2976351797318750",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-23",
+              timeOffset: "00:00:23.000",
+              timeOffsetSeconds: 23,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-23",
+              impressionCnt: 24,
+              impressionId: 8804130709284154,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=24\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D24%26iid1%3D8804130709284154%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-8804130709284154",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-24",
+              timeOffset: "00:00:24.000",
+              timeOffsetSeconds: 24,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-24",
+              impressionCnt: 25,
+              impressionId: 4834654287275338,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=25\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D25%26iid1%3D4834654287275338%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-4834654287275338",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-25",
+              timeOffset: "00:00:25.000",
+              timeOffsetSeconds: 25,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-25",
+              impressionCnt: 26,
+              impressionId: 884931301309433,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=26\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D26%26iid1%3D884931301309433%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-884931301309433",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-26",
+              timeOffset: "00:00:26.000",
+              timeOffsetSeconds: 26,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-26",
+              impressionCnt: 27,
+              impressionId: 5851793183313926,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=27\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D27%26iid1%3D5851793183313926%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-5851793183313926",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-27",
+              timeOffset: "00:00:27.000",
+              timeOffsetSeconds: 27,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-27",
+              impressionCnt: 28,
+              impressionId: 6445913137332113,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=28\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D28%26iid1%3D6445913137332113%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-6445913137332113",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-midroll-28",
+              timeOffset: "00:00:28.000",
+              timeOffsetSeconds: 28,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-midroll-28",
+              impressionCnt: 29,
+              impressionId: 2316496175298459,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026mridx=29\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=midroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dc352ba581bd3ffd8cea608cf2d55f519%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D29%26iid1%3D2316496175298459%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-2316496175298459",
+              queryType: "country",
+              videoAdBidFloor: 0.6,
+              videoAdBidFloorUnmodified: 0.359,
+              videoAdBidFloorCPMMeanAbsDev: 0.253,
+              videoAdBidHash: "c352ba581bd3ffd8cea608cf2d55f519",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+            {
+              key: "ez-4999$QQwgb6HRGOu$0$htmljstemplates_com-postroll-1",
+              timeOffset: "end",
+              timeOffsetSeconds: -1,
+              breakType: "linear",
+              breakID: "htmljstemplates_com-postroll-1",
+              impressionCnt: 30,
+              impressionId: 2416679027271635,
+              bidFloorType: 0,
+              bidRetries: 6,
+              paramGen: "PubSelectedParams",
+              params: {
+                min: 4500,
+                max: 60000,
+                skip: false,
+                vad: "linear",
+                ad_type: "video",
+                ad_sizes: "400x300|640x480|640x360|300x168",
+                useCacheKey: "",
+              },
+              positionGen: "FrontLoad",
+              bidFloorGen: "defaultVideoAdBidFloor",
+              positionID: 4999,
+              multiplier: 2,
+              prebidParams: {
+                api: [2],
+                context: "instream",
+                h: 480,
+                linearity: 1,
+                maxduration: 60,
+                mimes: ["video/mp4", "application/javascript"],
+                minduration: 4,
+                plcmt: 2,
+                playbackmethod: [6],
+                playerSize: [640, 480],
+                pos: 3,
+                protocols: [2, 3, 7, 5, 6, 8],
+                skip: 0,
+                skippable: false,
+                startdelay: 0,
+                w: 640,
+                useCacheKey: false,
+              },
+              vastURL:
+                "https://pubads.g.doubleclick.net/gampad/ads?description_url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026env=vp\u0026gdfp_req=1\u0026output=xml_vast4\u0026sz=400x300%7C640x480%7C640x360%7C300x168\u0026unviewed_position_start=1\u0026url=https%3A%2F%2Fhtmljstemplates.com%2Fdemo%3Fpage%3DaudioNavbar\u0026ad_type=video\u0026hl=en\u0026max_ad_duration=60000\u0026min_ad_duration=4500\u0026npa=0\u0026tfcd=0\u0026vpmute=1\u0026vpos=postroll\u0026iu=/1254144,22746065362/350378-shared-video-3\u0026vid_d=860\u0026vid_kw=how+to+make+ecommerce+website+using+html+and+css%2Chow+to+make+e-commerce+website%2Chow+to+make+ecommerce+website%2Conline+shopping+website+design%2Cecommerce+website+design+using+html+and+css%2Conline+shopping+website+using+html+and+css%2Ce-commerce+website+design%2Cecommerce+website+design%2Chow+to+make+website%2Cecommerce+web+development\u0026vid_t=How+To+Make+Shopping+Cart+Page+On+eCommerce+Website+_+E-commerce+Web+Design+Using+HTML+CSS\u0026vpa=auto\u0026cust_params=ap%3D3%26bra%3Dmod1%26d%3D350378%26eb_br%3Dfe5b0c99ab7ba15f050582be1301303f%26ebss%3D10061%252C10015%252C10063%252C11291%252C11315%26ft%3D0%26ic%3D30%26iid1%3D2416679027271635%26plat%3D1%26t%3D147%26tap%3D350378-shared-video-3-2416679027271635",
+              queryType: "country",
+              videoAdBidFloor: 0.46,
+              videoAdBidFloorUnmodified: 0.452,
+              videoAdBidFloorCPMMeanAbsDev: 0.335,
+              videoAdBidHash: "fe5b0c99ab7ba15f050582be1301303f",
+              videoFallbackType: "drop2x",
+              videoFallbackFloors: [0.6, 0.46, 0.36, 0.26, 0.16, 0.06],
+              videoFallbackHashes: [
+                "c352ba581bd3ffd8cea608cf2d55f519",
+                "fe5b0c99ab7ba15f050582be1301303f",
+                "8c5ffefb122f59a66a8b7672d4452af2",
+                "bf9a045b836005b6c23b7b0749249612",
+                "e29f69dd468d31a5514dc9b5587ce757",
+                "33dd523f8e4dda158f0aa99686dda7f2",
+              ],
+            },
+          ],
+          genericInstream: false,
+          UnfilledCnt: 0,
+          AllowPreviousBidToSetBidFloor: false,
+          bidCacheThreshold: -1,
+        };
+        if (
+          typeof __ezInstream !== "undefined" &&
+          typeof __ezInstream.breaks !== "undefined"
+        ) {
+          __ezInstream.breaks = __ezInstream.breaks.concat(ezInstream.breaks);
+        } else {
+          window.__ezInstream = ezInstream;
+        }
+      })();
+    </script>
+    <script>
+      __ez.queue.addFile(
+        "/beardeddragon/axolotl.js",
+        "/beardeddragon/axolotl.js?gcb=1&cb=20",
+        true,
+        [],
+        true,
+        false,
+        true,
+        false,
+      );
+    </script>
+    <script data-cfasync="false">
+      __ez.queue.addFile(
+        "/tardisrocinante/lazy_load.js",
+        "/tardisrocinante/lazy_load.js?gcb=1&cb=6",
+        false,
+        [],
+        true,
+        false,
+        true,
+        false,
+      );
+    </script>
+    <link
+      href="https://htmljstemplates.com/demo?page=audioNavbar"
+      rel="canonical"
+    />
+    <script data-cfasync="false" data-ezscrex="false" data-pagespeed-no-defer>
+      function create_ezolpl() {
+        var d = new Date();
+        d.setTime(d.getTime() + 365 * 24 * 60 * 60 * 1000);
+        var expires = "expires=" + d.toUTCString();
+        __ez.ck.setByCat(
+          "ezux_lpl_350378",
+          new Date().getTime() +
+            "|" +
+            _ezaq.page_view_id +
+            "|" +
+            _ezaq.is_return_visitor +
+            "; " +
+            expires,
+          "understand_audiences",
+          false,
+        );
+      }
+
+      function attach_ezolpl() {
+        if (document.readyState === "complete") {
+          create_ezolpl();
+          return;
+        }
+        window.addEventListener("load", create_ezolpl);
+      }
+
+      __ez.queue.addFunc(
+        "attach_ezolpl",
+        "attach_ezolpl",
+        null,
+        false,
+        ["/detroitchicago/boise.js"],
+        true,
+        false,
+        false,
+        false,
+      );
+    </script>
+    <link
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+      rel="icon"
+    />
+  </head>
+
+  <body>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        overflow-x: hidden;
+      }
+
+      a,
+      h1,
+      p {
+        font-family: "Montserrat", sans-serif !important;
+      }
+
+      .indChar {
+        animation: rt 1s 1 linear;
+        opacity: 0;
+        animation-fill-mode: forwards;
+      }
+
+      .font400 {
+        font-weight: 400 !important;
+      }
+
+      .nav-link {
+        color: #888888;
+        letter-spacing: 2px;
+        font-size: 14px;
+      }
+
+      .nav-link:hover {
+        color: #548da8 !important;
+      }
+
+      .nav-link:hover::after,
+      .nav-link:hover::before {
+        opacity: 1;
+      }
+
+      .nav-link:before {
+        content: "\263C";
+        margin-right: 4px;
+        color: #cecece;
+        opacity: 0;
+        transition: opacity 200ms linear;
+      }
+
+      .nav-link:after {
+        content: "\263C";
+        margin-left: 4px;
+        color: #cecece;
+        opacity: 0;
+        transition: opacity 200ms linear;
+      }
+
+      p {
+        color: #616161;
+        letter-spacing: 18px;
+      }
+
+      #mouse {
+        filter: invert(50%);
+        animation: flick 800ms infinite linear;
+      }
+
+      @keyframes flick {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+
+        50% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes rt {
+        0% {
+          opacity: 0;
+        }
+
+        50% {
+          transform: rotateZ(180deg) translateX(-200px);
+        }
+
+        100% {
+          transform: rotateZ(360deg);
+          opacity: 1;
+          color: #548da8;
+        }
+      }
+
+      #bottomNav {
+        transition: all 300ms linear;
+      }
+
+      @media screen and (max-width: 752px) {
+        #bottomNav {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+      }
+    </style>
+
+    <div class="text-dark text-center bg-dark vh-100 d-flex flex-column">
+      <div class="my-auto">
+        <h1 class="display-1" id="rotateChars">PRE3</h1>
+        <p>MAKE YOU PLAN</p>
+      </div>
+      <div class="">
+        <div class="mb-5 text-center">
+          <div>
+            <img
+              alt=""
+              height="42"
+              id="mouse"
+              src="/static_files/svgs/mouse.svg"
+            />
+          </div>
+          <div class="mt-3 text-uppercase">
+            <small class="text-secondary">Click &amp; Turn up the Volume</small>
+          </div>
+        </div>
+        <div class="col-md-8 mx-auto">
+          <div
+            class="d-flex justify-content-evenly align-items-center mb-5"
+            id="bottomNav"
+          >
+            <div class="nav-item"><a class="nav-link" href="#">HOME</a></div>
+            <div class="nav-item">
+              <a class="nav-link" href="#">DIRECTION</a>
+            </div>
+            <div class="nav-item"><a class="nav-link" href="#">WORK</a></div>
+            <div class="nav-item"><a class="nav-link" href="#">PROGRAM</a></div>
+            <div class="nav-item"><a class="nav-link" href="#">CONTACT</a></div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+    <span class="ezoic-autoinsert-video ezoic-top_of_page"></span>
 
-{% endblock %}
+    <script>
+      var rc = document.getElementById("rotateChars");
+      var text = rc.innerText.trim();
+      var len = text.length;
+      var grp = len / 2;
+      var html = "";
+      while (len > -1) {
+        var txt = text.charAt(len);
+        html = `<span style="animation-delay:${len / grp}s" class="indChar ${txt.trim() === "" ? "" : "d-inline-block"} ">${txt}</span>${html}`;
+        len--;
+      }
+      rc.innerHTML = html;
+
+      var audioEnabled = false;
+      var wik = document.getElementById("wik");
+      var navLinks = document.getElementsByClassName("nav-link");
+      for (var n of navLinks) {
+        n.addEventListener("mouseover", function () {
+          if (audioEnabled) {
+            wik.currentTime = 0;
+            wik.play();
+          }
+        });
+      }
+
+      var enableMusic = window.addEventListener("click", function () {
+        var myAudio = document.getElementById("myAudio");
+        myAudio.volume = 0.5;
+        myAudio.play();
+        audioEnabled = true;
+        document.getElementById("mouse").style.animationPlayState = "paused";
+        removeEventListener("click", enableMusic);
+      });
+    </script>
+
+    <script
+      crossorigin="anonymous"
+      src="https://kit.fontawesome.com/dd5559ee21.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      src="/static_files/js/common.js?v=17"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <!-- Designed By Siva Kishore G --><!--[selectrongo:video:done]-->
+    <script data-cfasync="false" type="text/javascript">
+      !(function () {
+        var e = function (e, t) {
+          for (var r = 0; r < t.length; r++) {
+            var n = t[r];
+            if (
+              0 == n.complete ||
+              (void 0 !== n.readyState && n.readyState < 4)
+            ) {
+              var o = n.getAttribute("src") || n.currentSrc;
+              void 0 !== n.readyState && 0 == n.readyState
+                ? n.addEventListener("loadstart", function (e) {
+                    var t = e.currentTarget.getAttribute("src") || e.currentSrc;
+                    window.ezorqs(e, t);
+                  })
+                : ((o = n.getAttribute("src") || n.currentSrc),
+                  window.ezorqs(n, o)),
+                n.addEventListener("load", function (e) {
+                  var t =
+                    e.currentTarget.getAttribute("src") ||
+                    e.srcElement.currentSrc;
+                  window.ezorqe(e, t);
+                }),
+                n.addEventListener("loadeddata", function (e) {
+                  var t =
+                    e.currentTarget.getAttribute("src") ||
+                    e.srcElement.currentSrc;
+                  window.ezorqe(e, t);
+                }),
+                n.addEventListener("error", function (e) {
+                  var t =
+                    e.currentTarget.getAttribute("src") ||
+                    e.srcElement.currentSrc;
+                  window.ezorqe(e, t);
+                });
+            }
+          }
+        };
+
+        function t(e) {
+          for (var t = 0; t < document.styleSheets.length; t++)
+            if (document.styleSheets[t].href == e) return !0;
+          return !1;
+        }
+
+        (__ez_addAllListeners = function () {
+          e(0, document.querySelectorAll("img")),
+            e(0, document.querySelectorAll("video")),
+            e(0, document.querySelectorAll("audio")),
+            (function (e) {
+              for (var r = 0; r < e.length; r++) {
+                var n = e[r];
+                if (
+                  ("preload" == n.getAttribute("rel") ||
+                    "stylesheet" == n.getAttribute("rel")) &&
+                  null != n.getAttribute("href") &&
+                  t(n.getAttribute("href"))
+                ) {
+                  window.ezorqs(n, n.getAttribute("href"));
+                  var o = document.createElement("img");
+                  (o.onerror = function (e) {
+                    void 0 !== e.path && void 0 !== e.path[0].currentSrc
+                      ? window.ezorqe(n, e.path[0].currentSrc)
+                      : void 0 !== e.srcElement &&
+                        void 0 !== e.srcElement.href &&
+                        window.ezorqe(n, e.srcElement.href);
+                  }),
+                    (o.src = n.getAttribute("href"));
+                }
+              }
+            })(document.querySelectorAll("link")),
+            void 0 !== window.__ez.ssaf &&
+              window.__ez.ssaf.indexOf(16) > -1 &&
+              void 0 !== window.__ez.sshsdef &&
+              !1 === window.__ez.sshsdef &&
+              Element.prototype.addEventListener &&
+              ("function" == typeof window.onload &&
+                (window.addEventListener("load", window.onload),
+                (window.onload = null)),
+              "function" == typeof document.onload &&
+                (document.addEventListener.addEventListener(
+                  "load",
+                  document.onload,
+                ),
+                (document.onload = null)));
+        }),
+          __ez.queue.addFunc(
+            "__ez_addAllListeners",
+            "__ez_addAllListeners",
+            null,
+            !1,
+            ["/detroitchicago/tulsa.js"],
+            !0,
+            !0,
+            !0,
+            !0,
+          );
+      })();
+    </script>
+    <script>
+      window.ezVideoIframe = false;
+
+      if (typeof vectx !== "undefined") {
+        vectx["is_magic_player"] = true;
+      }
+      __ez.queue.addFile(
+        "/beardeddragon/wyvern.js",
+        "/beardeddragon/wyvern.js?cb=96",
+        true,
+        [],
+        false,
+        false,
+        true,
+        false,
+        window,
+      );
+      __ez.queue.addFile(
+        "/porpoiseant/jellyfish.js",
+        "/porpoiseant/jellyfish.js?a=a&cb=13&dcb=13&shcb=34",
+        true,
+        [],
+        false,
+        false,
+        true,
+        false,
+        window,
+      );
+      __ez.queue.addFile(
+        "/beardeddragon/gilamonster.js",
+        "/beardeddragon/gilamonster.js?cb=280",
+        true,
+        ["/beardeddragon/wyvern.js", "/porpoiseant/jellyfish.js"],
+        false,
+        false,
+        true,
+        false,
+        window,
+      );
+      __ez.queue.addFile(
+        "/beardeddragon/iguana.js",
+        "/beardeddragon/iguana.js?cb=295",
+        true,
+        ["/beardeddragon/gilamonster.js"],
+        false,
+        false,
+        true,
+        false,
+        window,
+      );
+      __ez.queue.addFile(
+        "ima",
+        "//imasdk.googleapis.com/js/sdkloader/ima3.js",
+        true,
+        [],
+        false,
+        false,
+        true,
+        false,
+        window,
+      );
+      __ez.queue.addFunc(
+        "ezoicVideo",
+        "renderEzoicVideoContent",
+        null,
+        true,
+        [
+          "ezaqReady",
+          "/beardeddragon/iguana.js",
+          "ima",
+          "/detroitchicago/portland.js",
+          "/beardeddragon/axolotl.js",
+        ],
+        false,
+        false,
+        true,
+        false,
+        window,
+      );
+    </script>
+    <script data-ezscrex="false" type="text/javascript">
+      var EzoicMagicPlayerExclusionSelectors = [];
+      var EzoicMagicPlayerInclusionSelectors = [];
+      var EzoicPreferredLocation = "1";
+    </script>
+    <script>
+      __ez.queue.addFile(
+        "/beardeddragon/tortoise.js",
+        "/beardeddragon/tortoise.js?gcb=1&cb=11",
+        false,
+        [],
+        true,
+        false,
+        true,
+        false,
+      );
+    </script>
+    <script>
+      __ez.queue.addFile(
+        "/tardisrocinante/vitals.js",
+        "/tardisrocinante/vitals.js?gcb=1&cb=3",
+        false,
+        ["/parsonsmaize/mulvane.js"],
+        true,
+        false,
+        true,
+        false,
+      );
+    </script>
+    <script>
+      var _audins_dom = "htmljstemplates_com",
+        _audins_did = 350378;
+      __ez.queue.addDelayFunc(
+        "audins.js",
+        "__ez.script.add",
+        "//go.ezodn.com/detroitchicago/audins.js?cb=3",
+      );
+    </script>
+    <noscript>
+      <div style="display: none">
+        <img
+          alt="Quantcast"
+          border="0"
+          height="1"
+          src="//pixel.quantserve.com/pixel/p-31iz6hfFutd16.gif?labels=Domain.htmljstemplates_com,DomainId.350378"
+          width="1"
+        />
+      </div>
+    </noscript>
+    <script>
+      __ez.queue.addFile(
+        "/beardeddragon/drake.js",
+        "/beardeddragon/drake.js?gcb=1&cb=8",
+        false,
+        [],
+        true,
+        false,
+        true,
+        false,
+      );
+    </script>
+    <script style="display: none" type="text/javascript">
+      var __ez_dims = (function () {
+        var setCookie = function (name, content, expiry) {
+          return (document.cookie =
+            name +
+            "=" +
+            content +
+            (expiry
+              ? ";expires=" +
+                new Date(
+                  Math.floor(new Date().getTime() + expiry * 1000),
+                ).toUTCString()
+              : "") +
+            ";path=/");
+        };
+        var ffid = 1;
+        var oh = window.screen.height;
+        var ow = window.screen.width;
+        var h = ffid === 1 ? oh : oh > ow ? oh : ow;
+        var w = ffid === 1 ? ow : oh > ow ? ow : oh;
+        var uh =
+          window.innerHeight ||
+          document.documentElement.clientHeight ||
+          document.getElementsByTagName("body")[0].clientHeight;
+        var uw =
+          window.innerWidth ||
+          document.documentElement.clientWidth ||
+          document.getElementsByTagName("body")[0].clientWidth;
+
+        var setAllCookies = function () {
+          setCookie(
+            "ezds",
+            encodeURIComponent("ffid=" + ffid + ",w=" + w + ",h=" + h),
+            31536e3 * 7,
+          );
+          setCookie(
+            "ezohw",
+            encodeURIComponent("w=" + uw + ",h=" + uh),
+            31536e3 * 7,
+          );
+        };
+
+        if (window.ezTcfConsent && window.ezTcfConsent.loaded) {
+          if (window.ezTcfConsent.understand_audiences) {
+            setAllCookies();
+          }
+        } else if (typeof getEzConsentData === "function") {
+          getEzConsentData().then(function (ezTcfConsent) {
+            if (ezTcfConsent && ezTcfConsent.loaded) {
+              if (ezTcfConsent.understand_audiences) {
+                setAllCookies();
+              }
+            } else {
+              console.error("cannot get ez consent data");
+              setAllCookies();
+            }
+          });
+        } else {
+          console.error("getEzConsentData is not a function");
+          setAllCookies();
+        }
+      })();
+    </script>
+    <script async style="display: none" type="text/javascript">
+      __ez.queue.addFile(
+        "/parsonsmaize/chanute.js",
+        "/parsonsmaize/chanute.js?a=a&cb=9&dcb=195-1&shcb=34",
+        true,
+        ["/parsonsmaize/mulvane.js"],
+        true,
+        false,
+        false,
+        false,
+      );
+    </script>
+    <script async style="display: none" type="text/javascript">
+      __ez.queue.addFile(
+        "/porpoiseant/jellyfish.js",
+        "/porpoiseant/jellyfish.js?a=a&cb=13&dcb=195-1&shcb=34",
+        false,
+        [],
+        true,
+        false,
+        false,
+        false,
+      );
+    </script>
+    <script>
+      if (
+        typeof _ezaq !== "undefined" &&
+        typeof __ez == "object" &&
+        typeof __ez.bit == "object" &&
+        typeof __ezDotData == "function"
+      ) {
+        if ("cookieDeprecationLabel" in navigator) {
+          navigator.cookieDeprecationLabel.getValue().then((label) => {
+            __ez.bit.AddAndFire(_ezaq["page_view_id"], [
+              new __ezDotData("chrome_cookie_deprecation_label", label),
+            ]);
+          });
+        }
+      }
+    </script>
+    <script data-cfasync="false">
+      function _emitEzConsentEvent() {
+        var customEvent = new CustomEvent("ezConsentEvent", {
+          detail: { ezTcfConsent: window.ezTcfConsent },
+          bubbles: true,
+          cancelable: true,
+        });
+        document.dispatchEvent(customEvent);
+      }
+
+      (function (window, document) {
+        function _setAllEzConsentTrue() {
+          window.ezTcfConsent.loaded = true;
+          window.ezTcfConsent.store_info = true;
+          window.ezTcfConsent.develop_and_improve_services = true;
+          window.ezTcfConsent.measure_ad_performance = true;
+          window.ezTcfConsent.measure_content_performance = true;
+          window.ezTcfConsent.select_basic_ads = true;
+          window.ezTcfConsent.create_ad_profile = true;
+          window.ezTcfConsent.select_personalized_ads = true;
+          window.ezTcfConsent.create_content_profile = true;
+          window.ezTcfConsent.select_personalized_content = true;
+          window.ezTcfConsent.understand_audiences = true;
+          window.ezTcfConsent.use_limited_data_to_select_content = true;
+          window.ezTcfConsent.select_personalized_content = true;
+        }
+
+        function _clearEzConsentCookie() {
+          document.cookie =
+            "ezCMPCookieConsent=tcf2;Domain=.htmljstemplates.com;Path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
+
+        _clearEzConsentCookie();
+        if (typeof window.__tcfapi !== "undefined") {
+          window.ezgconsent = false;
+          var amazonHasRun = false;
+
+          function _ezAllowed(tcdata, purpose) {
+            return (
+              tcdata.purpose.consents[purpose] ||
+              tcdata.purpose.legitimateInterests[purpose]
+            );
+          }
+
+          function _reloadAds() {
+            if (
+              typeof window.ezorefgsl === "function" &&
+              typeof window.ezslots === "object"
+            ) {
+              if (
+                typeof __ezapsFetchBids == "function" &&
+                amazonHasRun === false
+              ) {
+                ezapsFetchBids(__ezaps);
+                if (typeof __ezapsVideo != "undefined") {
+                  ezapsFetchBids(__ezapsVideo, "video");
+                }
+                amazonHasRun = true;
+              }
+              var slots = [];
+              for (var i = 0; i < window.ezslots.length; i++) {
+                if (
+                  window[window.ezslots[i]] &&
+                  typeof window[window.ezslots[i]] === "object"
+                ) {
+                  slots.push(window[window.ezslots[i]]);
+                } else {
+                  setTimeout(_reloadAds, 100);
+                  return false;
+                }
+              }
+              for (var i = 0; i < slots.length; i++) {
+                window.ezorefgsl(slots[i]);
+              }
+            } else if (!window.ezadtimeoutset) {
+              window.ezadtimeoutset = true;
+              setTimeout(_reloadAds, 100);
+            }
+          }
+
+          function _handleConsentDecision(tcdata) {
+            window.ezTcfConsent.loaded = true;
+            if (
+              !tcdata.vendor.consents["347"] &&
+              !tcdata.vendor.legitimateInterests["347"]
+            ) {
+              window._emitEzConsentEvent();
+              return;
+            }
+            window.ezTcfConsent.store_info = _ezAllowed(tcdata, "1");
+            window.ezTcfConsent.develop_and_improve_services = _ezAllowed(
+              tcdata,
+              "10",
+            );
+            window.ezTcfConsent.measure_content_performance = _ezAllowed(
+              tcdata,
+              "8",
+            );
+            window.ezTcfConsent.select_basic_ads = _ezAllowed(tcdata, "2");
+            window.ezTcfConsent.create_ad_profile = _ezAllowed(tcdata, "3");
+            window.ezTcfConsent.select_personalized_ads = _ezAllowed(
+              tcdata,
+              "4",
+            );
+            window.ezTcfConsent.create_content_profile = _ezAllowed(
+              tcdata,
+              "5",
+            );
+            window.ezTcfConsent.measure_ad_performance = _ezAllowed(
+              tcdata,
+              "7",
+            );
+            window.ezTcfConsent.use_limited_data_to_select_content = _ezAllowed(
+              tcdata,
+              "11",
+            );
+            window.ezTcfConsent.select_personalized_content = _ezAllowed(
+              tcdata,
+              "6",
+            );
+            window.ezTcfConsent.understand_audiences = _ezAllowed(tcdata, "9");
+            window._emitEzConsentEvent();
+          }
+
+          __tcfapi("addEventListener", 2, function (tcdata, success) {
+            if (!success || !tcdata) {
+              window._emitEzConsentEvent();
+              return;
+            }
+            if (!tcdata.gdprApplies) {
+              _setAllEzConsentTrue();
+              window._emitEzConsentEvent();
+              return;
+            }
+            if (
+              tcdata.eventStatus === "useractioncomplete" ||
+              tcdata.eventStatus === "tcloaded"
+            ) {
+              _handleConsentDecision(tcdata);
+              if (
+                tcdata.purpose.consents["1"] === true &&
+                tcdata.vendor.consents["755"] !== false
+              ) {
+                window.ezgconsent = true;
+                (adsbygoogle = window.adsbygoogle || []).pauseAdRequests = 0;
+                _reloadAds();
+              } else {
+                _reloadAds();
+              }
+              if (window.__ezconsent) {
+                __ezconsent.setEzoicConsentSettings(ezConsentCategories);
+              }
+              __tcfapi(
+                "removeEventListener",
+                2,
+                function (success) {
+                  return null;
+                },
+                tcdata.listenerId,
+              );
+              if (
+                !(
+                  tcdata.purpose.consents["1"] === true &&
+                  _ezAllowed(tcdata, "2") &&
+                  _ezAllowed(tcdata, "3") &&
+                  _ezAllowed(tcdata, "4")
+                )
+              ) {
+                if (
+                  typeof __ez == "object" &&
+                  typeof __ez.bit == "object" &&
+                  typeof window["_ezaq"] == "object" &&
+                  typeof window["_ezaq"]["page_view_id"] == "string"
+                ) {
+                  __ez.bit.AddAndFire(window["_ezaq"]["page_view_id"], [
+                    new __ezDotData("non_personalized_ads", true),
+                  ]);
+                }
+              }
+            }
+          });
+        } else {
+          _setAllEzConsentTrue();
+          window._emitEzConsentEvent();
+        }
+      })(window, document);
+    </script>
+  </body>
+</html>

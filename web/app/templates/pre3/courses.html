@@ -1,14 +1,13 @@
-{% extends "pre3/base.html" %}
-{% block content %}
-
-{% for course in courses %}
+{% extends "pre3/base.html" %} {% block content %} {% for course in courses %}
 <div class="card">
-    <div class="card-body">
-        <h5 class="card-title course-title">{{ course.name }}</h5>
-        <p class="card-text course-info">{{ course.abbr }} - {{ course.department }} - Year {{ course.year }}</p>
-        <p class="card-text course-description">{{ course.description }}</p>
-        <p class="card-text course-credits">Credits: {{ course.credits }}</p>
-    </div>
+  <div class="card-body">
+    <h5 class="card-title course-title">{{ course.name }}</h5>
+    <p class="card-text course-info">
+      {{ course.abbr }} - {{ course.department }} - Year {{ course.year }}
+    </p>
+    <p class="card-text course-description">{{ course.description }}</p>
+    <p class="card-text course-credits">Credits: {{ course.credits }}</p>
+  </div>
 </div>
 {% endfor %}
 
