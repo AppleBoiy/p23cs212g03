@@ -4,6 +4,9 @@
 seed-db:
 	bash ./scripts/seed_db.sh
 
+drop-db:
+	docker compose exec flask python3 manage.py drop_db
+
 chmod:
 	find . -name "*.sh" -exec chmod 700 {} \;
 

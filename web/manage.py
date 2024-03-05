@@ -26,6 +26,12 @@ def create_db():
     db.session.commit()
 
 
+@cli.command("drop_db")
+def drop_db():
+    app.logger.info("drop_db")
+    db.drop_all()
+    db.session.commit()
+
 @cli.command("seed_db")
 def seed_db():
     db.session.add(
