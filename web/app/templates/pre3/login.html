@@ -27,6 +27,10 @@
   .is-x {
     flex: 0 0 47%;
   }
+
+  #remember-checkbox {
+  transform: scale(0.8); /* Adjust the scale factor to reduce size */
+}
 </style>
 
 <div class="column is-4 is-offset-4 slide-in">
@@ -58,10 +62,10 @@
         </div>
       </div>
       <div class="field">
-        <label class="checkbox">
-          <input type="checkbox" name="remember" />
+        
+          <input id="remember-checkbox" type="checkbox" name="remember"  />
           Remember me
-        </label>
+        
       </div>
       <button
         class="button is-block is-info is-large is-fullwidth"

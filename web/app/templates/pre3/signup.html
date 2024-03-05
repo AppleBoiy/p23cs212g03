@@ -76,6 +76,8 @@
       <div class="field">
         <div class="control">
           <input
+            id="password"
+            pattern="^(?=.*[A-Za-z])(?=.*\d).+$"
             class="input is-large"
             type="password"
             name="password"
@@ -86,6 +88,8 @@
       <div class="field">
         <div class="control">
           <input
+            id="confirm_password"
+            pattern="^(?=.*[A-Za-z])(?=.*\d).+$"
             class="input is-large"
             type="password"
             name="password_confirm"
@@ -96,6 +100,7 @@
       <button
         class="button is-block is-info is-large is-fullwidth"
         style="background-color: #99b6ff"
+        type="submit"
       >
         Sign Up
       </button>
@@ -134,5 +139,24 @@
       Login
     </a>
   </div>
+
+  
 </div>
+<script>
+  var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+
+</script>
+
 {% endblock %}
