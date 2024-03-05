@@ -103,14 +103,14 @@ def google_auth():
         db.session.commit()
         user = AuthUser.query.filter_by(email=email).first()
     login_user(user)
-    return redirect(url_for("pre3_profile"))
+    return redirect(url_for("index"))
 
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("pre3_profile"))
+    return redirect(url_for("index"))
 
 
 
@@ -168,7 +168,7 @@ def facebook():
 @app.route("/facebook/auth/")
 def facebook_auth():
     if current_user.is_authenticated:
-        return redirect(url_for("pre3_profile"))
+        return redirect(url_for("index"))
 
     token = oauth.facebook.authorize_access_token()
     userinfo = oauth.facebook.parse_id_token(token)
@@ -191,7 +191,7 @@ def facebook_auth():
         db.session.commit()
         user = AuthUser.query.filter_by(email=email).first()
     login_user(user)
-    return redirect(url_for("pre3_profile"))
+    return redirect(url_for("index"))
 
 
 @app.route("/users")

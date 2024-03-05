@@ -18,6 +18,9 @@ from app.models.course import Course
 def tree():
     return render_template("pre3/tree.html")
 
+@app.route("/<path:path>")
+def catch_all(path):
+    return redirect(url_for("index"))
 
 @app.route("/")
 def index():
@@ -200,7 +203,7 @@ def pre3_signup():
 @app.route("/pre3/login", methods=("GET", "POST"))
 def pre3_login():
     if current_user.is_authenticated:
-        return redirect(url_for("pre3_profile"))
+        return redirect(url_for("index"))
 
     if request.method == "POST":
         # login code goes here
@@ -222,7 +225,7 @@ def pre3_login():
         login_user(user, remember=remember)
         next_page = request.args.get("next")
         if not next_page or url_parse(next_page).netloc != "":
-            next_page = url_for("pre3_profile")
+            next_page = url_for("index")
         return redirect(next_page)
 
     return render_template("pre3/login.html")
