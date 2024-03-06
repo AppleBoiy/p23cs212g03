@@ -2,11 +2,13 @@ import json
 import secrets
 import string
 
-from flask import jsonify, render_template, request, url_for, flash, redirect
+from flask import jsonify, render_template, request, url_for, flash, redirect, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.urls import url_parse
 from sqlalchemy.sql import text
 from flask_login import login_user, login_required, logout_user, current_user
+from sqlalchemy.exc import SQLAlchemyError
+
 from app import app, db, login_manager, oauth
 from app.models.authuser import AuthUser
 from app.models.user import User
@@ -26,7 +28,7 @@ def pre3_404():
 
 
 @app.errorhandler(401)
-def error_401():
+def error_401(e):
     return redirect(url_for("pre3_401"))
 
 
@@ -36,7 +38,7 @@ def pre3_401():
 
 
 @app.errorhandler(500)
-def error_500():
+def error_500(e):
     return redirect(url_for("pre3_500"))
 
 
@@ -81,9 +83,15 @@ def teacher_assign():
 @app.route("/pre3/admin_dashboard")
 @login_required
 def pre3_admin_dashboard():
-    return render_template(
-        "pre3/admin_dashboard.html", users=User.query.all(), courses=Course.query.all()
-    )
+    try:
+        if current_user.role != "admin":
+            abort(401)
+        return render_template(
+            "pre3/admin_dashboard.html", users=User.query.all(), courses=Course.query.all()
+        )
+    except SQLAlchemyError as e:
+        app.logger.error(e)
+        return redirect(url_for("pre3_500"))
 
 
 @app.route("/pre3/tree")
@@ -102,7 +110,11 @@ def catch_all(path):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    try:
+        return render_template("index.html")
+    except SQLAlchemyError as e:
+        app.logger.error(e)
+        return redirect(url_for("pre3_500"))
 
 
 @app.route("/pre3")
@@ -128,6 +140,10 @@ def pre3_logout():
 def pre3_student():
     return render_template("pre3/home_student.html")
 
+@app.route("/pre3/student/dashboard")
+@login_required
+def pre3_student_dashboard():
+    return render_template("pre3/student/index.html")
 
 @app.route("/pre3/admin/create_user", methods=("GET", "POST"))
 @login_required
@@ -197,6 +213,11 @@ def pre3_admin():
     users = User.query.all()
 
     if request.method == "POST":
+
+        # prevent unauthorized access
+        if current_user.role != "admin":
+            abort(401)
+
         user_id = request.form.get("user_id")
         new_role = request.form.get("new_role")
         action = request.form.get("action")
@@ -290,34 +311,37 @@ def pre3_signup():
 
 @app.route("/pre3/login", methods=("GET", "POST"))
 def pre3_login():
-    if current_user.is_authenticated:
-        return redirect(url_for("index"))
+    try:
+        if current_user.is_authenticated:
+            return redirect(url_for("index"))
 
-    if request.method == "POST":
-        # login code goes here
-        email = request.form.get("email")
-        password = request.form.get("password")
-        remember = bool(request.form.get("remember"))
-        user = User.query.filter_by(email=email).first()
+        if request.method == "POST":
+            # login code goes here
+            email = request.form.get("email")
+            password = request.form.get("password")
+            remember = bool(request.form.get("remember"))
+            user = User.query.filter_by(email=email).first()
 
-        # check if the user actually exists
-        # take the user-supplied password, hash it, and compare it to the
-        # hashed password in the database
-        if not user or not check_password_hash(user.password, password):
-            flash("Please check your login details and try again.")
-            # if the user doesn't exist or password is wrong, reload the page
-            return redirect(url_for("pre3_login"))
+            # check if the user actually exists
+            # take the user-supplied password, hash it, and compare it to the
+            # hashed password in the database
+            if not user or not check_password_hash(user.password, password):
+                flash("Please check your login details and try again.")
+                # if the user doesn't exist or password is wrong, reload the page
+                return redirect(url_for("pre3_login"))
 
-        # if the above check passes, then we know the user has the right
-        # credentials
-        login_user(user, remember=remember)
-        next_page = request.args.get("next")
-        if not next_page or url_parse(next_page).netloc != "":
-            next_page = url_for("index")
-        return redirect(next_page)
+            # if the above check passes, then we know the user has the right
+            # credentials
+            login_user(user, remember=remember)
+            next_page = request.args.get("next")
+            if not next_page or url_parse(next_page).netloc != "":
+                next_page = url_for("index")
+            return redirect(next_page)
 
-    return render_template("pre3/login.html")
-
+        return render_template("pre3/login.html")
+    except SQLAlchemyError as e:
+        app.logger.error(e)
+        return redirect(url_for("pre3_500"))
 
 @app.route("/pre3/teacher")
 @login_required

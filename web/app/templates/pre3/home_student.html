@@ -8,7 +8,7 @@
     />
     <meta content="" name="description"/>
     <meta content="" name="author"/>
-    <title>Stylish Portfolio - Start Bootstrap Template</title>
+    <title>Prerequisites 3 - Personalized Learning Planner</title>
     <!-- Favicon-->
     <link
             href="{{ url_for('static', filename='assets/student/favicon.ico') }}"
@@ -44,10 +44,13 @@
 <nav id="sidebar-wrapper">
     <ul class="sidebar-nav">
         <li class="sidebar-brand">
-            <a href="{{ url_for('index') }}">{{ current_user.name }}</a>
+            <img src="{{ current_user.avatar_url }}" width="52"/>
+            <a href="{{ url_for('index') }}" style="padding-left: 10px"
+            >{{ current_user.name }}</a>
         </li>
         <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
-        <li class="sidebar-nav-item"><a href="#">Dashboard</a></li>
+        <li class="sidebar-nav-item"><a href="{{ url_for('pre3_student_dashboard') }}">Dashboard</a></li>
+        <li class="sidebar-nav-item"><a href="{{ url_for('tree') }}">Learning Tree</a></li>
         <li class="sidebar-nav-item"><a href="#about">About</a></li>
         <li class="sidebar-nav-item"><a href="#services">Services</a></li>
         <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
@@ -60,7 +63,7 @@
         <h3 class="mb-5"><em>Personalized Learning Planner</em></h3>
 
 
-        <a class="btn btn-primary btn-xl" href="{{ url_for('tree') }}"
+        <a class="btn btn-primary btn-xl" href="{{ url_for('pre3_student_dashboard') }}"
         >
             Get Started
             <svg class="bi bi-arrow-right-short" fill="currentColor" height="16" viewBox="0 0 16 16"
@@ -153,7 +156,7 @@
             Manage your learning
             <em>with ease</em>
         </h2>
-        <a class="btn btn-primary btn-xl" href="{{ url_for('tree') }}"
+        <a class="btn btn-primary btn-xl" href="{{ url_for('pre3_student_dashboard') }}"
         >Get Started!</a
         >
     </div>

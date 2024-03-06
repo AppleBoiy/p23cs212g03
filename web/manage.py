@@ -75,6 +75,36 @@ def seed_db():
     )
 
     db.session.add(
+        User(
+            user_id="000000002",
+            email="student@mail.com",
+            name="Student 1",
+            password=generate_password_hash("1234", method="sha256"),
+            role="student",
+        )
+    )
+
+    db.session.add(
+        User(
+            user_id="000000003",
+            email="lecturer@mail.com",
+            name="Lecturer 1",
+            password=generate_password_hash("1234", method="sha256"),
+            role="lecturer",
+        )
+    )
+
+    db.session.add(
+        User(
+            user_id="000000004",
+            email="admin@admin",
+            name="Admin 1",
+            password=generate_password_hash("1234", method="sha256"),
+            role="admin",
+        )
+    )
+
+    db.session.add(
         Course(
             course_id="204111",
             abbr="CS111",
