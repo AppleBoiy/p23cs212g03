@@ -1,0 +1,164 @@
+<main class="container">
+    <div class="dash-board">
+        <div
+                class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm"
+        >
+            <img
+                    alt=""
+                    class="me-3"
+                    height="38"
+                    src="{{ url_for('static', filename='img/icons8-tree-64.png') }}"
+                    width="48"
+            />
+            <div class="lh-1">
+                <h1 class="h6 mb-0 text-white lh-1">{{ current_user.name }}</h1>
+                <small>{{ current_user.role }} - {{ current_user.email }}</small>
+            </div>
+        </div>
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <h6 class="border-bottom pb-2 mb-0">Users</h6>
+
+            <!-- show only 5 users -->
+            {% for user in users %} {% if loop.index <= 5 and user.role != 'admin' %}
+
+            <div class="d-flex text-body-secondary pt-3">
+                <svg
+                        aria-label="Placeholder: 32x32"
+                        class="bd-placeholder-img flex-shrink-0 me-2 rounded"
+                        focusable="false"
+                        height="32"
+                        preserveAspectRatio="xMidYMid slice"
+                        role="img"
+                        width="32"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                    <title>{{ user.name }}</title>
+                    <rect
+                            fill="#007bff"
+                            height="100%"
+                            image-rendering="auto"
+                            width="100%"
+                    ></rect>
+                </svg>
+                <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                    <div class="d-flex justify-content-between">
+                        <strong class="text-gray-dark"
+                        >{{ user.name }} - {{ user.role }}</strong
+                        >
+                        <a href="#">Edit</a>
+                    </div>
+                    <span class="d-block">{{ user.email }}</span>
+                </div>
+            </div>
+            {% endif %} {% endfor %}
+
+            <small class="d-block text-end mt-3">
+                <a href="{{ url_for('pre3_admin') }}">All Users</a>
+            </small>
+        </div>
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <h6 class="border-bottom pb-2 mb-0">Courses</h6>
+
+            <!-- show only 5 users -->
+            {% for course in courses %} {% if loop.index <= 5 %}
+
+            <div class="d-flex text-body-secondary pt-3">
+                <svg
+                        aria-label="Placeholder: 32x32"
+                        class="bd-placeholder-img flex-shrink-0 me-2 rounded"
+                        focusable="false"
+                        height="32"
+                        preserveAspectRatio="xMidYMid slice"
+                        role="img"
+                        width="32"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                    <title>{{ course.name }}</title>
+                    <rect fill="#007bff" height="100%" width="100%"/>
+                    <text dy=".3em" fill="#007bff" x="50%" y="50%">32x32</text>
+                </svg>
+                <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                    <div class="d-flex justify-content-between">
+                        <strong class="text-gray-dark"
+                        >{{ course.course_id }} - {{ course.name }}</strong
+                        >
+                        <a href="#">Edit</a>
+                    </div>
+                    <span class="d-block">{{ course.description }}</span>
+                </div>
+            </div>
+            {% endif %} {% endfor %}
+
+            <small class="d-block text-end mt-3">
+                <a href="{{ url_for('pre3_courses') }}">All Courses</a>
+            </small>
+        </div>
+    </div>
+    <div class="dash-docs" style="display: none">
+        <div class="container mt-5">
+            <div class="text-center">
+                <h1 class="mb-3">Pre3</h1>
+                <h2 class="mb-4">
+                    The Revamped
+                    <a href="https://github.com/AppleBoiy/prerequisite-tree-dagreD3">
+                        Prerequisite Tree DAGreD3
+                    </a>
+                </h2>
+
+                <div class="alert alert-warning">
+                    <strong>NOTE:</strong> THIS REPOSITORY IS CURRENTLY UNDER DEVELOPMENT
+                </div>
+
+                <p>
+                    If you encounter any issues, have suggestions, or would like to know
+                    more about my development progress, please don't hesitate to
+                    <a href="mailto:contact.chaipat@gmail.com">contact me</a>.
+                </p>
+
+                <p>
+                    You can also explore
+                    <a
+                            href="https://github.com/AppleBoiy/AppleBoiy/blob/main/README.md#whats-on-my-to-do-list"
+                    >my roadmap</a
+                    >
+                    to see what's on my to-do list.
+                </p>
+            </div>
+
+            <div class="mt-5">
+                <h3>ANNOUNCEMENT</h3>
+
+                <div class="alert alert-info">
+                    <strong>Exciting News Coming Soon! 🔜</strong>
+                </div>
+
+                <p>Hi,</p>
+
+                <p>
+                    I've been working on a project called "<a
+                        href="https://github.com/AppleBoiy/prerequisite-tree-dagreD3"
+                >prerequisite-tree-dagreD3</a
+                >", which transforms course data from spreadsheets into graphical
+                    course prerequisite representations. I've made significant updates and
+                    will be moving the project to this repository.
+                </p>
+
+                <p>
+                    Stay tuned for the official announcement with all the details and how
+                    to get started. Thanks for your support and patience.
+                </p>
+
+                <p>
+                    Best,<br/>
+                    CJ
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="dash-help" style="display: none">
+        {% include 'pre3/admin_dashboard/help.html' %} {% block content %} {%
+        endblock %}
+    </div>
+</main>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            name="viewport"
+    />
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <title>504 Error</title>
+    <link
+            href="{{ url_for('static', filename='css/err/styles.css') }}"
+            rel="stylesheet"
+    />
+    <script
+            crossorigin="anonymous"
+            src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+    ></script>
+</head>
+<body>
+<div id="layoutError">
+    <div id="layoutError_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="text-center mt-4">
+                            <img
+                                    class="mb-4 img-error"
+                                    src="../../static/assets/err/img/error-504.svg"
+                            />
+                            <p class="lead">
+                                It's taking a bit longer than expected.
+                            </p>
+                            <a href="index.html">
+                                <i class="fas fa-arrow-left me-1"></i>
+                                Return to Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="layoutError_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div
+                        class="d-flex align-items-center justify-content-between small"
+                >
+                    <div class="text-muted">Copyright &copy; Pre3 2024</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script
+        crossorigin="anonymous"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+></script>
+<script src="{{ url_for('static', filename='js/err/scripts.js') }}"></script>
+</body>
+</html>

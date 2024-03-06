@@ -41,45 +41,13 @@
 <a class="menu-toggle rounded" href="#">
     <i class="fas fa-bars"></i>
 </a>
-<nav id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-        <li class="sidebar-brand">
-            <img src="{{ current_user.avatar_url }}" width="52"/>
-            <a href="{{ url_for('index') }}" style="padding-left: 10px"
-            >{{ current_user.name }}</a>
-        </li>
-        <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
-        <li class="sidebar-nav-item"><a href="{{ url_for('pre3_student_dashboard') }}">Dashboard</a></li>
-        <li class="sidebar-nav-item"><a href="{{ url_for('tree') }}">Learning Tree</a></li>
-        <li class="sidebar-nav-item"><a href="#about">About</a></li>
-        <li class="sidebar-nav-item"><a href="#services">Services</a></li>
-        <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
-    </ul>
-</nav>
+
+{% include 'pre3/student/nav.html' %}
+
 <!-- Header-->
-<header class="masthead d-flex align-items-center">
-    <div class="container px-4 px-lg-5 text-center">
-        <h1 class="mb-1">Prerequisites 3</h1>
-        <h3 class="mb-5"><em>Personalized Learning Planner</em></h3>
 
+{% include 'pre3/student/header.html' %}
 
-        <a class="btn btn-primary btn-xl" href="{{ url_for('pre3_student_dashboard') }}"
-        >
-            Get Started
-            <svg class="bi bi-arrow-right-short" fill="currentColor" height="16" viewBox="0 0 16 16"
-                 width="16" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
-                      fill-rule="evenodd"/>
-            </svg>
-        </a>
-        <br/>
-        <div style="margin-top: 10px;">
-            <a href="#about"
-            >Find Out More</a>
-        </div>
-
-    </div>
-</header>
 <!-- About-->
 <section class="content-section bg-light" id="about">
     <div class="container px-4 px-lg-5 text-center">

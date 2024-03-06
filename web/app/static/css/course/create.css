@@ -1,0 +1,127 @@
+/* Common styles for text and form */
+.black-color {
+    font-family: 'Mulish', sans-serif;
+    color: #373F41;
+    font-weight: bold;
+}
+
+/* Styles for the form container */
+.container_form {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Increased maximum width to accommodate horizontal layout */
+    margin: auto; /* Center the form horizontally */
+    padding: 20px;
+}
+
+/* Styles for form labels */
+.container_form label {
+    display: inline-block; /* Display labels inline */
+    width: 100px; /* Set width of labels */
+    margin-right: 10px; /* Add some right margin between label and input */
+    text-align: right; /* Align text to the right for labels */
+}
+
+/* Styles for form inputs */
+.container_form input[type="text"],
+.container_form textarea {
+    width: calc(100% - 120px); /* Subtract label width from 100% to calculate input width */
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+#credits, #year {
+    width: calc(50% - 200px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+/* Adjust the width of the "Room" input */
+
+
+/* Styles for form buttons */
+.container_form input[type="submit"],
+.container_form button {
+    background-color: rgb(46, 113, 171);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition-duration: 0.4s;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .container_form {
+        max-width: 90%; /* Reduce the maximum width on smaller screens */
+    }
+
+    .container_form label {
+        display: block; /* Change label display to block for stacked layout on smaller screens */
+        width: 100%; /* Set label width to 100% */
+        text-align: left; /* Align text to the left for labels on smaller screens */
+        margin-bottom: 5px; /* Reduce bottom margin for labels on smaller screens */
+    }
+
+    .container_form input[type="text"],
+    .container_form textarea {
+        width: 100%; /* Set input width to 100% on smaller screens */
+    }
+
+    #credits, #year {
+        width: calc(50% - 100px);
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+}
+
+textarea {
+    resize: none;
+}
+
+button:hover, .container_form input[type="submit"]:hover {
+    background-color: rgb(116, 152, 184);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(0.8);
+    }
+}
+
+.slide-in {
+    animation: slideIn 1s ease forwards;
+    opacity: 0;
+    transform: translateY(-50px);
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.head {
+    font-family: 'Mulish', sans-serif;
+    color: #373F41;
+    font-weight: bold;
+    font-size: 120%;
+}

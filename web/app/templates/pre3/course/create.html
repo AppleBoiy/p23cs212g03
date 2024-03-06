@@ -1,0 +1,38 @@
+<div class="container_form black-color slide-in" id="add-edit">
+    <h2 class="head">Create Course</h2>
+    <form class="head" id="addPCourseForm" method="POST">
+        <label for="course_id">ID:</label>
+        <input id="course_id" maxlength="6" name="course_id" placeholder="Course ID.." required type="text"/>
+        <br></br>
+        <label for="name">Name:</label>
+        <input id="name" name="name" placeholder="Course Name.." required type="text"/>
+        <br></br>
+        <label for="abbr">Room:</label>
+        <input id="abbr" name="abbr" placeholder="room.." required type="text"/>
+        <br></br>
+        <label for="department">Department:</label>
+        <input id="department" name="department" placeholder="Department.." required type="text"/>
+        <br></br>
+
+
+        <label for="year">Year:</label>
+        <input id="year" max="4" min="1" name="year" required type="number">
+        <label for="credits">Cradit:</label>
+        <input id="credits" max="22" min="1" name="credits" type="number">
+
+        <br></br>
+        <label for="Prerequisite">Prerequisite:</label>
+        <input id="Prerequisite" name="Prerequisite" placeholder="Prerequisite ID.." required type="text"/>
+        <br></br>
+        <label for="description">Description:</label>
+        <textarea id="description" maxlength="1000" name="description" placeholder="Detail..." required
+                  rows="6"></textarea>
+        <br></br>
+
+        <input id="entryid" name="id" type="hidden" value=""/>
+        <input name="submit" type="submit" value="Create"/>
+        <a class="back" href="{{ url_for('pre3_teacher') }}">
+            <button id="cancel_form" type="button">Cancel</button>
+        </a>
+    </form>
+</div>

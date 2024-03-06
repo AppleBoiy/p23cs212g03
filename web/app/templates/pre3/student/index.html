@@ -1,1 +1,52 @@
-<a>Hello</a>
+<!doctype html>
+<html data-bs-theme="auto" lang="en">
+{% include 'pre3/student/dash_board/header.html' %}
+<body class="bg-body-tertiary">
+
+{% include 'pre3/student/dash_board/svg.html' %}
+
+
+{% include 'utils/mode.html' %}
+
+
+{% include 'pre3/student/dash_board/nav.html' %} {% block nav %} {% endblock %}
+
+<div class="nav-scroller bg-body shadow-sm">
+    <nav aria-label="Secondary navigation" class="nav">
+        <a
+                aria-current="page"
+                class="nav-link active"
+                href="#"
+                onclick="toggleDash('dash')"
+        >Dashboard</a
+        >
+        <a class="nav-link" href="{{ url_for('pre3_admin') }}">
+            Manage Users
+            <span class="badge text-bg-light rounded-pill align-text-bottom"
+            >{{ users|length }}</span
+            >
+        </a>
+        <a class="nav-link" href="{{ url_for('pre3_courses') }}">
+            Manage Courses
+            <span class="badge text-bg-light rounded-pill align-text-bottom"
+            >{{ courses|length }}</span
+            >
+        </a>
+
+        <a class="nav-link hide-dash" href="#" onclick="toggleDash('docs')"
+        >Read Documentation</a
+        >
+        <a class="nav-link hide-dash" href="#" onclick="toggleDash('help')"
+        >Get Help</a
+        >
+    </nav>
+</div>
+
+{% include 'pre3/student/dash_board/base.html' %} {% block content %} {%
+endblock %}
+<!-- Bootstrap JS and Popper.js (optional) -->
+
+{% include 'pre3/student/dash_board/scripts.html' %}
+
+</body>
+</html>

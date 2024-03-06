@@ -2,6 +2,9 @@ import json
 import secrets
 import string
 
+# import sleep
+from time import sleep
+
 from flask import jsonify, render_template, request, url_for, flash, redirect, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.urls import url_parse
@@ -14,7 +17,21 @@ from app.models.authuser import AuthUser
 from app.models.user import User
 from app.models.course import Course
 
+
+
 # from app import oauth
+
+def dummy_sleep():
+    sleep(1)
+
+@app.route("/test/sleep")
+def test_sleep():
+    try:
+        dummy_sleep()
+        raise TimeoutError
+    except TimeoutError as e:
+        app.logger.error(e)
+        return redirect(url_for("pre3_504"))
 
 
 @app.errorhandler(404)
@@ -45,6 +62,16 @@ def error_500(e):
 @app.route("/error/500")
 def pre3_500():
     return render_template("err/500.html")
+
+
+@app.errorhandler(504)
+def error_504(e):
+    return redirect(url_for("pre3_504"))
+
+
+@app.route("/error/504")
+def pre3_504():
+    return render_template("err/504.html")
 
 
 def gen_avatar_url(email, name):
@@ -336,10 +363,20 @@ def pre3_login():
             next_page = request.args.get("next")
             if not next_page or url_parse(next_page).netloc != "":
                 next_page = url_for("index")
+            if user.role == "admin":
+                return redirect(url_for("pre3_admin"))
+            if user.role == "lecturer":
+                return redirect(url_for("pre3_teacher"))
+            if user.role == "student":
+                return redirect(url_for("pre3_student_dashboard"))
             return redirect(next_page)
 
         return render_template("pre3/login.html")
     except SQLAlchemyError as e:
+        app.logger.error(e)
+        return redirect(url_for("pre3_500"))
+
+    except AttributeError as e:
         app.logger.error(e)
         return redirect(url_for("pre3_500"))
 

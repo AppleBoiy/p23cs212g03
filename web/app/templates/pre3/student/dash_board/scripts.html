@@ -1,0 +1,36 @@
+<script
+        crossorigin="anonymous"
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+></script>
+<script
+        crossorigin="anonymous"
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+></script>
+<script
+        crossorigin="anonymous"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+></script>
+
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/offcanvas-navbar.js') }}"></script>
+<script>
+    function toggleDash(page) {
+        var dash = document.querySelector(".dash-board");
+        var docs = document.querySelector(".dash-docs");
+        var help = document.querySelector(".dash-help");
+
+        if (page === "dash") {
+            dash.style.display = "block";
+            docs.style.display = "none";
+            help.style.display = "none";
+        } else if (page === "help") {
+            dash.style.display = "none";
+            docs.style.display = "none";
+            help.style.display = "block";
+        } else {
+            dash.style.display = "none";
+            docs.style.display = "block";
+            help.style.display = "none";
+        }
+    }
+</script>

@@ -2,7 +2,7 @@ import json
 import secrets
 import string
 
-from flask import jsonify, render_template, request, url_for, flash, redirect
+from flask import jsonify, render_template, request, url_for, flash, redirect, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.security import check_password_hash
 from werkzeug.urls import url_parse
@@ -12,6 +12,9 @@ from app import app, db, login_manager, oauth
 from app.models.user import User
 from app.models.authuser import AuthUser
 from app.models.course import Course
+
+import time
+import timeout_decorator
 
 
 def gen_avatar_url(email, name):
@@ -52,59 +55,69 @@ def db_connection():
     except Exception as e:
         return "<h1>db is broken.</h1>" + str(e)
 
-
+'''
+    If time use more than 3 seconds, it will be redirected to 504 page.
+'''
 @app.route("/google/")
 def google():
-    if current_user.is_authenticated:
-        return redirect(url_for("pre3_profile"))
+    try:
+        if current_user.is_authenticated:
+            return redirect(url_for("pre3_profile"))
 
-    oauth.register(
-        name="google",
-        client_id=app.config["GOOGLE_CLIENT_ID"],
-        client_secret=app.config["GOOGLE_CLIENT_SECRET"],
-        server_metadata_url=app.config["GOOGLE_DISCOVERY_URL"],
-        client_kwargs={"scope": "openid email profile"},
-    )
+        oauth.register(
+            name="google",
+            client_id=app.config["GOOGLE_CLIENT_ID"],
+            client_secret=app.config["GOOGLE_CLIENT_SECRET"],
+            server_metadata_url=app.config["GOOGLE_DISCOVERY_URL"],
+            client_kwargs={"scope": "openid email profile"},
+        )
 
-    # Redirect to google_auth function
-    redirect_uri = url_for("google_auth", _external=True)
-    app.logger.debug("Redirect URI: " + redirect_uri)
+        # Redirect to google_auth function
+        redirect_uri = url_for("google_auth", _external=True)
+        app.logger.debug("Redirect URI: " + redirect_uri)
 
-    return oauth.google.authorize_redirect(redirect_uri)
+        return oauth.google.authorize_redirect(redirect_uri)
+    except TimeoutError as e:
+        app.logger.debug(str(e))
+        return redirect(url_for("pre3_504"))
 
-
+@timeout_decorator.timeout(5)
 @app.route("/google/auth")
 def google_auth():
-    if current_user.is_authenticated:
-        return redirect(url_for("pre3_profile"))
+    try:
+        if current_user.is_authenticated:
+            return redirect(url_for("pre3_profile"))
 
-    token = oauth.google.authorize_access_token()
-    app.logger.debug(str(token))
+        token = oauth.google.authorize_access_token()
+        app.logger.debug(str(token))
 
-    userinfo = token["userinfo"]
-    app.logger.debug(" Google User " + str(userinfo))
-    email = userinfo["email"]
-    user = AuthUser.query.filter_by(email=email).first()
-
-    if not user:
-        name = userinfo.get("given_name", "") + " " + userinfo.get("family_name", "")
-        random_pass_len = 8
-        password = "".join(
-            secrets.choice(string.ascii_uppercase + string.digits)
-            for i in range(random_pass_len)
-        )
-        picture = userinfo["picture"]
-        new_user = AuthUser(
-            email=email,
-            name=name,
-            password=generate_password_hash(password, method="sha256"),
-            avatar_url=picture,
-        )
-        db.session.add(new_user)
-        db.session.commit()
+        userinfo = token["userinfo"]
+        app.logger.debug(" Google User " + str(userinfo))
+        email = userinfo["email"]
         user = AuthUser.query.filter_by(email=email).first()
-    login_user(user)
-    return redirect(url_for("index"))
+
+        if not user:
+            name = userinfo.get("given_name", "") + " " + userinfo.get("family_name", "")
+            random_pass_len = 8
+            password = "".join(
+                secrets.choice(string.ascii_uppercase + string.digits)
+                for i in range(random_pass_len)
+            )
+            picture = userinfo["picture"]
+            new_user = AuthUser(
+                email=email,
+                name=name,
+                password=generate_password_hash(password, method="sha256"),
+                avatar_url=picture,
+            )
+            db.session.add(new_user)
+            db.session.commit()
+            user = AuthUser.query.filter_by(email=email).first()
+        login_user(user)
+        return redirect(url_for("index"))
+    except Exception as e:
+        app.logger.debug(str(e))
+        return redirect(url_for("pre3_500"))
 
 
 @app.route("/logout")
