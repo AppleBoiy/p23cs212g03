@@ -64,6 +64,8 @@ def index():
 
 @app.route("/pre3")
 def pre3_index():
+    if current_user.is_authenticated:
+        return render_template("pre3/index_already_login.html")
     return render_template("pre3/index.html")
 
 

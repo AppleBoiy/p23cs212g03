@@ -54,26 +54,22 @@
     {% for user in users %}
     <div class="item1 block-style {{ user.role }}">
         <div class="item-name" style="text-align: left; color: black;">
-            <span>
+            <div>
                 &nbsp&nbsp{{ user.user_id }}
-            </span>
-            <span>
-                &nbsp&nbsp&nbsp&nbsp{{ user.name }}
-            </span>
+                &nbsp&nbsp{{ user.name }}
+            </div>
         </div>
-        <div style="text-align: right;">
-            <form action="{{ url_for('pre3_admin') }}" method="POST">
-                <input type="radio" id="option1" name="{{ user.user_id }}" value="student" {% if user.role == "student" %} checked {% endif %}>
-                <label for="student" style="color: black;">Student</label>
-                <input type="radio" id="option2" name="{{ user.user_id }}" value="teacher" {% if user.role == "teacher" %} checked {% endif %}>
-                <label for="teacher" style="color: black;">Teacher</label>
-
-                <input type="hidden" name="user_id" value="{{ user.user_id }}">
-                <input type="hidden" name="action" value="delete">
-                <button class="button" style="background-color: red;" onclick="return confirm('Are you sure you want to delete user {{ user.user_id }}?');">
-                    <label for="search" style="color: rgb(255, 255, 255); font-weight: bold; font-size: 120%;">Delete</label>
-                </button>
-            </form>
+        <div class="item-name" style="text-align: right; color: black">
+            <div>
+                <form>
+                    &nbsp&nbsp{{ user.role }}&nbsp&nbsp
+                    <input type="hidden" name="user_id" value="{{ user.user_id }}">
+                    <input type="hidden" name="action" value="delete">
+                    <button class="button" style="background-color: red;" onclick="return confirm('Are you sure you want to delete user {{ user.user_id }}?');">
+                        <label for="search" style="color: rgb(255, 255, 255); font-weight: bold; font-size: 120%;">Delete</label>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
     {% endfor %}
@@ -90,8 +86,8 @@
         function filterUsers(userType, searchText) {
             const users = document.querySelectorAll(".item1");
             users.forEach(user => {
-                const userId = user.querySelector(".item-name span:first-child").textContent;
-                const userName = user.querySelector(".item-name span:last-child").textContent;
+                const userId = user.querySelector(".item-name div:first-child").textContent;
+                const userName = user.querySelector(".item-name div:last-child").textContent;
                 if ((userType === "all" || user.classList.contains(userType)) &&
                     (userId.includes(searchText) || userName.includes(searchText))) {
                     user.style.display = "block";

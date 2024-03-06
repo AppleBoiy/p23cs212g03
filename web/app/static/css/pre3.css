@@ -31,10 +31,6 @@ textarea {
   resize: vertical;
 }
 
-label {
-  width: 100px;
-}
-
 input[type="submit"],
 input[type="reset"],
 button {
