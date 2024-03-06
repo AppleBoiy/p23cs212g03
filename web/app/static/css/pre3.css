@@ -2,7 +2,6 @@
 
 table {
   border-collapse: collapse; /* Collapse borders to avoid double borders */
-  width: 100%; /* Adjust width as needed */
 }
 
 th,
