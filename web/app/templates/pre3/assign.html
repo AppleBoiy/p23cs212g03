@@ -138,28 +138,27 @@
         
         // Populate user details
         var userDetailsHtml = `
-            <label style="font-family: 'Mulish', sans-serif; color: black; text-align: center; font-weight: bold">User Detail</label>
-            <table class="table-striped border-success">
-                <colgroup>
-                    <col style=" width: 10%;">
-                    <col style=" width: auto;">
-                    <col style=" width: auto;">
-                </colgroup>
-                <thead>
-                    <tr class="black-color" style="color: black;">
-                        <th style="background-color: #d8d8d8;">ID</th>
-                        <th style="background-color: #d8d8d8;">Name</th>
-                        <th style="background-color: #d8d8d8;">Email</th>
-                    </tr>
-                </thead>
-                <tbody class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 10%;">
-                    <tr class="black-color" style="color: black;">
-                        <td>${userId}</td>
-                        <td>${userName}</td>
-                        <td>${userEmail}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div>
+                <label style="font-family: 'Mulish', sans-serif; color: black; text-align: center; font-weight: bold">User Detail</label>
+            </div>
+
+            </br>
+            <div class="head block-style" style="background-color: #d8d8d8; height: 10px;" >
+            </div>
+            </br>
+
+            <div>
+                <label style="font-family: 'Mulish', sans-serif; color: black; font-weight: bold">ID:${userId}</label>
+            </div>
+
+            <div>
+                <label style="font-family: 'Mulish', sans-serif; color: black; font-weight: bold">Name:${userName}</label>
+            </div>
+
+            <div>
+                <label style="font-family: 'Mulish', sans-serif; color: black; font-weight: bold">Email:${userEmail}</label>
+            </div>
+            ${userEmail}
         `;
         
         // Set popup content
