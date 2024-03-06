@@ -1,6 +1,7 @@
 {% extends "pre3/base.html" %}
 {% block content %}
 
+
 <div class="grid-container">
     <table class="table-striped border-success">
         <colgroup>
@@ -9,38 +10,33 @@
             <col style=" width: 25%;">
         </colgroup>
         <thead>
-        <tr>
-            <th data-field="id" style="background-color: #d8d8d8;">
-                <span class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 20%;"> ID </span>
-            </th>
-            <th data-field="subject_name" style="background-color: #d8d8d8;">
-                <span class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 20%;"> Name </span>
-            </th>
-            <th data-events="operateEvents" data-field="operation" data-formatter="actionFormatter"
-                style="text-align: center; background-color: #3c64b1;">
-                <span class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 20%;" style="color: white;"> Edit </span>
-            </th>
-        </tr>
+            <tr> 
+                <th data-field="id" style="background-color: #d8d8d8;">
+                    <span class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 20%;"> ID </span>
+                </th>
+                <th data-field="subject_name" style="background-color: #d8d8d8;">
+                    <span class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 20%;"> Name </span>
+                </th>
+                <th data-events="operateEvents" data-field="operation" data-formatter="actionFormatter" style="text-align: center; background-color: #3c64b1;">
+                    <span class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 20%;" style="color: white;"> Edit </span>
+                </th>
+            </tr>
         </thead>
         {% for user in users %}
         <tbody class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 10%;">
-        <tr class="black-color" style="color: black;">
-            <td>{{ user.user_id }}</td>
-            <td>{{ user.name }}</td>
-            <td style="text-align: center;">
-                <button class="button_course_2" onclick="openAssignCoursePopup()" style="background-color: #3c64b1;">
-                    assign course
-                </button>
-                <button class="button_course_2" onclick="openUserDetailPopup()" style="background-color: #6f92d4;">user
-                    detail
-                </button>
-            </td>
+            <tr class="black-color" style="color: black;">
+                <td>{{ user.user_id }}</td>
+                <td>{{ user.name }}</td>
+                <td style="text-align: center;">
+                    <button class="button_course_2" onclick="openAssignCoursePopup()" style="background-color: #3c64b1;">assign course</button>
+                    <button class="button_course_2" onclick="openUserDetailPopup()" style="background-color: #6f92d4;">user detail</button>
+                </td>
         </tbody>
         {% endfor %}
     </table>
 </div>
 
-<div class="popup" id="assignCoursePopup">
+<div id="assignCoursePopup" class="popup">
     <div class="popup-content">
         <table class="table-striped border-success">
             <colgroup>
@@ -54,56 +50,56 @@
                 <col style=" width: auto;">
             </colgroup>
             <thead>
-            <tr class="black-color" style="color: black;">
-                <th style="background-color: #d8d8d8;">
-                    course_id
-                </th>
-                <th style="background-color: #d8d8d8;">
-                    abbr
-                </th>
-                <th style="background-color: #d8d8d8;">
-                    name
-                </th>
-                <th style="background-color: #d8d8d8;">
-                    year
-                </th>
-                <th style="background-color: #d8d8d8;">
-                    description
-                </th>
-                <th style="background-color: #d8d8d8;">
-                    credits
-                </th>
-                <th style="background-color: #d8d8d8;">
-                    department
-                </th>
-                <th style="background-color: #d8d8d8;">
-
-                </th>
-            </tr>
+                <tr class="black-color" style="color: black;">
+                    <th style="background-color: #d8d8d8;">
+                        course_id
+                    </th>
+                    <th style="background-color: #d8d8d8;">
+                        abbr
+                    </th>
+                    <th style="background-color: #d8d8d8;">
+                        name
+                    </th>
+                    <th style="background-color: #d8d8d8;">
+                        year
+                    </th>
+                    <th style="background-color: #d8d8d8;">
+                        description
+                    </th>
+                    <th style="background-color: #d8d8d8;">
+                        credits
+                    </th>
+                    <th style="background-color: #d8d8d8;">
+                        department
+                    </th>
+                    <th style="background-color: #d8d8d8;">
+                        
+                    </th>
+                </tr>
             </thead>
 
             {% for course in course %}
             <tbody class="font-family: 'Mulish', sans-serif; color: #373F41; font-size: 10%;">
-            <tr class="black-color" style="color: black;">
-                <td>{{ course.course_id }}</td>
-                <td>{{ course.abbr }}</td>
-                <td>{{ course.name }}</td>
-                <td>{{ course.year }}</td>
-                <td>{{ course.description }}</td>
-                <td>{{ course.credits }}</td>
-                <td>{{ course.department }}</td>
-                <td style="text-align: center;">
-                    <button class="button_course_2" style="background-color: #3c64b1; font-size: 120%;">
-                        +
-                    </button>
-                </td>
+                <tr class="black-color" style="color: black;">
+                    <td>{{ course.course_id }}</td>
+                    <td>{{ course.abbr }}</td>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.year }}</td>
+                    <td>{{ course.description }}</td>
+                    <td>{{ course.credits }}</td>
+                    <td>{{ course.department }}</td>
+                    <td style="text-align: center;">
+                        <button class="button_course_2" style="background-color: #3c64b1; font-size: 120%;">
+                            +
+                        </button>
+                    </td>
             </tbody>
             {% endfor %}
         </table>
     </div>
 </div>
 
-<div class="popup" id="userDetailPopup">
+<div id="userDetailPopup" class="popup">
     <div class="popup-content">
 
     </div>
@@ -121,7 +117,7 @@
         popup.style.display = "block";
     }
 
-    window.onclick = function (event) {
+    window.onclick = function(event) {
         var popups = document.getElementsByClassName("popup");
         for (var i = 0; i < popups.length; i++) {
             var popup = popups[i];
