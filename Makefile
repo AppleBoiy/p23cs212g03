@@ -41,3 +41,7 @@ format:
 prune-dk:
 	rm -rf ./postgres_data || sudo rm -rf ./postgres_data
 	docker system prune -a -f
+
+
+commit:
+	bash ./scripts/commit.sh

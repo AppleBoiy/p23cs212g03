@@ -14,29 +14,36 @@ from app.models.course import Course
 
 # from app import oauth
 
+
 @app.errorhandler(404)
 def error_404(e):
     return redirect(url_for("pre3_404"))
+
 
 @app.route("/error/404")
 def pre3_404():
     return render_template("err/404.html")
 
+
 @app.errorhandler(401)
 def error_401():
     return redirect(url_for("pre3_401"))
+
 
 @app.route("/error/401")
 def pre3_401():
     return render_template("err/401.html")
 
+
 @app.errorhandler(500)
 def error_500():
     return redirect(url_for("pre3_500"))
 
+
 @app.route("/error/500")
 def pre3_500():
     return render_template("err/500.html")
+
 
 def gen_avatar_url(email, name):
     bgcolor = generate_password_hash(email, method="sha256")[-6:]
@@ -83,9 +90,11 @@ def pre3_admin_dashboard():
 def tree():
     return render_template("pre3/tree.html")
 
+
 @app.route("/contact")
 def pre3_contact():
     return render_template("contact.html")
+
 
 def catch_all(path):
     return redirect(url_for("index"))
