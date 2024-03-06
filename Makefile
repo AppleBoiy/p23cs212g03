@@ -21,6 +21,9 @@ build-web:
 	docker compose -f docker-compose.yml build
 
 
+rm-ds:
+	find . -name ".DS_Store" -delete
+
 create-db:
 	docker compose -f docker-compose.yml --compatibility up -d
 
