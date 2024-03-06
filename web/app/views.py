@@ -60,6 +60,9 @@ def pre3_admin_dashboard():
 def tree():
     return render_template("pre3/tree.html")
 
+@app.route("/contact")
+def pre3_contact():
+    return render_template("contact.html")
 
 @app.route("/<path:path>")
 def catch_all(path):

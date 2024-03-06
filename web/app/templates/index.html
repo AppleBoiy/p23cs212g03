@@ -141,16 +141,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="https://www.cs.science.cmu.ac.th">Home</a>
-                </li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-                                        href="https://www2.cs.science.cmu.ac.th/staff/sutasinee/testprogram/doku.php?id=start>">Program
-                </a>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-                                        href="https://github.com/AppleBoiy/p23cs212g03">About</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="mailto:contact.chaipat@gmail.com">Contact
-                    us</a>
-                </li>
+
 
                 {% if current_user.is_authenticated %}
 
@@ -158,15 +149,16 @@
                 {% if current_user.role == "admin" %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                                         href="{{ url_for('pre3_admin_dashboard') }}">Dashboard</a>
-                    {% endif %}
-                    {% if current_user.role == "student" %}
+                    {% elif current_user.role == "student" %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                                         href="{{ url_for('pre3_student') }}">Home<a/>
-{% else %}
+                    {% else %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                                         href="{{ url_for('pre3_profile') }}">Profile</a>
                     {% endif %}
-
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('pre3_contact') }}">Contact
+                    us</a>
+                </li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                                         href="{{ url_for('pre3_logout') }}">Logout</a>
                 </li>
@@ -178,6 +170,7 @@
                                         href="{{ url_for('pre3_signup') }}">Signup</a>
                 </li>
                     {% endif %}
+
 
             </ul>
         </div>
