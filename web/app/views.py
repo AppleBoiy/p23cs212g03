@@ -195,6 +195,8 @@ def pre3_student_dashboard():
 @app.route("/pre3/admin/create_user", methods=("GET", "POST"))
 @login_required
 def pre3_created_user():
+    if current_user.role != "admin":
+        abort(401)
     if request.method == "POST":
         result = request.form.to_dict()
         app.logger.debug(str(result))
@@ -225,14 +227,24 @@ def pre3_created_user():
             password = validated_dict["password"]
             role = validated_dict["role"]
             user_id = validated_dict["user_id"]
-            # if this returns a user, then the email already exists in database
-            user = User.query.filter_by(email=email).first()
 
-            if user:
-                # if a user is found, we want to redirect back to signup
-                # page so user can try again
-                flash("Email address already exists")
-                return redirect(url_for("pre3_admin"))
+            check_list = ["email", "name", "user_id"]
+            # if this returns a user, then the email already exists in database
+            for key in check_list:
+                user = User.query.filter_by(email=validated_dict[key]).first()
+                app.logger.debug("checking " + key)
+                if user:
+                    # if a user is found, we want to redirect back to signup
+                    # page so user can try again
+                    app.logger.debug("email exists")
+                    # return redirect(url_for("pre3_created_user"))
+                    try:
+                        return render_template(
+                            "pre3/created_user.html", roles=ROLE.ALL_ROLE
+                        )
+                    except SQLAlchemyError as e:
+                        app.logger.error(e)
+                        return redirect(url_for("pre3_500"))
 
             # create a new user with the form data. Hash the password so
             # the plaintext version isn't saved.
@@ -245,6 +257,15 @@ def pre3_created_user():
                 role=role,
                 user_id=user_id,
             )
+            if role == "student":
+                new_student = Student(
+                    email=email,
+                    name=name,
+                    password=generate_password_hash(password, method="sha256"),
+                    role=role,
+                    user_id=user_id,
+                )
+                db.session.add(new_student)
             # add the new user to the database
             db.session.add(new_user)
             db.session.commit()
@@ -324,7 +345,8 @@ def pre3_signup():
                 # if a user is found, we want to redirect back to signup
                 # page so user can try again
                 flash("Email address already exists")
-                return redirect(url_for("pre3_signup"))
+                app.logger.debug("email exists")
+                return render_template("pre3/signup.html")
 
             # create a new user with the form data. Hash the password so
             # the plaintext version isn't saved.
