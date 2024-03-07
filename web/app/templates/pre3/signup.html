@@ -1,186 +1,152 @@
-{% extends "pre3/base.html" %} {% block content %}
-<style>
-    .slide-in {
-        animation: slideIn 1s ease forwards;
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-
-    @keyframes slideIn {
-        0% {
-            opacity: 0;
-            transform: translateY(-50px);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Pre3 - Signup</title>
+    <link href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='img/login-bg.png') }}");
+            background-size: cover;
         }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+    </style>
+</head>
+<body>
 
-    .buttons-container {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-    }
+<div class="container bg">
+    <!-- Signup - Bootstrap Brain Component -->
+    <section class="p-3 p-md-4 p-xl-5">
+        <div class="">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                    <div class="col-12 col-lg-11 col-xl-10">
+                        <div class="card border-light-subtle shadow-sm">
+                            <div class="card-body p-3 p-md-4 p-xl-5" style="min-height: auto;">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-5">
+                                            <div class="text-center mb-4">
+                                                <h1>
+                                                    <img alt="BootstrapBrain Logo" height="57"
+                                                         src="{{ url_for('static', filename='img/icons8-tree-64.png') }}">
+                                                    Pre3
+                                                </h1>
+                                            </div>
+                                            <h4 class="text-center">Join us and create your account!</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form action="{{ url_for('pre3_signup') }}" method="POST">
+                                    <div class="row gy-3 overflow-hidden">
+                                        <div class="col-12">
+                                            <label class="form-label" for="user_role">Who are you?</label>
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                            <div class="form-check form-check-inline">
+                                                <input checked class="form-check-input" id="student_radio"
+                                                       name="user_role" type="radio" value="student">
+                                                <label class="form-check-label" for="student_radio">Student</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" id="lecturer_radio" name="user_role"
+                                                       type="radio" value="lecturer">
+                                                <label class="form-check-label" for="lecturer_radio">Lecturer</label>
+                                            </div>
+                                        </div>
 
-    .is-google,
-    .is-facebook,
-    .is-x {
-        flex: 0 0 47%;
-    }
-</style>
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="name" name="name"
+                                                       placeholder="Your Name" required type="text">
+                                                <label class="form-label" for="name">Your Name</label>
+                                            </div>
+                                        </div>
 
-<div class="column is-4 is-offset-4 slide-in">
-    <div class="box">
-        <h3 class="title" style="color: black">Sign Up</h3>
-        {% with messages = get_flashed_messages() %} {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}. Go to
-            <a href="{{ url_for('pre3_login') }}">login page</a>.
+                                        <div class="col-12" id="student_id_container">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" disabled id="student_id"
+                                                       name="student_id" placeholder="Student ID" required type="text">
+                                                <label class="form-label text-secondary" for="student_id">Student
+                                                    ID</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="email" name="email"
+                                                       placeholder="name@example.com"
+                                                       required type="email">
+                                                <label class="form-label" for="email">Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="password" name="password"
+                                                       placeholder="Password" required type="password">
+                                                <label class="form-label" for="password">Password</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="confirm_password"
+                                                       name="confirm_password"
+                                                       placeholder="Confirm Password" required type="password">
+                                                <label class="form-label" for="confirm_password">Confirm
+                                                    Password</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-grid">
+                                                <button class="btn btn-dark btn-lg" type="submit">Sign up now
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center mt-3">
+                                            <p class="text-center">Already have an account? <a
+                                                    class="link-secondary text-decoration-none"
+                                                    href="{{ url_for('pre3_login') }}">Log in here</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% endif %} {% endwith %}
-        <form method="POST">
-            <div class="field">
-                <div class="control">
-                    <input
-                            autofocus=""
-                            class="input is-large"
-                            name="email"
-                            placeholder="Email"
-                            type="email"
-                    />
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <input
-                            autofocus=""
-                            class="input is-large"
-                            name="name"
-                            placeholder="Name"
-                            type="text"
-                    />
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <input
-                            autofocus=""
-                            class="input is-large"
-                            name="user_id"
-                            pattern=".{9}"
-                            placeholder="User ID"
-                            title="User ID must have 9 character"
-                            type="text"
-                    />
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <input
-                            class="input is-large"
-                            id="password"
-                            name="password"
-                            pattern="^(?=.*[A-Za-z])(?=.*\d).+$"
-                            placeholder="Password"
-                            title="Password must contain at least one letter and one number"
-                            type="password"
-                    />
-
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <input
-                            class="input is-large"
-                            id="confirm_password"
-                            name="password_confirm"
-                            placeholder="Confirm Password"
-                            type="password"
-                    />
-                </div>
-                <div class="field">
-                    <input id="showPassword" onclick="togglePasswordVisibility()" type="checkbox">
-                    Show Password
-                </div>
-            </div>
-
-
-            <button
-                    class="button is-block is-info is-large is-fullwidth"
-                    style="background-color: #99b6ff"
-                    type="submit"
-            >
-                Sign Up
-            </button>
-
-        </form>
-        <div class="buttons-container">
-            <a
-                    class="button is-block is-google is-large is-fullwidth"
-                    href="{{ url_for('google') }}"
-                    style="background-color: #ea4335"
-            >
-                <img
-                        alt="Google Icon"
-                        src="../../static/img/google_icon.png"
-                        style="max-width: 100%; max-height: 100%"
-                />
-            </a>
-            <a
-                    class="button is-block is-facebook is-large is-fullwidth"
-                    href="{{ url_for('facebook') }}"
-                    style="background-color: #1778f2"
-            >
-                <img
-                        alt="Facebook Icon"
-                        src="../../static/img/facebook_icon.png"
-                        style="max-width: 100%; max-height: 100%"
-                />
-            </a>
-        </div>
-    </div>
-    <div class="box">
-        <a> Already have an account? </a>
-        <a
-                href="{{ url_for('pre3_login') }}"
-                style="font-weight: bold; color: #4c9c2e"
-        >
-            Login
-        </a>
-    </div>
-
-
+    </section>
 </div>
+
 <script>
-    var password = document.getElementById("password")
-        , confirm_password = document.getElementById("confirm_password");
+    // Toggle Student ID field based on selected radio button
+    const studentRadio = document.getElementById('student_radio');
+    const lecturerRadio = document.getElementById('lecturer_radio');
+    const studentIdContainer = document.getElementById('student_id_container');
 
-    function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
+    function toggleStudentIdField() {
+        const studentIdInput = document.getElementById('student_id');
+
+        if (studentRadio.checked) {
+            studentIdContainer.style.display = 'block';
+            studentIdInput.removeAttribute('disabled');
         } else {
-            confirm_password.setCustomValidity('');
+            studentIdContainer.style.display = 'none';
+            studentIdInput.setAttribute('disabled', 'true');
         }
     }
 
-    confirm_password.onchange = validatePassword;
-    password.onkeyup = validatePassword;
 
-    function togglePasswordVisibility() {
-        var passwordField = document.getElementById("password");
-        var password_conField = document.getElementById("confirm_password");
-        var checkBox = document.getElementById("showPassword");
+    studentRadio.addEventListener('change', toggleStudentIdField);
+    lecturerRadio.addEventListener('change', toggleStudentIdField);
 
-        if (checkBox.checked) {
-            passwordField.type = "text";
-            password_conField.type = "text";
-        } else {
-            passwordField.type = "password";
-            password_conField.type = "password";
-        }
-    }
-
+    // Initial state
+    toggleStudentIdField();
 </script>
 
-{% endblock %}
+</body>
+</html>

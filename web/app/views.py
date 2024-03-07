@@ -316,7 +316,7 @@ def pre3_signup():
         app.logger.debug(str(result))
         validated = True
         validated_dict = {}
-        valid_keys = ["email", "name", "password", "user_id"]
+        valid_keys = ["email", "name", "password"]
 
         # validate the input
         for key in result:
@@ -329,6 +329,12 @@ def pre3_signup():
                 validated = False
                 break
             validated_dict[key] = value
+
+        if result["user_role"] == "student":
+            validated_dict["user_id"] = result["student_id"]
+        else:
+            #generate lecturer id
+            validated_dict["user_id"] = "L" + result["email"].split("@")[0][:5]
 
         # code to validate and add user to database goes here
         app.logger.debug("validation done")
@@ -354,16 +360,27 @@ def pre3_signup():
             avatar_url = gen_avatar_url(
                 email, name
             )
-            new_student = User(
+            if result["user_role"] == "student":
+                new_student = Student(
+                    email=email,
+                    name=name,
+                    password=generate_password_hash(password, method="sha256"),
+                    role="student",
+                    user_id=user_id,
+                )
+                db.session.add(new_student)
+                db.session.commit()
+                return redirect(url_for("pre3_login"))
+            new_lecturer = User(
                 email=email,
                 name=name,
                 password=generate_password_hash(password, method="sha256"),
-                role="student",
+                role="lecturer",
                 user_id=user_id,
             )
             # add the new user to the database
 
-            db.session.add(new_student)
+            db.session.add(new_lecturer)
             db.session.commit()
             return redirect(url_for("pre3_login"))
 
