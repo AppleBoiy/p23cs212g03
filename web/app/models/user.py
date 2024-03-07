@@ -38,6 +38,8 @@ class User(db.Model, UserMixin):
     avatar_url = db.Column(db.String(100))
     role = db.Column(db.String(100))
 
+    delete_at = db.Column(db.DateTime, nullable=True)
+
     def __init__(self, user_id, email, name, password, role):
         self.user_id = user_id
         self.email = email
@@ -45,6 +47,9 @@ class User(db.Model, UserMixin):
         self.password = password
         self.role = role
         self.avatar_url = gen_avatar_url(email, name)
+
+    def delete(self):
+        self.delete_at = datetime.now()
 
 class Student(User):
     __tablename__ = "students"
