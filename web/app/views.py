@@ -174,14 +174,23 @@ def pre3_student_dashboard():
     student_id = current_user.user_id
     enrollments = Enrollment.query.filter_by(user_id=current_user.user_id).all()
     c = []
+    all_credit = 0
+    all_grade = 0
     # create course dictionary
     for e in enrollments:
         tmp = Course.query.filter_by(course_id=e.course_id).first().to_dict()
+        all_credit += tmp["credits"]
+        if e.grade:
+            all_grade += e.grade * tmp["credits"]
         tmp["grade"] = e.grade
         c.append(tmp)
+    if all_credit:
+        gpa = all_grade / all_credit
+    else:
+        gpa = 0
 
     app.logger.debug(str(c))
-    return render_template("pre3/student/index.html", courses=Course.query.all(), enrollments=c)
+    return render_template("pre3/student/index.html", courses=Course.query.all(), enrollments=c, gpa=gpa)
 
 @app.route("/pre3/admin/create_user", methods=("GET", "POST"))
 @login_required

@@ -1,5 +1,9 @@
-{% for c in enrollments %}
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+    <!-- show all grades -->
+    <h6 class="border-bottom pb-2 mb-0">Courses Enrolled - GPA: {{ gpa }}
+    </h6>
 
+    {% for c in enrollments %}
 <div class="d-flex text-body-secondary pt-3">
     <svg
             aria-label="Placeholder: 32x32"
@@ -20,7 +24,7 @@
             <strong class="text-gray-dark"
             >{{ c.course_id }} - {{ c.name }}</strong
             >
-            <a> GPA - {{ c.grade }} </a>
+            <a> Grade - {{ c.grade }} </a>
         </div>
         <!-- details -->
         <span class="d-block">{{ c.description }}</span>
@@ -30,3 +34,6 @@
     </div>
 </div>
 {% endfor %}
+>
+</div>
+</div>

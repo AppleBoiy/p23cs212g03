@@ -250,6 +250,9 @@ def seed_enrollments():
         tmp.set_grade(4.0)
         e.append(tmp)
 
+    tmp = Enrollment(user_id="650510001", course_id="204120")
+    tmp.set_grade(3.0)
+    e.append(tmp)
 
     db.session.add_all(e)
     db.session.commit()
