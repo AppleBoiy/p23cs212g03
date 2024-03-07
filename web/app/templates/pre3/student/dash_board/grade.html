@@ -1,0 +1,32 @@
+{% for c in enrollments %}
+
+<div class="d-flex text-body-secondary pt-3">
+    <svg
+            aria-label="Placeholder: 32x32"
+            class="bd-placeholder-img flex-shrink-0 me-2 rounded"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid slice"
+            role="img"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+    >
+        <title>{{ c.name }}</title>
+        <rect fill="#007bff" height="100%" width="100%"/>
+        <text dy=".3em" fill="#007bff" x="50%" y="50%">32x32</text>
+    </svg>
+    <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+        <div class="d-flex justify-content-between">
+            <strong class="text-gray-dark"
+            >{{ c.course_id }} - {{ c.name }}</strong
+            >
+            <a> GPA - {{ c.grade }} </a>
+        </div>
+        <!-- details -->
+        <span class="d-block">{{ c.description }}</span>
+        <span class="d-block">Credit Hours: {{ c.credits }}</span>
+        <span class="d-block">Department: {{ c.department }}</span>
+
+    </div>
+</div>
+{% endfor %}

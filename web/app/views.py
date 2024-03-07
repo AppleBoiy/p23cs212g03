@@ -14,8 +14,9 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app import app, db, login_manager, oauth
 from app.models.authuser import AuthUser
-from app.models.user import User
+from app.models.user import User, Student
 from app.models.course import Course
+from app.models.enrollment import Enrollment
 
 
 
@@ -170,7 +171,17 @@ def pre3_student():
 @app.route("/pre3/student/dashboard")
 @login_required
 def pre3_student_dashboard():
-    return render_template("pre3/student/index.html")
+    student_id = current_user.user_id
+    enrollments = Enrollment.query.filter_by(user_id=current_user.user_id).all()
+    c = []
+    # create course dictionary
+    for e in enrollments:
+        tmp = Course.query.filter_by(course_id=e.course_id).first().to_dict()
+        tmp["grade"] = e.grade
+        c.append(tmp)
+
+    app.logger.debug(str(c))
+    return render_template("pre3/student/index.html", courses=Course.query.all(), enrollments=c)
 
 @app.route("/pre3/admin/create_user", methods=("GET", "POST"))
 @login_required
@@ -361,14 +372,12 @@ def pre3_login():
             # credentials
             login_user(user, remember=remember)
             next_page = request.args.get("next")
-            if not next_page or url_parse(next_page).netloc != "":
-                next_page = url_for("index")
             if user.role == "admin":
-                return redirect(url_for("pre3_admin"))
+                return redirect(url_for("pre3_admin_dashboard"))
             if user.role == "lecturer":
                 return redirect(url_for("pre3_teacher"))
             if user.role == "student":
-                return redirect(url_for("pre3_student_dashboard"))
+                return redirect(url_for("pre3_student"))
             return redirect(next_page)
 
         return render_template("pre3/login.html")

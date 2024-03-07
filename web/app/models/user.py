@@ -1,9 +1,8 @@
 from flask_login import UserMixin
 from sqlalchemy_serializer import SerializerMixin
 
-from app import db
+from app import app, db
 from werkzeug.security import generate_password_hash
-
 
 def gen_avatar_url(email, name):
     bgcolor = generate_password_hash(email, method="sha256")[-6:]
@@ -46,3 +45,14 @@ class User(db.Model, UserMixin):
         self.password = password
         self.role = role
         self.avatar_url = gen_avatar_url(email, name)
+
+class Student(User):
+    __tablename__ = "students"
+    __mapper_args__ = {
+        "polymorphic_identity": "student",
+    }
+    id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True)
+    __table_args__ = {"extend_existing": True}
+
+
+

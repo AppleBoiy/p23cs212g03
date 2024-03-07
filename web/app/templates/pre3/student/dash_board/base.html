@@ -16,47 +16,6 @@
             </div>
         </div>
 
-        <div class="my-3 p-3 bg-body rounded shadow-sm">
-            <h6 class="border-bottom pb-2 mb-0">Users</h6>
-
-            <!-- show only 5 users -->
-            {% for user in users %} {% if loop.index <= 5 and user.role != 'admin' %}
-
-            <div class="d-flex text-body-secondary pt-3">
-                <svg
-                        aria-label="Placeholder: 32x32"
-                        class="bd-placeholder-img flex-shrink-0 me-2 rounded"
-                        focusable="false"
-                        height="32"
-                        preserveAspectRatio="xMidYMid slice"
-                        role="img"
-                        width="32"
-                        xmlns="http://www.w3.org/2000/svg"
-                >
-                    <title>{{ user.name }}</title>
-                    <rect
-                            fill="#007bff"
-                            height="100%"
-                            image-rendering="auto"
-                            width="100%"
-                    ></rect>
-                </svg>
-                <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-                    <div class="d-flex justify-content-between">
-                        <strong class="text-gray-dark"
-                        >{{ user.name }} - {{ user.role }}</strong
-                        >
-                        <a href="#">Edit</a>
-                    </div>
-                    <span class="d-block">{{ user.email }}</span>
-                </div>
-            </div>
-            {% endif %} {% endfor %}
-
-            <small class="d-block text-end mt-3">
-                <a href="{{ url_for('pre3_admin') }}">All Users</a>
-            </small>
-        </div>
 
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <h6 class="border-bottom pb-2 mb-0">Courses</h6>
@@ -158,7 +117,9 @@
         </div>
     </div>
     <div class="dash-help" style="display: none">
-        {% include 'pre3/admin_dashboard/help.html' %} {% block content %} {%
-        endblock %}
+        {% include 'pre3/admin_dashboard/help.html' %}
+    </div>
+    <div class="dash-grade" style="display: none">
+        {% include 'pre3/student/dash_board/grade.html' %}
     </div>
 </main>

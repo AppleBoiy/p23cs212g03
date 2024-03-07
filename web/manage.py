@@ -6,7 +6,7 @@ from app import app, db
 
 from app.models.course import Course
 from app.models.enrollment import Enrollment
-from app.models.user import User
+from app.models.user import User, Student
 
 
 cli = FlaskGroup(app)
@@ -50,12 +50,12 @@ def seed_db():
             email="flask@204213",
             name="สมหญิง ทรงแบด",
             password=generate_password_hash("1234", method="sha256"),
-            role="user",
+            role="student",
         )
     )
 
     db.session.add(
-        User(
+        Student(
             user_id="650510999",
             email="Sompong@jojo.net",
             name="สมปอง ใจร้าย",
@@ -104,6 +104,10 @@ def seed_db():
         )
     )
 
+    db.session.commit()
+
+@cli.command("seed_courses")
+def seed_course():
     db.session.add(
         Course(
             course_id="204111",
@@ -128,16 +132,128 @@ def seed_db():
         )
     )
 
-    db.session.commit()
+    db.session.add(
+        Course(
+            course_id="204113",
+            abbr="CS113",
+            name="Data Structure",
+            description="Learn Data Structure",
+            department="CS",
+            credits=3,
+            year=1,
+        )
+    )
 
     db.session.add(
-        Enrollment(
-            user_id="650510001",
-            course_id="204111",
+        Course(
+            course_id="204114",
+            abbr="CS114",
+            name="Database",
+            description="Learn Database",
+            department="CS",
+            credits=3,
+            year=1,
+        )
+    )
+
+    db.session.add(
+        Course(
+            course_id="204115",
+            abbr="CS115",
+            name="Computer Network",
+            description="Learn Computer Network",
+            department="CS",
+            credits=3,
+            year=1,
+        )
+    )
+
+    db.session.add(
+        Course(
+            course_id="204116",
+            abbr="CS116",
+            name="Operating System",
+            description="Learn Operating System",
+            department="CS",
+            credits=3,
+            year=1,
+        )
+    )
+
+    db.session.add(
+        Course(
+            course_id="204117",
+            abbr="CS117",
+            name="Software Engineering",
+            description="Learn Software Engineering",
+            department="CS",
+            credits=3,
+            year=1,
+        )
+    )
+
+    db.session.add(
+        Course(
+            course_id="204118",
+            abbr="CS118",
+            name="Computer Security",
+            description="Learn Computer Security",
+            department="CS",
+            credits=3,
+            year=1,
+        )
+    )
+
+    db.session.add(
+        Course(
+            course_id="204119",
+            abbr="CS119",
+            name="Artificial Intelligence",
+            description="Learn Artificial Intelligence",
+            department="CS",
+            credits=3,
+            year=1,
+        )
+    )
+
+    db.session.add(
+        Course(
+            course_id="204120",
+            abbr="CS120",
+            name="Machine Learning",
+            description="Learn Machine Learning",
+            department="CS",
+            credits=3,
+            year=1,
+        )
+    )
+
+    db.session.add(
+        Course(
+            course_id="204121",
+            abbr="CS121",
+            name="Big Data",
+            description="Learn Big Data",
+            department="CS",
+            credits=3,
+            year=1,
         )
     )
 
     db.session.commit()
+
+@cli.command("seed_enrollments")
+def seed_enrollments():
+    e = []
+    for i in range(1, 10):
+        tmp = Enrollment(user_id="650510001", course_id=f"20411{i}")
+        tmp.set_grade(4.0)
+        e.append(tmp)
+
+
+    db.session.add_all(e)
+    db.session.commit()
+
 
 
 if __name__ == "__main__":

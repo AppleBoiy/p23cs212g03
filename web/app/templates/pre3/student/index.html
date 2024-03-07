@@ -25,7 +25,12 @@
             >{{ courses|length }}</span
             >
         </a>
-
+        <a class="nav-link" href="#" onclick="toggleDash('grade')">
+            Enrolled Courses
+            <span class="badge text-bg-light rounded-pill align-text-bottom"
+            >{{ enrollments|length }}</span
+            >
+        </a>
         <a class="nav-link hide-dash" href="#" onclick="toggleDash('docs')"
         >Read Documentation</a
         >
