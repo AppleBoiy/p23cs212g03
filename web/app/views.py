@@ -460,8 +460,9 @@ def pre3_created_course():
 
             db.session.commit()
 
-        return pre3_db_contest()
+        return redirect(url_for("pre3_courses"))
     return render_template("pre3/created_course.html")
+
 
 
 @app.route("/pre3/courses")

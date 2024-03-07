@@ -4,6 +4,7 @@
             <img src="{{ current_user.avatar_url }}" width="52"/>
             <a href="{{ url_for('index') }}" style="padding-left: 10px"
             >{{ current_user.name }}</a>
+            
         </li>
         <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
         <li class="sidebar-nav-item"><a href="{{ url_for('pre3_student_dashboard') }}">Dashboard</a></li>
@@ -11,6 +12,9 @@
         <li class="sidebar-nav-item"><a href="#about">About</a></li>
         <li class="sidebar-nav-item"><a href="#services">Services</a></li>
         <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
+        <li class="sidebar-nav-item">
+            <a href="{{ url_for('logout') }}"
+            >Logout</a>
     </ul>
 </nav>
 
