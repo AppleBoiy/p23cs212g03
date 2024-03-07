@@ -25,6 +25,12 @@ def gen_avatar_url(email, name):
     )
     return avatar_url
 
+class ROLE:
+    STUDENT = "student"
+    TEACHER = "teacher"
+    ADMIN = "admin"
+
+    ALL_ROLE = [STUDENT, TEACHER, ADMIN]
 
 class User(db.Model, UserMixin):
     __tablename__ = "users"

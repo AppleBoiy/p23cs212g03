@@ -118,6 +118,7 @@
         color: #373F41;
         font-weight: bold;
         font-size: 120%;
+        margin-bottom: 10px;
     }
 </style>
 
@@ -125,22 +126,58 @@
     <h2 class="head">Create User</h2>
     <form id="addUserForm" method="POST">
         <label for="name">Name:</label>
-        <input id="name" name="name" placeholder="Name.." required type="text"/>
+        <input
+                id="name"
+                name="name"
+                placeholder="Name.."
+                required type="text"/>
         <br></br>
+        <label for="role">Role:</label>
+        <!-- list role -->
+        <select id="role" name="role" required>
+            {% for role in roles %}
+            <option value="{{ role }}">{{ role }}</option>
+            {% endfor %}
+        </select>
         <label for="user_id">User ID:</label>
-        <input id="user_id" maxlength="9" name="user_id" placeholder="user_id.." required type="text"/>
+        <input
+                id="user_id"
+                maxlength="9"
+                name="user_id"
+                pattern=".{9}"
+                placeholder="user_id.." required
+                title="User ID must have 9 character"
+                type="text"/>
         <br></br>
         <label for="email">Email:</label>
-        <input id="email" name="email" placeholder="email.." required type="email"/>
+        <input
+                id="email"
+                name="email"
+                placeholder="email.."
+                required type="email"/>
         <br></br>
         <label for="password">Password:</label>
-        <input id="password" name="password" placeholder="password..." required type="password"/>
+        <input
+                id="password"
+                name="password"
+                pattern="^(?=.*[A-Za-z])(?=.*\d).+$"
+                placeholder="password..."
+                required
+                title="Password must contain at least one letter and one number"
+                type="password"/>
         <br></br>
         <label for="password_confirm">Confirm Password:</label>
-        <input id="password_confirm" name="password_confirm" placeholder="password_confirm..." required
-               type="password"/>
+        <input
+                id="password_confirm"
+                name="password_confirm"
+                placeholder="password_confirm..."
+                required
+                type="password"/>
         <br></br>
-
+        <div class="field">
+            <input id="showPassword" onclick="togglePasswordVisibility()" type="checkbox">
+            Show Password
+        </div>
 
         <input name="role" type="hidden" value="student"/>
         <input name="submit" type="submit" value="Create User"/>
@@ -152,6 +189,36 @@
 
 
 <script>
+
+    var password = document.getElementById("password")
+        , confirm_password = document.getElementById("password_confirm");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    confirm_password.onchange = validatePassword;
+    password.onkeyup = validatePassword;
+
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var password_conField = document.getElementById("password confirm");
+        var checkBox = document.getElementById("showPassword");
+
+        if (checkBox.checked) {
+            passwordField.type = "text";
+            password_conField.type = "text";
+        } else {
+            passwordField.type = "password";
+            password_conField.type = "password";
+        }
+    }
+
+
     $("#addUserForm").submit(function (event) {
         // Prevent default HTML form submission action
         event.preventDefault();

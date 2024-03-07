@@ -14,7 +14,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app import app, db, login_manager, oauth
 from app.models.authuser import AuthUser
-from app.models.user import User, Student
+from app.models.user import User, Student, ROLE
 from app.models.course import Course
 from app.models.enrollment import Enrollment
 
@@ -242,7 +242,6 @@ def pre3_created_user():
                 email=email,
                 name=name,
                 password=generate_password_hash(password, method="sha256"),
-                avatar_url=avatar_url,
                 role=role,
                 user_id=user_id,
             )
@@ -251,7 +250,7 @@ def pre3_created_user():
             db.session.commit()
 
         return redirect(url_for("pre3_admin"))
-    return render_template("pre3/created_user.html")
+    return render_template("pre3/created_user.html", roles=ROLE.ALL_ROLE)
 
 
 @app.route("/pre3/home/admin", methods=["GET", "POST"])

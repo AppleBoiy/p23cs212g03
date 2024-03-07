@@ -1,159 +1,186 @@
 {% extends "pre3/base.html" %} {% block content %}
 <style>
-  .slide-in {
-    animation: slideIn 1s ease forwards;
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-
-  @keyframes slideIn {
-    0% {
-      opacity: 0;
-      transform: translateY(-50px);
+    .slide-in {
+        animation: slideIn 1s ease forwards;
+        opacity: 0;
+        transform: translateY(-50px);
     }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
+
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
-  }
 
-  .buttons-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
+    .buttons-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
 
-  .is-google,
-  .is-facebook,
-  .is-x {
-    flex: 0 0 47%;
-  }
+    .is-google,
+    .is-facebook,
+    .is-x {
+        flex: 0 0 47%;
+    }
 </style>
 
 <div class="column is-4 is-offset-4 slide-in">
-  <div class="box">
-    <h3 class="title" style="color: black">Sign Up</h3>
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <div class="notification is-danger">
-      {{ messages[0] }}. Go to
-      <a href="{{ url_for('pre3_login') }}">login page</a>.
+    <div class="box">
+        <h3 class="title" style="color: black">Sign Up</h3>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}. Go to
+            <a href="{{ url_for('pre3_login') }}">login page</a>.
+        </div>
+        {% endif %} {% endwith %}
+        <form method="POST">
+            <div class="field">
+                <div class="control">
+                    <input
+                            autofocus=""
+                            class="input is-large"
+                            name="email"
+                            placeholder="Email"
+                            type="email"
+                    />
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input
+                            autofocus=""
+                            class="input is-large"
+                            name="name"
+                            placeholder="Name"
+                            type="text"
+                    />
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input
+                            autofocus=""
+                            class="input is-large"
+                            name="user_id"
+                            pattern=".{9}"
+                            placeholder="User ID"
+                            title="User ID must have 9 character"
+                            type="text"
+                    />
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input
+                            class="input is-large"
+                            id="password"
+                            name="password"
+                            pattern="^(?=.*[A-Za-z])(?=.*\d).+$"
+                            placeholder="Password"
+                            title="Password must contain at least one letter and one number"
+                            type="password"
+                    />
+
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input
+                            class="input is-large"
+                            id="confirm_password"
+                            name="password_confirm"
+                            placeholder="Confirm Password"
+                            type="password"
+                    />
+                </div>
+                <div class="field">
+                    <input id="showPassword" onclick="togglePasswordVisibility()" type="checkbox">
+                    Show Password
+                </div>
+            </div>
+
+
+            <button
+                    class="button is-block is-info is-large is-fullwidth"
+                    style="background-color: #99b6ff"
+                    type="submit"
+            >
+                Sign Up
+            </button>
+
+        </form>
+        <div class="buttons-container">
+            <a
+                    class="button is-block is-google is-large is-fullwidth"
+                    href="{{ url_for('google') }}"
+                    style="background-color: #ea4335"
+            >
+                <img
+                        alt="Google Icon"
+                        src="../../static/img/google_icon.png"
+                        style="max-width: 100%; max-height: 100%"
+                />
+            </a>
+            <a
+                    class="button is-block is-facebook is-large is-fullwidth"
+                    href="{{ url_for('facebook') }}"
+                    style="background-color: #1778f2"
+            >
+                <img
+                        alt="Facebook Icon"
+                        src="../../static/img/facebook_icon.png"
+                        style="max-width: 100%; max-height: 100%"
+                />
+            </a>
+        </div>
     </div>
-    {% endif %} {% endwith %}
-    <form method="POST">
-      <div class="field">
-        <div class="control">
-          <input
-            class="input is-large"
-            type="email"
-            name="email"
-            placeholder="Email"
-            autofocus=""
-          />
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <input
-            class="input is-large"
-            type="text"
-            name="name"
-            placeholder="Name"
-            autofocus=""
-          />
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <input
-            class="input is-large"
-            type="text"
-            name="user_id"
-            placeholder="User ID"
-            autofocus=""
-          />
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <input
-            id="password"
-            pattern="^(?=.*[A-Za-z])(?=.*\d).+$"
-            class="input is-large"
-            type="password"
-            name="password"
-            placeholder="Password"
-          />
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <input
-            id="confirm_password"
-            pattern="^(?=.*[A-Za-z])(?=.*\d).+$"
-            class="input is-large"
-            type="password"
-            name="password_confirm"
-            placeholder="Confirm Password"
-          />
-        </div>
-      </div>
-      <button
-        class="button is-block is-info is-large is-fullwidth"
-        style="background-color: #99b6ff"
-        type="submit"
-      >
-        Sign Up
-      </button>
-    </form>
-    <div class="buttons-container">
-      <a
-        href="{{ url_for('google') }}"
-        class="button is-block is-google is-large is-fullwidth"
-        style="background-color: #ea4335"
-      >
-        <img
-          src="../../static/img/google_icon.png"
-          alt="Google Icon"
-          style="max-width: 100%; max-height: 100%"
-        />
-      </a>
-      <a
-        href="{{ url_for('facebook') }}"
-        class="button is-block is-facebook is-large is-fullwidth"
-        style="background-color: #1778f2"
-      >
-        <img
-          src="../../static/img/facebook_icon.png"
-          alt="Facebook Icon"
-          style="max-width: 100%; max-height: 100%"
-        />
-      </a>
+    <div class="box">
+        <a> Already have an account? </a>
+        <a
+                href="{{ url_for('pre3_login') }}"
+                style="font-weight: bold; color: #4c9c2e"
+        >
+            Login
+        </a>
     </div>
-  </div>
-  <div class="box">
-    <a> Already have an account? </a>
-    <a
-      href="{{ url_for('pre3_login') }}"
-      style="font-weight: bold; color: #4c9c2e"
-    >
-      Login
-    </a>
-  </div>
+
+
 </div>
 <script>
-  var password = document.getElementById("password"),
-    confirm_password = document.getElementById("confirm_password");
+    var password = document.getElementById("password")
+        , confirm_password = document.getElementById("confirm_password");
 
-  function validatePassword() {
-    if (password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-      confirm_password.setCustomValidity("");
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
     }
-  }
 
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
+    confirm_password.onchange = validatePassword;
+    password.onkeyup = validatePassword;
+
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var password_conField = document.getElementById("confirm_password");
+        var checkBox = document.getElementById("showPassword");
+
+        if (checkBox.checked) {
+            passwordField.type = "text";
+            password_conField.type = "text";
+        } else {
+            passwordField.type = "password";
+            password_conField.type = "password";
+        }
+    }
+
 </script>
 
 {% endblock %}
