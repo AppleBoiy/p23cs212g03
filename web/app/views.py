@@ -340,7 +340,7 @@ def pre3_signup():
             user_id = validated_dict["user_id"]
 
             # if this returns a user, then the email already exists in database
-            user = AuthUser.query.filter_by(email=email).first()
+            user = User.query.filter_by(email=email).first()
             if user:
                 # if a user is found, we want to redirect back to signup
                 # page so user can try again
@@ -353,12 +353,6 @@ def pre3_signup():
             app.logger.debug("preparing to add")
             avatar_url = gen_avatar_url(
                 email, name
-            )  # assuming gen_avatar_url is defined elsewhere
-            new_user = AuthUser(
-                email=email,
-                name=name,
-                password=generate_password_hash(password, method="sha256"),
-                avatar_url=avatar_url,
             )
             new_student = User(
                 email=email,
@@ -366,10 +360,9 @@ def pre3_signup():
                 password=generate_password_hash(password, method="sha256"),
                 role="student",
                 user_id=user_id,
-                avatar_url=avatar_url,
             )
             # add the new user to the database
-            db.session.add(new_user)
+
             db.session.add(new_student)
             db.session.commit()
             return redirect(url_for("pre3_login"))
