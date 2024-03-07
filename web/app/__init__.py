@@ -11,7 +11,7 @@ app.url_map.strict_slashes = False
 app.jinja_options = app.jinja_options.copy()
 app.jinja_options.update({"trim_blocks": True, "lstrip_blocks": True})
 
-app.config["DEBUG"] = True
+app.config["DEBUG"] = os.getenv("APP_ENV", False)
 app.config["SECRET_KEY"] = "aeb3d5b3cf1b29e0e65b89c69365d9a3318e836a2095e852"
 app.config["JSON_AS_ASCII"] = False
 

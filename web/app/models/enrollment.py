@@ -46,15 +46,10 @@ class Enrollment(db.Model, SerializerMixin):
 class LecturerEnrollments(db.Model):
     __tablename__ = "lecturer_enrollments"
     id = db.Column(db.Integer, primary_key=True)
-    lecturer_id = db.Column(db.String(9), db.ForeignKey("lecturers.user_id"), primary_key=True)
-    enrollment_id = db.Column(db.Integer, db.ForeignKey("enrollments.id"), primary_key=True)
+    lecturer_id = db.Column(db.String(9), db.ForeignKey("lecturers.user_id"))
+    enrollment_id = db.Column(db.Integer, db.ForeignKey("enrollments.id"))
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     delete_at = db.Column(db.DateTime, nullable=True)
-
-
-    def delete(self):
-        self.delete_at = datetime.now()
-        db.session.commit()
 
     def __init__(self, lecturer_id, enrollment_id):
         self.lecturer_id = lecturer_id
