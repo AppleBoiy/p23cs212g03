@@ -18,16 +18,9 @@
                 class="nav-link active"
                 href="#"
                 onclick="toggleDash('dash')"
-        >Dashboard</a
-        >
-        <a class="nav-link" href="{{ url_for('pre3_admin') }}">
-            Manage Users
-            <span class="badge text-bg-light rounded-pill align-text-bottom"
-            >{{ users|length }}</span
-            >
-        </a>
+        >Dashboard</a>
         <a class="nav-link" href="{{ url_for('pre3_courses') }}">
-            Manage Courses
+            Courses
             <span class="badge text-bg-light rounded-pill align-text-bottom"
             >{{ courses|length }}</span
             >
