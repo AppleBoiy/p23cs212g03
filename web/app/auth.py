@@ -13,6 +13,8 @@ from app.models.user import User
 from app.models.authuser import AuthUser
 from app.models.course import Course
 
+
+
 def gen_avatar_url(email, name):
     bgcolor = generate_password_hash(email, method="sha256")[-6:]
     color = hex(int("0xffffff", 0) - int("0x" + bgcolor, 0)).replace("0x", "")
@@ -142,7 +144,58 @@ def gen_avatar_url(email, name):
     return avatar_url
 
 
+@app.route("/github/")
+def github():
+    if current_user.is_authenticated:
+        return redirect(url_for("pre3_profile"))
 
+    oauth.register(
+        name="github",
+        client_id=app.config["GITHUB_CLIENT_ID"],
+        client_secret=app.config["GITHUB_CLIENT_SECRET"],
+        server_metadata_url=app.config["GITHUB_DISCOVERY_URL"],
+        client_kwargs={"scope": "openid email profile"},
+    )
+
+    # Redirect to google_auth function
+    redirect_uri = url_for("github_auth", _external=True)
+    app.logger.debug("Redirect URI: " + redirect_uri)
+
+    return oauth.github.authorize_redirect(redirect_uri)
+
+
+@app.route("/github/auth")
+def github_auth():
+    if current_user.is_authenticated:
+        return redirect(url_for("pre3_profile"))
+
+    token = oauth.github.authorize_access_token()
+    app.logger.debug(str(token))
+
+    userinfo = token["userinfo"]
+    app.logger.debug(" Github User " + str(userinfo))
+    email = userinfo["email"]
+    user = AuthUser.query.filter_by(email=email).first()
+
+    if not user:
+        name = userinfo.get("given_name", "") + " " + userinfo.get("family_name", "")
+        random_pass_len = 8
+        password = "".join(
+            secrets.choice(string.ascii_uppercase + string.digits)
+            for i in range(random_pass_len)
+        )
+        picture = userinfo["picture"]
+        new_user = AuthUser(
+            email=email,
+            name=name,
+            password=generate_password_hash(password, method="sha256"),
+            avatar_url=picture,
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        user = AuthUser.query.filter_by(email=email).first()
+    login_user(user)
+    return redirect(url_for("index"))
 
 @app.route("/facebook/")
 def facebook():
@@ -202,3 +255,4 @@ def is_users():
 @app.route("/x/")
 def x_twitter():
     return redirect(url_for(""))
+

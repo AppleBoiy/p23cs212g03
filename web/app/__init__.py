@@ -22,6 +22,11 @@ app.config["GOOGLE_CLIENT_ID"] = os.getenv("GOOGLE_CLIENT_ID", None)
 app.config["GOOGLE_CLIENT_SECRET"] = os.getenv("GOOGLE_CLIENT_SECRET", None)
 app.config["GOOGLE_DISCOVERY_URL"] = os.getenv("GOOGLE_DISCOVERY_URL", None)
 
+app.config["GITHUB_DISCOVERY_URL"] = os.getenv("GITHUB_DISCOVERY_URL", None)
+app.config["GITHUB_CLIENT_ID"] = os.getenv("GITHUB_CLIENT_ID", None)
+app.config["GITHUB_CLIENT_SECRET"] = os.getenv("GITHUB_CLIENT_SECRET", None)
+
+
 if app.debug:
     app.wsgi_app = DebuggedApplication(app.wsgi_app, evalex=True)
 
