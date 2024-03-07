@@ -58,7 +58,17 @@
                                         <p class="text-center mt-4 mb-5">Or sign in with</p>
                                     </div>
                                 </div>
-                                <form method="POST">
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                <!-- show only 1st message -->
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ messages[0][1] }}
+                                    <button aria-label="Close" class="btn-close" data-bs-dismiss="alert"
+                                            type="button"></button>
+                                </div>
+                                {% endif %}
+                                {% endwith %}
+                                <form method="POST" onsubmit="return validateLoginForm()">
                                     <div class="row gy-3 overflow-hidden">
                                         <div class="col-12">
                                             <div class="form-floating mb-3">
@@ -146,6 +156,41 @@
         rememberMe.checked = true;
         email.value = emailValue;
         password.value = passwordValue;
+    }
+
+    function validateLoginForm() {
+        // Get form elements
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        // Get values
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // Validate email
+        // if (!isValidEmail(email)) {
+        //     alert('Please enter a valid email address.');
+        //     return false;
+        // }
+
+
+        // Disable for testing
+
+        // Validate password (add more checks if needed)
+        // if (password.length < 6) {
+        //     alert('Password must be at least 6 characters.');
+        //     return false;
+        // }
+
+
+        // If all validations pass, return true to submit the form
+        return true;
+    }
+
+    // Helper function to validate email format
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
 </script>
 
