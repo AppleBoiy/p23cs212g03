@@ -5,8 +5,8 @@ from werkzeug.security import generate_password_hash
 from app import app, db
 
 from app.models.course import Course
-from app.models.enrollment import Enrollment
-from app.models.user import User, Student
+from app.models.enrollment import Enrollment, LecturerEnrollments
+from app.models.user import User, Student, Lecturer
 
 
 cli = FlaskGroup(app)
@@ -55,7 +55,7 @@ def seed_db():
     )
 
     db.session.add(
-        Student(
+        Lecturer(
             user_id="650510999",
             email="Sompong@jojo.net",
             name="สมปอง ใจร้าย",
@@ -240,6 +240,7 @@ def seed_course():
         )
     )
 
+
     db.session.commit()
 
 @cli.command("seed_enrollments")
@@ -258,6 +259,12 @@ def seed_enrollments():
     db.session.commit()
 
 
+
+@cli.command("seed_lecturer_enrollments")
+def seed_lecturer_enrollments():
+    tmp = LecturerEnrollments(lecturer_id="650510999", enrollment_id=1)
+    db.session.add(tmp)
+    db.session.commit()
 
 if __name__ == "__main__":
     cli()

@@ -66,4 +66,14 @@ class Student(User):
     __table_args__ = {"extend_existing": True}
 
 
+class Lecturer(User):
+    __tablename__ = "lecturers"
+    __mapper_args__ = {
+        "polymorphic_identity": "lecturer",
+    }
+    user_id = db.Column(db.String(9), db.ForeignKey("users.user_id"), primary_key=True)
+    __table_args__ = {"extend_existing": True}
 
+
+    def __init__(self, user_id, email, name, password, role):
+        super().__init__(user_id, email, name, password, role)
