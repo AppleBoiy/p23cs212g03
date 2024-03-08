@@ -2,9 +2,14 @@
 
 Pre3 is a `course management system` that will help a academic institution to manage their courses, students, and faculty. It will also help students to plan their courses and track their progress.
 
-## References
 
-We have use a lot of references to build this application. You can check the references in the [refs](../docs/REFERENCES.md) file.
+---
+
+## ⚠️⚠️⚠️ References ⚠️⚠️⚠️
+
+📚 To build this application, we relied on a variety of sources and references. For a detailed list, please refer to the [REFERENCES.md](../docs/REFERENCES.md) file.
+
+Click [here](../docs/REFERENCES.md) to access the complete list of references.
 
 ---
 
