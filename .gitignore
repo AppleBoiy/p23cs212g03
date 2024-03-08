@@ -351,3 +351,4 @@ pyrightconfig.json
 
 */postgres_data/
 tmp/
+*.env.dev
