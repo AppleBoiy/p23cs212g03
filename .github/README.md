@@ -2,6 +2,12 @@
 
 Pre3 is a `course management system` that will help a academic institution to manage their courses, students, and faculty. It will also help students to plan their courses and track their progress.
 
+## References
+
+We have use a lot of references to build this application. You can check the references in the [refs](../docs/REFERENCES.md) file.
+
+---
+
 ## Features
 
 Pre3 is playing with a role of user, No matter if you are a `student`, `instructor`, or `admin`. Pre3 will help you to manage your courses, students, and faculty.
@@ -35,6 +41,7 @@ Pre3 will provide a feature to manage the courses. Admin can manage the courses 
 
 1. Bootstrap 5 as a CSS framework
 2. JavaScript
+3. SB Admin 2 as a dashboard template
 
 ### Backend
 
@@ -114,9 +121,6 @@ There are a set of commands that you can use to manage the application.
 
 and many more. you can check the `Makefile` for more commands.
 
-### References
-
-We have use a lot of references to build this application. You can check the references in the (refs)[../docs/REFERENCES.md] file.
 
 ---
 

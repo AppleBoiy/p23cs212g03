@@ -8,8 +8,15 @@ We have use a lot of components from [Bootstrap 5](https://getbootstrap.com/docs
 
 For prerequisites, you can check the older version of this project for more information.
 
-## 
+## SB Forms JS
 
+We have used [SB Forms JS](https://startbootstrap.com/theme/sb-admin-2) for the form handling and validation.
+
+---
+
+## AND MANY MORE
+
+---
 
 - [Docker](https://docs.docker.com/)
 - [Google Sheets API](https://developers.google.com/sheets/api)
