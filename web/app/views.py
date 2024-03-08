@@ -144,7 +144,6 @@ def index():
         app.logger.error(e)
         return redirect(url_for("pre3_500"))
 
-
 @app.route("/pre3")
 def pre3_index():
     return render_template("pre3/index.html")
@@ -349,8 +348,10 @@ def pre3_signup():
             user = User.query.filter_by(email=email).first()
             if user:
                 # if a user is found, we want to redirect back to signup
-                # page so user can try again
-                flash("Email address already exists")
+
+                # TODO: flash not working temporarily redirecting to signup
+                # flash("Email address already exists")
+
                 app.logger.debug("email exists")
                 return render_template("pre3/signup.html")
 

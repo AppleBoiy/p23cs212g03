@@ -125,6 +125,15 @@
 </div>
 
 <script>
+
+    // clear form if user is not remembered
+    const emailValue = localStorage.getItem('email');
+    const passwordValue = localStorage.getItem('password');
+    if (emailValue && passwordValue) {
+        document.getElementById('email').value = emailValue;
+        document.getElementById('password').value = passwordValue;
+    }
+
     const mode = localStorage.getItem('mode');
     if (mode === 'dark') {
         document.body.classList.add('dark');
@@ -167,7 +176,7 @@
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
 
-        // Validate email
+        // // Validate email
         // if (!isValidEmail(email)) {
         //     alert('Please enter a valid email address.');
         //     return false;
@@ -187,7 +196,6 @@
         return true;
     }
 
-    // Helper function to validate email format
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
