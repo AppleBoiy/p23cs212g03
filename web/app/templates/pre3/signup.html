@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form action="{{ url_for('pre3_signup') }}" method="POST">
+                                <form action="{{ url_for('pre3_signup') }}" method="POST" onsubmit="clearForm()">
                                     <div class="row gy-3 overflow-hidden">
                                         <div class="col-12">
                                             <label class="form-label" for="user_role">Who are you?</label>
@@ -123,6 +123,7 @@
 </div>
 
 <script>
+
     // Toggle Student ID field based on selected radio button
     const studentRadio = document.getElementById('student_radio');
     const lecturerRadio = document.getElementById('lecturer_radio');
@@ -146,6 +147,14 @@
 
     // Initial state
     toggleStudentIdField();
+
+
+    function clearForm() {
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('password').value = '';
+        document.getElementById('confirm_password').value = '';
+    }
 </script>
 
 </body>

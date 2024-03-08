@@ -292,7 +292,7 @@ def pre3_admin():
         if action == "delete":
             user = User.query.get(user_id)
             if user:
-                db.session.delete(user)
+                User.query.filter_by(user_id=user_id).delete()
                 db.session.commit()
                 return redirect(url_for("pre3_admin"))
 
@@ -382,10 +382,15 @@ def pre3_signup():
 
             db.session.add(new_lecturer)
             db.session.commit()
-            return redirect(url_for("pre3_login"))
+            return redirect(url_for("pre3_signup_success"))
 
     return render_template("pre3/signup.html")
 
+@app.route("/pre3/signup/success", methods=("GET", "POST"))
+def pre3_signup_success():
+    if request.referrer != url_for("pre3_signup"):
+        abort(401)
+    return render_template("pre3/signup_success.html")
 
 @app.route("/pre3/login", methods=("GET", "POST"))
 def pre3_login():
