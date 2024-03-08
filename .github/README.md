@@ -116,7 +116,7 @@ and many more. you can check the `Makefile` for more commands.
 
 ### References
 
-We have use a lot of references to build this application. You can check the references in the `../docs/REFERENCES.md` file.
+We have use a lot of references to build this application. You can check the references in the (refs)[../docs/REFERENCES.md] file.
 
 ---
 
